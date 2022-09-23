@@ -18,8 +18,7 @@ import Footer from './components/Footer';
 function App() {
   return (
     <div className="App">
-      <p>12e</p>
-      {/* <Router >
+      <Router >
         <Navbar/>
         
         <Switch>
@@ -41,7 +40,7 @@ function App() {
         </Switch>
 
         <Footer/>
-      </Router> */}
+      </Router>
     </div>
   );
 }
