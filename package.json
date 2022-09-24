@@ -1,7 +1,7 @@
 {
-  "homepage": "https://zhassulaan.github.io/yaq/",
   "name": "yaq",
   "version": "0.1.0",
+  "homepage": "https://zhassulaan.github.io/yaq/",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.4",
