@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import AllGoods from './AllGoods';
-import LoginButton from '../LoginButton';
+import LoginButton from '../Button';
 import Header from './Header';
 
 function Dropdown({setShow}) {

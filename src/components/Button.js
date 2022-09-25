@@ -4,18 +4,22 @@ import styled from 'styled-components';
 function LoginButton({text}) {
   return (
 	  <Button>
-      <p className='button-text'>{text}</p>
+      <div className='button-container'>
+        <p className='button-text button'>{text}</p>
+      </div>
     </Button>
   )
 }
 
 const Button = styled.nav`
-  width: 100%;
-  height: 3.75rem;
-  background: var(--clr-primary-1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  .button-container {
+    width: 100%;  
+    height: 3.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--clr-primary-1);
+  }
 
   .button-text {
     color: var(--clr-white);

@@ -40,7 +40,7 @@ class Products extends Component {
 				  	{product_card.slice(0,6).map((item) => {
                   return(
 							<div className="box-container">
-	                     <ProductBox key={item.id} {...item}/>
+	                     <ProductBox key={ item.id } product={ item }/>
 							</div>
                   );
                })}
