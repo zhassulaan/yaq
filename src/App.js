@@ -7,6 +7,7 @@ import Products from './pages/ProductsPage/screen/ProductsPage';
 import ProductDetail from './pages/ProductsPage/screen/ProductDetail';
 import Saved from './pages/Saved/screen/Saved';
 import Basket from './pages/Basket/screen/Basket';
+import Order from './pages/Order/screen/Order';
 import Contacts from './pages/Contacts/screen/Contacts';
 import DiscountSystem from './pages/DiscountSystem/screen/DiscountSystem';
 import DeliveryPayment from './pages/DeliveryPayment/screen/DeliveryPayment';
@@ -31,6 +32,7 @@ function App() {
           <Route exact path='/' component={Home} />
           <Route exact path='/saved' component={Saved} />
           <Route exact path='/basket' component={Basket} />
+          <Route exact path='/order' component={Order} />
           <Route exact path='/products/clothes' component={Products} />
           <Route exact path='/products/:id' children={<ProductDetail/>} />
           <Redirect from='/clothes' to='/products/clothes' />

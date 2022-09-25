@@ -4,6 +4,7 @@ import ProductItem from '../component/ProductItem';
 import { CartState } from '../../../context/Context';
 import ErrorPage from '../../ErrorPage/screen/ErrorPage';
 import Button from '../../../components/Button';
+import close from '../assets/close.svg';
 
 function Basket() {
 	const {
@@ -45,16 +46,22 @@ function Basket() {
 					</a>
 				</div>
 			)}
+
+			<a href="/">
+				<img src={close} alt="close button" className='close-button'/>
+			</a>
 		</Wrapper>
   	);
 }
 
 const Wrapper = styled.nav`
 	background: #00000080;
-	padding: 8.75rem 13.125vw 21.25rem;
-
+	padding: 8.75rem 0 21.25rem;
+	display: flex;
+	
 	.basket-box {
 		background: var(--clr-white);
+		margin-left: 13.125vw;
 	}
 	
 	.basket-box.block {
@@ -113,6 +120,10 @@ const Wrapper = styled.nav`
 	.none .button-text {
 		font-size: 20px;
 		font-weight: 500;
+	}
+
+	.close-button {
+		margin-left: 45px;
 	}
 `
 
