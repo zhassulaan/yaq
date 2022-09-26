@@ -88,9 +88,12 @@ function ProductPage() {
 			.map((item) => item.label);
 
 		if (colorsChecked.length) {
-			clr = clr.filter((item) =>
-				colorsChecked.includes(item.colors)
-			);
+			updatedList = updatedList.filter((item) => {
+				const productColors = item.colors.map(color => color.label);
+
+				return colorsChecked.length === colorsChecked
+					.filter(color => productColors.includes(color)).length
+			});
 		}
 
 		// Sizes Filter
@@ -99,9 +102,12 @@ function ProductPage() {
 			.map((item) => item.label);
 
 		if (sizesChecked.length) {
-			updatedList = updatedList.filter((item) =>
-				sizesChecked.includes(item.sizes)
-			);
+			updatedList = updatedList.filter((item) => {
+				const productSizes = item.sizes.map(size => size.label);
+
+				return sizesChecked.length === sizesChecked
+					.filter(size => productSizes.includes(size)).length
+			});
 		}
 
 		// Brands Filter

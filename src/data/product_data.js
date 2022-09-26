@@ -2455,7 +2455,6 @@ const product_card = [
 			{id: 7, value: "зеленый", label: "Зеленый"},
 			{id: 8, value: "голубой", label: "Голубой"},
 			{id: 9, value: "синий", label: "Синий"},
-			{id: 10, value: "фиолетовый", label: "Фиолетовый"}
 		],
 		sizes: [
 			{value: 1, label: "XX-S"},
@@ -2632,8 +2631,7 @@ const product_card = [
 			{value: 162, label: "164"},
 			{value: 163, label: "170"},
 			{value: 164, label: "170-176"},
-			{value: 165, label: "170/176"},
-			{value: 166, label: "176"},
+			{value: 165, label: "170/176"},	
 		]
 	}
 ]
