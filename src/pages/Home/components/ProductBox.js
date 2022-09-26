@@ -1,39 +1,60 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { CartState } from '../../../context/Context';
 import heart from '../assets/heart.svg';
 import greenHeart from '../assets/green-heart.svg';
 
-const ProductBox = ({id, sale, image, item, name, price, currency, brands, saved}) => {
+const ProductBox = ({ product }) => {
+	const {
+		state: { cart },
+		dispatch
+	} = CartState();
+
 	return(
-		<BoxContainer key={id}>
+		<BoxContainer key={product.id}>
 			<div className="box-header">
 				{(() => {
-					if (sale === 'Новинка') { 
-						return (<h5 className='product-sale button'>{sale}</h5>)
-					} else if (sale === null) {
+					if (product.sale === 'Новинка') { 
+						return (<h5 className='product-sale button'>{product.sale}</h5>)
+					} else if (product.sale === null) {
 						return (<h5 className='button'></h5>)
 					} else {
-						return (<h5 className='product-sale button'>-{sale}%</h5>)
+						return (<h5 className='product-sale button'>-{product.sale}%</h5>)
 					}
 				})()}
-				<img src={saved ? greenHeart : heart} alt="saved button" className='saved-icon'/>
+				<img src={product.saved ? greenHeart : heart} alt="saved button" className='saved-icon'/>
 			</div>
 
 			<div className="box-body">
-				<img src={image} alt={name} className='product-image'/>
+				<img src={product.image} alt={product.name} className='product-image'/>
 
-				<div className="brand-name">{brands}</div>
-				<div className="item-name">{item} {brands} {name}</div>
+				<div className="brand-name">{product.brands}</div>
+				<div className="item-name">{product.item} {product.brands} {product.name}</div>
 			</div>
 
 			<div className="box-footer">
-				<div className="price-number">{price} {currency}</div>
+				<div className="price-number">{product.price} {product.currency}</div>
 
-				<button className='button product-button green-btn'>В корзину</button>
-				<Link to={`/products/${id}`}>
+				{/* {cart.some((p) => p.id === product.id) ? (
+					<button className='button product-button green-btn' >
+						В корзину
+					</button>
+				) : ( */}
+					<button 
+						className='button product-button green-btn' 
+						onClick={() => 
+							dispatch({
+								type: "ADD_TO_CART",
+								payload: product
+							})
+						}
+					>
+						В корзину
+					</button>
+				{/* )} */}
+				<a href={`/products/${product.id}`}>
 					<button className='button product-button white-btn'>Подробнее</button>
-				</Link>
+				</a>
 			</div>
 		</BoxContainer>
 	);

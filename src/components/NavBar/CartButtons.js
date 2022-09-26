@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { CartState } from '../../context/Context';
 import heart from '../../assets/heart.svg';
 import heart2 from '../../assets/heart2.svg';
 import shop from '../../assets/shop.svg';
@@ -10,7 +11,16 @@ import search2 from '../../assets/search2.svg';
 import close from '../../assets/close.svg';
 
 function CartButtons({show, setShow}) {
-	
+	const {
+		state: { cart },
+	} = CartState();
+
+	let totalItems = 0;
+	cart.map((item) =>
+		// totalItems = totalItems + item.quantity
+		totalItems = totalItems + item.quantity
+	);
+
   	return (
 	 	<Wrapper>
 			<div className="mobile-icons">
@@ -29,7 +39,7 @@ function CartButtons({show, setShow}) {
 				{show 
 					? 
 						<img src={close} alt="close button" className='nav-item close-button' onClick={setShow}/>
-						: 
+					: 
 						<img src={search2} alt="search button" className='nav-item' onClick={setShow}/>
 				}
 			</div>
@@ -50,10 +60,10 @@ function CartButtons({show, setShow}) {
           			{'0'}
         			</span>
 				</Link>
-				<Link to="/purchased" className='nav-item cart-container'>
+				<Link to="/basket" className='nav-item cart-container'>
 					<img src={shop} alt="purchased icon" onClick="window.location.reload()"/>
 					<span className="purchased-cart">
-          			{'0'}
+          			{totalItems}
         			</span>
 				</Link>
 			</div>

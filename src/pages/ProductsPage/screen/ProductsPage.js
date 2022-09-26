@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import product_card from '../../../data/product_data';
 import FilterBox from '../component/FilterBox';
 import ProductBox from '../../Home/components/ProductBox';
 import Error from '../../ErrorPage/screen/ErrorPage';
 import { filterGender, filterColors, filterSizes, filterBrands } from '../../../data/filter';
+import { CartState } from '../../../context/Context';
 
 function ProductPage() {
+	const { state: 
+		{ products } 
+	} = CartState();
+	
 	const [selectedPrice, setSelectedPrice] = useState([100, 1000000]);
 	const [gender, setGender] = useState(filterGender);
 	const [colors, setColors] = useState(filterColors);
 	const [sizes, setSizes] = useState(filterSizes);
 	const [brands, setBrands] = useState(filterBrands);
 
-	const [list, setList] = useState(product_card);
+	const [list, setList] = useState(products);
 	const [resultsFound, setResultsFound] = useState(true);
 
 	const handleChangePrice = (event, value) => {
@@ -53,13 +57,11 @@ function ProductPage() {
 	};
 
   	const applyFilters = () => {
-    	let updatedList = product_card;
+    	let updatedList = products;
 		let clr = [];
-    	product_card.map((item, index) => {
+		products.map((item, index) => {
 			clr[index] = item.colors;
 		});
-
-		console.log(clr);
 
 		// Price Filter
 		const minPrice = selectedPrice[0];
@@ -127,7 +129,7 @@ function ProductPage() {
  	useEffect(() => {
     	applyFilters();
   	}, [selectedPrice, gender, colors, sizes, brands]);
-	
+
   	return (
 	 	<Wrapper>
 			<p>{'Главная > Одежда > Мужские куртки'}</p>
@@ -148,17 +150,17 @@ function ProductPage() {
 					changeCheckedBrands={handleChangeCheckedBrands}
 				/>
 
-				{(list.length == 0) ?
-					<Error/>
+				{ (list.length == 0) ?
+					<Error title={"НИЧЕГО НЕ НАЙДЕНО"} text={"Попробуйте сбросить фильтры или обновить страницу"}/>
 					:
 					<div className="products-content">
-						{list.map((item) => {
+						{ list.map((item) => {
 							return(
 								<div className="product">
-									<ProductBox key={item.id} {...item}/>
+									<ProductBox key={ item.id } product={ item }/>
 								</div>
 							);
-						})}
+						}) }
 					</div>
 				}
 			</div>
@@ -185,78 +187,10 @@ const Wrapper = styled.nav`
 		display: flex;
 	}
 
-	.filter-content {
-		min-width: 280px;
-	}
-
-	.filter-canceler {
-		color: var(--clr-primary-4);
-		text-decoration: underline;
-		margin-bottom: -10px;
-	}
-
-	.filter-header {
-		font-size: 20px;
-		font-weight: 500;
-		margin-top: 40px;
-	}
-
-	.section-close .category-items {
-		height: 0;
-		overflow: hidden;
-		margin: 0;
-	}
-		
-	.section-close .filter-icon {
-		transform: rotate(-180deg);
-		margin-bottom: 0.438rem;
-	}
-
-	.section-open .category-items {
-		height: 100%;
-	}
-
-	.section-open .filter-icon {
-		transform: rotate(0deg);
-	}
-
-	.category-header {
-		width: 210px;
-		display: flex;
-		justify-content: space-between;
-	}
-
-	.category-title,
-	.category-item {
-		font-size: 16px;
-		font-weight: 400;
-		margin-top: 10px;
-	}
-
 	.products-content {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		grid-auto-rows: max-content;
-	}
-
-	.filter-items {
-		display: flex;
-		margin: 10px 0 16px;
-	}
-	
-	.filter-item {
-		width: 100px;
-	}
-
-	.filter-items span {
-		text-decoration: underline;
-		color: var(--clr-black);
-	}
-	
-	.filter-item {
-		font-size: 14px;
-		font-weight: 400;
-		color: var(--clr-primary-4);
 	}
 
 	.product {

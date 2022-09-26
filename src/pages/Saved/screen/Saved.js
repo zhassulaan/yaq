@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import LoginButton from '../../../components/LoginButton';
+import LoginButton from '../../../components/Button';
 
 function Saved() {
   	return (
@@ -28,7 +28,7 @@ const Wrapper = styled.nav`
 
 	.unauthorized {
 		width: 380px;
-		margin: 110px auto 0;
+		margin: 6.875rem auto 5rem;
 	}
 
 	.section-text {

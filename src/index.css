@@ -54,3 +54,7 @@ body {
   font-family: 'Oswald', sans-serif;
   font-style: normal;
 }
+
+.button {
+  cursor: pointer;
+}
