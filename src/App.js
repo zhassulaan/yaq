@@ -7,6 +7,7 @@ import Products from './pages/ProductsPage/screen/ProductsPage';
 import ProductDetail from './pages/ProductsPage/screen/ProductDetail';
 import Saved from './pages/Saved/screen/Saved';
 import Basket from './pages/Basket/screen/Basket';
+import PopUp from './pages/PopUp/screen/PopUp';
 import Order from './pages/Order/screen/Order';
 import Contacts from './pages/Contacts/screen/Contacts';
 import DiscountSystem from './pages/DiscountSystem/screen/DiscountSystem';
@@ -23,7 +24,7 @@ function App() {
       <Router >
         <Route
           render={({ location }) =>
-            location.pathname !== "/basket" && <Navbar />
+            (location.pathname !== "/basket" && <Navbar />) && (location.pathname === "/popup/:id" || <Navbar />)
           }
         />
         
@@ -32,6 +33,7 @@ function App() {
           <Route exact path='/' component={Home} />
           <Route exact path='/saved' component={Saved} />
           <Route exact path='/basket' component={Basket} />
+          <Route exact path='/popup/:id' component={PopUp} />
           <Route exact path='/order' component={Order} />
           <Route exact path='/products/clothes' component={Products} />
           <Route exact path='/products/:id' children={<ProductDetail/>} />
@@ -51,7 +53,7 @@ function App() {
 
         <Route
           render={({ location }) =>
-            location.pathname !== "/basket" && <Footer />
+            location.pathname !== "/basket" && location.pathname !== "/popup" && <Footer />
           }
         />
       </Router>

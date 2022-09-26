@@ -35,23 +35,10 @@ const ProductBox = ({ product }) => {
 			<div className="box-footer">
 				<div className="price-number">{product.price} {product.currency}</div>
 
-				{/* {cart.some((p) => p.id === product.id) ? (
-					<button className='button product-button green-btn' >
-						В корзину
-					</button>
-				) : ( */}
-					<button 
-						className='button product-button green-btn' 
-						onClick={() => 
-							dispatch({
-								type: "ADD_TO_CART",
-								payload: product
-							})
-						}
-					>
-						В корзину
-					</button>
-				{/* )} */}
+				<a href={`/popup/${product.id}`}>
+					<button className='button product-button green-btn' >В корзину</button>
+				</a>
+
 				<a href={`/products/${product.id}`}>
 					<button className='button product-button white-btn'>Подробнее</button>
 				</a>
