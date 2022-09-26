@@ -111,13 +111,13 @@ const Wrapper = styled.nav`
 	
 	.product-amount,
 	.product-price {
-		font-size: 20px;
-		font-weight: 400;
 		margin-top: 10px;
 	}
-
+	
 	.product-amount {
 		width: 180px;
+		font-size: 20px;
+		font-weight: 400;
 		margin-right: 80px;
 	}
 

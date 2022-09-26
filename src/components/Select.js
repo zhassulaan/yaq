@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 import styled from 'styled-components';
 
-function SelectColor({options, placeholder}) {
+function SelectInput({options, placeholder}) {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const style = {
@@ -39,4 +39,4 @@ const Wrapper = styled.nav`
   }
 `
 
-export default SelectColor;
+export default SelectInput;

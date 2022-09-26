@@ -105,6 +105,7 @@ const Wrapper = styled.nav`
 	}
 
 	.basket-box.none {
+		width: 1180px;
 		padding: 10px 0 160px;
 	}
 

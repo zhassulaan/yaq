@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 import styled from 'styled-components';
-import SelectColor from '../component/SelectColor';
+import Select from '../../../components/Select';
 import AddButton from '../../Home/components/AddButton';
 import products from '../../../data/product_data';
 import delivery from '../assets/delivery.svg';
@@ -103,11 +103,11 @@ function ProductDetail() {
 					</p>
 					<div className="product-color">
 						<p>Цвет:</p>
-						<SelectColor options={colorOptions} placeholder={"Выберите цвет"}/>
+						<Select options={colorOptions} placeholder={"Выберите цвет"}/>
 					</div>
 					<div className="product-size">
 						<p>Размер:</p>
-						<SelectColor options={sizeOptions} placeholder={"Выберите размер"}/>
+						<Select options={sizeOptions} placeholder={"Выберите размер"}/>
 					</div>
 
 					<div className="product-button">
