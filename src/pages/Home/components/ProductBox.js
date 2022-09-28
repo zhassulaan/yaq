@@ -12,47 +12,53 @@ const ProductBox = ({ product }) => {
 
 	return(
 		<BoxContainer key={product.id}>
-			<div className="box-header">
-				{(() => {
-					if (product.sale === 'Новинка') { 
-						return (<h5 className='product-sale button'>{product.sale}</h5>)
-					} else if (product.sale === null) {
-						return (<h5 className='button'></h5>)
-					} else {
-						return (<h5 className='product-sale button'>-{product.sale}%</h5>)
-					}
-				})()}
-				<img src={product.saved ? greenHeart : heart} alt="saved button" className='saved-icon'/>
-			</div>
+			<div className="box-content">
+				<div className="box-header">
+					{(() => {
+						if (product.sale === 'Новинка') { 
+							return (<h5 className='product-sale button'>{product.sale}</h5>)
+						} else if (product.sale === null) {
+							return (<h5 className='button'></h5>)
+						} else {
+							return (<h5 className='product-sale button'>-{product.sale}%</h5>)
+						}
+					})()}
+					<img src={product.saved ? greenHeart : heart} alt="saved button" className='saved-icon'/>
+				</div>
 
-			<div className="box-body">
-				<img src={product.image} alt={product.name} className='product-image'/>
+				<div className="box-body">
+					<img src={product.image} alt={product.name} className='product-image'/>
 
-				<div className="brand-name">{product.brands}</div>
-				<div className="item-name">{product.item} {product.brands} {product.name}</div>
-			</div>
+					<div className="brand-name">{product.brands}</div>
+					<div className="item-name">{product.item} {product.brands} {product.name}</div>
+				</div>
 
-			<div className="box-footer">
-				<div className="price-number">{product.price} {product.currency}</div>
+				<div className="box-footer">
+					<div className="price-number">{product.price} {product.currency}</div>
 
-				<a href={`/popup/${product.id}`}>
-					<button className='button product-button green-btn' >В корзину</button>
-				</a>
+					<div className="product-btns">
+						<a href={`/popup/${product.id}`}>
+							<button className='button product-button green-btn' >В корзину</button>
+						</a>
 
-				<a href={`/products/${product.id}`}>
-					<button className='button product-button white-btn'>Подробнее</button>
-				</a>
+						<a href={`/products/${product.id}`}>
+							<button className='button product-button white-btn'>Подробнее</button>
+						</a>
+					</div>
+				</div>
 			</div>
 		</BoxContainer>
 	);
 }
 
 const BoxContainer = styled.nav`
-	width: 17.5rem;
-	height: 28.125rem;
-	position: relative;
-	background-color: var(--clr-white);
-	border: 1px solid var(--clr-primary-3);
+	.box-content {
+		width: 17.5rem;
+		height: 28.125rem;
+		position: relative;
+		background-color: var(--clr-white);
+		border: 1px solid var(--clr-primary-3);
+	}
 	
 	.box-header {
 		position: absolute;
@@ -94,7 +100,7 @@ const BoxContainer = styled.nav`
 		font-weight: 700;
 		color: var(--clr-primary-3);
 		margin: 17px 1.25rem 0;
-		padding-bottom: 11px;
+		padding-bottom: 10px;
 	}
 
 	.brand-name:after {
@@ -103,7 +109,7 @@ const BoxContainer = styled.nav`
 		bottom: 0;
       left: 0;
 		width: 100%;
-      height: 2px;
+      height: 1px;
       background: var(--clr-primary-3);
 	}
 
@@ -111,7 +117,7 @@ const BoxContainer = styled.nav`
 		font-size: 16px;
 		font-weight: 400;
 		text-align: center;
-		margin: 19px 1.25rem 0;
+		margin: 15px 1.25rem 7px;
 	}
 	
 	.box-footer {

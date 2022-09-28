@@ -11,6 +11,7 @@ function ProductPage() {
 		{ products } 
 	} = CartState();
 
+	// for Filters
 	const [categoryJackets, setCategoryJackets] = useState(filterCategories[0].items);
 	const [categoryVests, setCategoryVests] = useState(filterCategories[1].items);
 	const [categoryPants, setCategoryPants] = useState(filterCategories[2].items);
@@ -27,7 +28,13 @@ function ProductPage() {
 	const [colors, setColors] = useState(filterColors);
 	const [sizes, setSizes] = useState(filterSizes);
 	const [brands, setBrands] = useState(filterBrands);
-
+	// for Sorting
+	const [checked1, setChecked1] = useState(false);
+	const [checked2, setChecked2] = useState(false);
+	const [checked3, setChecked3] = useState(false);
+	const [checked4, setChecked4] = useState(false);
+	const [checked5, setChecked5] = useState(false);
+	// Final list
 	const [list, setList] = useState(products);
 	const [resultsFound, setResultsFound] = useState(true);
 
@@ -123,7 +130,7 @@ function ProductPage() {
 		setSelectedPrice(value);
   	};
 	  
-	const handleChangeChecked = (id) => {
+	const handleChangeCheckedGender = (id) => {
 		const genderStateList = gender;
 		const changeCheckedGender = genderStateList.map((item) =>
 		  	item.id === id ? { ...item, checked: !item.checked } : item
@@ -153,6 +160,47 @@ function ProductPage() {
 		  	item.id === id ? { ...item, checked: !item.checked } : item
 		);
 		setBrands(changeCheckedBrands);
+	};
+
+	// for Sorting
+	const handleSortAscending = (event) => {
+		setChecked1(event.target.checked);
+		setChecked2(false);
+		setChecked3(false);
+		setChecked4(false);
+		setChecked5(false);
+	};
+	
+	const handleSortDescending = (event) => {
+		setChecked2(event.target.checked);
+		setChecked1(false);
+		setChecked3(false);
+		setChecked4(false);
+		setChecked5(false);
+	};
+	
+	const handleSortBySale = (event) => {
+		setChecked3(event.target.checked);
+		setChecked1(false);
+		setChecked2(false);
+		setChecked4(false);
+		setChecked5(false);
+	};
+	
+	const handleSortByDate = (event) => {
+		setChecked4(event.target.checked);
+		setChecked1(false);
+		setChecked2(false);
+		setChecked3(false);
+		setChecked5(false);
+	};
+	
+	const handleSortByDefault = (event) => {
+		setChecked5(event.target.checked);
+		setChecked1(false);
+		setChecked2(false);
+		setChecked3(false);
+		setChecked4(false);
 	};
 
   	const applyFilters = () => {
@@ -282,10 +330,10 @@ function ProductPage() {
 			.filter((item) => item.checked)
 			.map((item) => item.label);
 
-			if (genderChecked.length) {
-				updatedList = updatedList.filter((item) =>
-					genderChecked.includes(item.gender)
-				);
+		if (genderChecked.length) {
+			updatedList = updatedList.filter((item) =>
+				genderChecked.includes(item.gender)
+			);
 		}
 
 		// Colors Filter
@@ -327,99 +375,63 @@ function ProductPage() {
 			);
 		}
 
+		// Sorting
+		function sortByPrice(ascending) {
+			return function (a, b) {
+				// equal items sort equally
+				if (a.price === b.price) {
+					return 0;
+				}
+				// if we're ascending, lowest sorts first
+				else if (ascending) {
+					return (a.price < b.price) ? -1 : 1;
+				}
+				// if descending, highest sorts first
+				return (a.price < b.price) ? 1 : -1;
+			}
+		}
+
+		function sortDefault(a, b) {
+			if (b.id === a.id) {
+				return 0;
+			}
+			else {
+				return (b.id > a.id) ? -1 : 1;
+			}
+		}
+
+		if (checked1 === true) {
+			updatedList = updatedList.sort(sortByPrice(true));
+		}
+
+		if (checked2 === true) {
+			updatedList = updatedList.sort(sortByPrice(false));
+		}
+
+		if (checked3 === true) {
+			updatedList = updatedList.filter((item) =>
+				(item.sale !== null) && (item.sale !== "Новинка")
+			);
+		}
+
+		if (checked4 === true) {
+			updatedList = updatedList.filter((item) =>
+				(item.sale === "Новинка")
+			);
+		}
+
+		if (checked5 === true) {
+			updatedList = updatedList.sort(sortDefault)
+		}
+
 		setList(updatedList);
 
 		!updatedList.length ? setResultsFound(false) : setResultsFound(true);
 	};
 
- 	useEffect(() => {
+	useEffect(() => {
     	applyFilters();
-  	}, [categoryAccessories, categoryEquipment, categoryRun, categoryJackets, categoryVests, categoryPants, categoryTShirts, categoryShirts, categoryShorts, categoryHoodiesSweaters, categoryShoes, selectedPrice, gender, colors, sizes, brands]);
-
-	const [sortedList, setSortedList] = useState(list);
-	const [checked1, setChecked1] = useState(false);
-	const [checked2, setChecked2] = useState(false);
-	const [checked3, setChecked3] = useState(false);
-	const [checked4, setChecked4] = useState(false);
-	const [checked5, setChecked5] = useState(false);
-	
-	function sortByPrice(ascending) {
-		return function (a, b) {
-			// equal items sort equally
-			if (a.price === b.price) {
-				return 0;
-			}
-			// if we're ascending, lowest sorts first
-			else if (ascending) {
-				return (a.price < b.price) ? -1 : 1;
-			}
-			// if descending, highest sorts first
-			return (a.price < b.price) ? 1 : -1;
-		}
-  	}
-
-	function sortBySale(a, b) {
-		if (a.sale === b.sale) {
-			return 0;
-		}
-		// nulls sort after anything else
-		else if (a.sale === null) {
-			return 1;
-		}
-		else if (b.sale === null) {
-			return -1;
-	  	}
-		else {
-			return (a.sale > b.sale) ? -1 : 1;
-		}
-  	}
-
-	function sortByUploadDate(a, b) {
-		if (b.date === a.date) {
-			return 0;
-		}
-		else {
-			return (b.date < a.date) ? -1 : 1;
-		}
-  	}
-
-	function sortDefault(a, b) {
-		if (b.id === a.id) {
-			return 0;
-		}
-		else {
-			return (b.id > a.id) ? -1 : 1;
-		}
-  	}
-
-	// if ((checked1 === false) || (checked2 === false) || (checked3 === false) || (checked4 === false) || (checked5 === false)) {
-	// 	list = list.sort(sortDefault);
-	// }
-
-	const handleSortAscending = (event) =>  {
-		setChecked1(event.target.checked)
-	  	setSortedList(list.sort(sortByPrice(true)));
-	};
-  
-	const handleSortDescending = (event) =>  {
-		setChecked2(event.target.checked)
-	  	setSortedList(list.sort(sortByPrice(false)));
-	};
-  
-	const handleSortBySale = (event) =>  {
-		setChecked3(event.target.checked)
-	  	setSortedList(list.sort(sortBySale));
-	};
-	
-	const handleSortByDate = (event) =>  {
-		setChecked4(event.target.checked)
-		setSortedList(list.sort(sortByUploadDate));
-	};
-	
-	const handleSortByDefault = (event) => {
-		setChecked5(event.target.checked)
-		setSortedList(list.sort(sortDefault));
-	};
+  	}, [categoryAccessories, categoryEquipment, categoryRun, categoryJackets, categoryVests, categoryPants, categoryTShirts, categoryShirts, categoryShorts, categoryHoodiesSweaters, categoryShoes, selectedPrice, gender, colors, sizes, brands, checked1, checked2, checked3, checked4, checked5]);
 
 	const handleClearFilter = () => {
 		const jacketsList = categoryJackets;
@@ -514,13 +526,19 @@ function ProductPage() {
 			item.checked === true ? { ...item, checked: !item.checked } : item
 		);
 		setBrands(changeBrands);
+
+		setChecked1(false);
+		setChecked2(false);
+		setChecked3(false);
+		setChecked4(false);
+		setChecked5(false);
 	};
 
   	return (
 	 	<Wrapper>
 			<p>{'Главная > Одежда > Мужские куртки'}</p>
 			<h1 className='title section-title'>ВСЕ ТОВАРЫ</h1>
-			<p className='section-text'>Найдено 110 товаров</p>
+			<p className='section-text'>Найдено {list.length} { (list.length > 10 && list.length < 1) ? <span>товаров</span> : <span>товара</span> }</p>
 
 			<div className='products-section'>
 				<FilterBox
@@ -550,7 +568,7 @@ function ProductPage() {
 					selectedPrice={selectedPrice}
 					changePrice={handleChangePrice}
 					gender={gender}
-					changeGender={handleChangeChecked}
+					changeGender={handleChangeCheckedGender}
 					colors={colors}
 					changeColors={handleChangeCheckedColors}
 					sizes={sizes}
@@ -615,6 +633,39 @@ const Wrapper = styled.nav`
 	.product {
 		max-height: 450px;
 		margin: 0 0 20px 20px;
+	}
+
+	.box-content {
+		border: none;
+	}
+	
+	.product:hover .box-content {
+		border: 1px solid var(--clr-primary-3);
+	}
+
+	.product-image {
+		margin: 0 45px;
+	}
+
+	.product-button {
+		display: none;
+	}
+	
+	.product:hover .product-btns {
+		display: flex;
+	}
+
+	.product:hover .product-button {
+		display: block;
+	}
+
+	.product:hover .product-button {
+		width: 139px;
+		display: block;
+	}
+
+	.green-btn:hover {
+		background: var(--clr-primary-2);
 	}
 `
 

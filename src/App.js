@@ -27,7 +27,7 @@ function App() {
             (location.pathname !== "/basket" && <Navbar />)
           }
         />
-        
+
         <Switch>
           {/* Main Pages */}
           <Route exact path='/' component={Home} />
@@ -36,6 +36,10 @@ function App() {
           <Route exact path='/popup/:id' component={PopUp} />
           <Route exact path='/order' component={Order} />
           <Route exact path='/products/clothes' component={Products} />
+          <Route exact path='/products/clothes/shoes' component={Products} />
+          <Route exact path='/products/clothes/equipment' component={Products} />
+          <Route exact path='/products/clothes/accessories' component={Products} />
+          <Route exact path='/products/clothes/run' component={Products} />
           <Route exact path='/products/:id' children={<ProductDetail/>} />
           <Redirect from='/clothes' to='/products/clothes' />
           {/* Additional Pages */}

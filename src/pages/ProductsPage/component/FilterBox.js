@@ -69,39 +69,6 @@ function FilterBox({ clearFilter, category1, changeCategory1, category2, changeC
          />
 			
 			<h6 className='filter-header'>Сортировка</h6>
-			<ul className='category-items'>
-				<li className='category-item'>
-					<label>
-						<input type="checkbox"/>
-						<span>{"По возрастанию цен"}</span>
-					</label>
-				</li>
-				<li className='category-item'>
-					<label>
-						<input type="checkbox" />
-						<span>{"По убыванию цен"}</span>
-					</label>
-				</li>
-				<li className='category-item'>
-					<label>
-						<input type="checkbox"/>
-						<span>{"Сначала скидки"}</span>
-					</label>
-				</li>
-				<li className='category-item'>
-					<label>
-						<input type="checkbox" />
-						<span>{"Сначала новинки"}</span>
-					</label>
-				</li>
-				<li className='category-item'>
-					<label>
-						<input type="checkbox"/>
-						<span>{"По умолчанию"}</span>
-					</label>
-				</li>
-			</ul>
-
 			<FormControlLabel
 				control={
 					<Checkbox
