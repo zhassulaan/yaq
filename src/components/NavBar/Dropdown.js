@@ -5,7 +5,7 @@ import AllGoods from './AllGoods';
 import LoginButton from '../Button';
 import Header from './Header';
 
-function Dropdown({setShow}) {
+function Dropdown({setShow, setHide}) {
 	const [navbar, setNavbar] = useState(false);
 	
 	const changeTop = () => {
@@ -20,7 +20,7 @@ function Dropdown({setShow}) {
 
   	return (
 		<DropdownContainer className={navbar ? 'active' : ''}>
-			<div className='container'>
+			<div className='container' onMouseLeave={setHide}>
 				<AllGoods setShow={setShow}/>
 				<div className="dd-header-content">
 					<Header/>

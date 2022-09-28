@@ -24,7 +24,7 @@ function App() {
       <Router >
         <Route
           render={({ location }) =>
-            (location.pathname !== "/basket" && <Navbar />) && (location.pathname === "/popup/:id" || <Navbar />)
+            (location.pathname !== "/basket" && <Navbar />)
           }
         />
         
@@ -53,7 +53,7 @@ function App() {
 
         <Route
           render={({ location }) =>
-            location.pathname !== "/basket" && location.pathname !== "/popup" && <Footer />
+            location.pathname !== "/basket" && <Footer />
           }
         />
       </Router>

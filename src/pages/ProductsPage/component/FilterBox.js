@@ -1,22 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PriceSlider from '../component/PriceSlider';
 import FilterCheckbox from './FilterCheckbox';
 import Characteristics from './Characteristics';
 import Categories from './Categories';
-import { filterCategories } from '../../../data/filter';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { makeStyles } from '@material-ui/core/styles';
 
-function FilterBox({selectedPrice, changePrice, gender, changeChecked, colors, changeCheckedColors, sizes, changeCheckedSizes, brands, changeCheckedBrands}) {
+function FilterBox({ clearFilter, category1, changeCategory1, category2, changeCategory2, category3, changeCategory3, category4, changeCategory4, category5, changeCategory5, category6, changeCategory6, category7, changeCategory7, category8, changeCategory8, category9, changeCategory9, category10, changeCategory10, category11, changeCategory11, selectedPrice, changePrice, gender, changeGender, colors, changeColors, sizes, changeSizes, brands, changeBrands, list, checked1, sortAscending, checked2, sortDescending, checked3, sortBySale, checked4, sortByDate, checked5, sortByDefault }) {
 	return (
 		<FilterContent>
-			<p className='filter-canceler'>Сбросить все фильтры</p>
+			<p className='filter-canceler' onClick={clearFilter}>Сбросить все фильтры</p>
 
 			<h6 className='filter-header'>Категории</h6>
-			{filterCategories.map((item) => {
-            return(
-	            <Categories key={item.id} {...item}/>
-            );
-         })}
+
+			<Categories 
+				categoryJackets={category1}
+				changeJackets={changeCategory1}	
+				categoryVests={category2}
+				changeVests={changeCategory2}	
+				categoryPants={category3}
+				changePants={changeCategory3}	
+				categoryTShirts={category4}
+				changeTShirts={changeCategory4}	
+				categoryShirts={category5}
+				changeShirts={changeCategory5}	
+				categoryShorts={category6}
+				changeShorts={changeCategory6}	
+				categoryHoodiesSweaters={category7}
+				changeHoodiesSweaters={changeCategory7}	
+				categoryShoes={category8}
+				changeShoes={changeCategory8}	
+				categoryAccessories={category9}
+				changeAccessories={changeCategory9}	
+				categoryEquipment={category10}
+				changeEquipment={changeCategory10}	
+				categoryRun={category11}
+				changeRun={changeCategory11}	
+			/>
 
 			<h6 className='filter-header'>Цена</h6>
 			<div className="filter-items">
@@ -31,7 +53,7 @@ function FilterBox({selectedPrice, changePrice, gender, changeChecked, colors, c
 					<FilterCheckbox
 						key={sex.id}
 						sex={sex}
-						changeChecked={changeChecked}
+						changeChecked={changeGender}
 					/>
 				))}
 			</ul>
@@ -39,11 +61,11 @@ function FilterBox({selectedPrice, changePrice, gender, changeChecked, colors, c
 			<h6 className='filter-header'>Характеристики</h6>
 			<Characteristics
 				colors={colors}
-				changeCheckedColors={changeCheckedColors}
+				changeColors={changeColors}
 				sizes={sizes}
-				changeCheckedSizes={changeCheckedSizes}
+				changeSizes={changeSizes}
 				brands={brands}
-				changeCheckedBrands={changeCheckedBrands}
+				changeBrands={changeBrands}
          />
 			
 			<h6 className='filter-header'>Сортировка</h6>
@@ -56,7 +78,7 @@ function FilterBox({selectedPrice, changePrice, gender, changeChecked, colors, c
 				</li>
 				<li className='category-item'>
 					<label>
-						<input type="checkbox"/>
+						<input type="checkbox" />
 						<span>{"По убыванию цен"}</span>
 					</label>
 				</li>
@@ -68,7 +90,7 @@ function FilterBox({selectedPrice, changePrice, gender, changeChecked, colors, c
 				</li>
 				<li className='category-item'>
 					<label>
-						<input type="checkbox"/>
+						<input type="checkbox" />
 						<span>{"Сначала новинки"}</span>
 					</label>
 				</li>
@@ -79,12 +101,67 @@ function FilterBox({selectedPrice, changePrice, gender, changeChecked, colors, c
 					</label>
 				</li>
 			</ul>
+
+			<FormControlLabel
+				control={
+					<Checkbox
+						size='small'
+						checked={checked1}
+						onChange={sortAscending}
+					/>
+				}
+				label={"По возрастанию цен"}
+			/>
+
+			<FormControlLabel
+				control={
+					<Checkbox
+						size='small'
+						checked={checked2}
+						onChange={sortDescending}
+					/>
+				}
+				label={"По убыванию цен"}
+			/>
+
+			<FormControlLabel
+				control={
+					<Checkbox
+						size='small'
+						checked={checked3}
+						onChange={sortBySale}
+					/>
+				}
+				label={"Сначала скидки"}
+			/>
+
+			<FormControlLabel
+				control={
+					<Checkbox
+						size='small'
+						checked={checked4}
+						onChange={sortByDate}
+					/>
+				}
+				label={"Сначала новинки"}
+			/>
+
+			<FormControlLabel
+				control={
+					<Checkbox
+						size='small'
+						checked={checked5}
+						onChange={sortByDefault}
+					/>
+				}
+				label={"По умолчанию"}
+			/>
 		</FilterContent>
 	);
 }
 
 const FilterContent = styled.nav`
-	min-width: 280px;
+	max-width: 280px;
 
 	.filter-canceler {
 		color: var(--clr-primary-4);

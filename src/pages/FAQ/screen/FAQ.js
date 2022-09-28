@@ -119,7 +119,7 @@ const Wrapper = styled.nav`
 	@media (max-width: 480px) {
 		padding: 0;
 		background-color: var(--clr-primary-6);
-		margin-bottom: 8.125rem;
+		padding-bottom: 8.125rem;
 
 		.section-title {
 			font-size: 28px;

@@ -23,6 +23,16 @@ function Navbar() {
 
 	window.addEventListener('scroll', changeTop);
 	
+	const handleSubmitOpen = async(ev) => {
+		ev.preventDefault();
+		setShow(true);
+	}
+	
+	const handleSubmitClose = async(ev) => {
+		ev.preventDefault();
+		setShow(false);
+	}
+	
 	const handleSubmit = async(ev) => {
 		ev.preventDefault();
 		setShow(!show);
@@ -43,7 +53,7 @@ function Navbar() {
 
   	return (
 		<Wrapper>
-			<div className="header">
+			<div className="header"  onMouseEnter={handleSubmitClose}>
 				<Header
 					show={showSearchBar} 
 					setShow={search} 
@@ -56,30 +66,34 @@ function Navbar() {
 						<div className="left-container">
 							<img src={toggle} alt="navbar toggle" className='nav-toggle' onClick={handleSubmit}/>
 
-							<Link to="/" className='nav-logo'>
-								<img src={logo} alt="logo" onClick="window.location.reload()"/>
-							</Link>
+							<div className='nav-logo'>
+								<img src={logo} alt="logo"/>
+							</div>
 					
 							<ul className='nav-menu'>
-								<li className='nav-item'>
-									<Link to="/" className='nav-link' onClick={handleSubmit}>ГЛАВНАЯ</Link>
+								<li className='nav-item' onClick="window.location.reload()" onMouseEnter={handleSubmitClose}>
+									<Link to="/" className='nav-link'>ГЛАВНАЯ</Link>
 								</li>
-								<li className='nav-item' onClick="window.location.reload()">
-									<Link to="/products/clothes" className='nav-link'>ОДЕЖДА</Link>
-								</li>
-								<li className='nav-item' onClick="window.location.reload()">
-									<Link to="products/clothes/shoes" className='nav-link'>ОБУВЬ</Link>
-								</li>
-								<li className='nav-item' onClick="window.location.reload()">
-									<Link to="products/equipment" className='nav-link'>СНАРЯЖЕНИЕ</Link>
-								</li>
-								<li className='nav-item' onClick="window.location.reload()">
-									<Link to="products/accessories" className='nav-link'>АКСЕССУАРЫ</Link>
-								</li>
-								<li className='nav-item' onClick="window.location.reload()">
-									<Link to="products/run" className='nav-link'>БЕГ</Link>
-								</li>
-								<li className='nav-item' onClick="window.location.reload()">
+
+								<div onMouseEnter={handleSubmitOpen}>
+									<li className='nav-item' onClick="window.location.reload()">
+										<Link to="/products/clothes" className='nav-link'>ОДЕЖДА</Link>
+									</li>
+									<li className='nav-item' onClick="window.location.reload()">
+										<Link to="products/clothes/shoes" className='nav-link'>ОБУВЬ</Link>
+									</li>
+									<li className='nav-item' onClick="window.location.reload()">
+										<Link to="products/equipment" className='nav-link'>СНАРЯЖЕНИЕ</Link>
+									</li>
+									<li className='nav-item' onClick="window.location.reload()">
+										<Link to="products/accessories" className='nav-link'>АКСЕССУАРЫ</Link>
+									</li>
+									<li className='nav-item' onClick="window.location.reload()">
+										<Link to="products/run" className='nav-link'>БЕГ</Link>
+									</li>
+								</div>
+
+								<li className='nav-item' onClick="window.location.reload()" onMouseEnter={handleSubmitClose}>
 									<Link to="/contacts" className='nav-link'>КОНТАКТЫ</Link>
 								</li>
 							</ul>
@@ -94,7 +108,7 @@ function Navbar() {
 				</div>
 			</div>
 
-			{show ? <Dropdown setShow={handleSubmit}/> : null}
+			{show ? <Dropdown setShow={handleSubmit}  setHide={handleSubmitClose}/> : null}
 		</Wrapper>
   )
 }
@@ -123,6 +137,7 @@ const Wrapper = styled.nav`
 	.left-container {
 		display: flex;
 		align-items: center;
+		height: 100%;
 	}
 
 	.nav-toggle {
@@ -136,8 +151,10 @@ const Wrapper = styled.nav`
 		margin-right: 2vw;
   	}
 
-  	.nav-menu {
-    	display: flex;
+  	.nav-menu,
+  	.nav-menu div {
+		display: flex;
+		height: 100%;
   	}
 
 	.nav-item {

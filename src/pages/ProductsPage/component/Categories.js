@@ -1,70 +1,142 @@
-import React, { useState, useEffect } from 'react';
-import FilterCheckbox from './FilterCheckbox';
-import product_card from '../../../data/product_data';
+import React from 'react';
+import CheckBoxContainer from './CheckBoxContainer';
 import { filterCategories } from '../../../data/filter';
-import arrow from '../assets/blackArrow.svg';
 
-function Categories({id, title, items}) {
-	const [isActive, setActive] = useState("false");
+function Categories({ categoryJackets, changeJackets, categoryVests, changeVests, categoryPants, changePants, categoryTShirts, changeTShirts, categoryShirts, changeShirts, categoryShorts, changeShorts, categoryHoodiesSweaters, changeHoodiesSweaters, categoryShoes, changeShoes, categoryAccessories, changeAccessories, categoryEquipment, changeEquipment, categoryRun, changeRun }) {
 	
-	const handleToggle = () => {
-		setActive(!isActive);	
-	};
-
-	const [categories, setCategories] = useState(items);
-  
-	const [list, setList] = useState(product_card);
-	const [resultsFound, setResultsFound] = useState(true);
-
-	const handleChangeCheckedCategories = (id) => {
-		const categoriesStateList = categories;
-		const changeCheckedCategories = categoriesStateList.map((item) =>
-		  	item.id === id ? { ...item, checked: !item.checked } : item
-		);
-		setCategories(changeCheckedCategories);
-	};
-
-  	const applyFilters = () => {
-    	let updatedList = product_card;
-
-		// Categories Filter
-		const categoriesChecked = categories
-			.filter((item) => item.checked)
-			.map((item) => item.label);
-
-		if (categoriesChecked.length) {
-			updatedList = updatedList.filter((item) =>
-			categoriesChecked.includes(item.categories)
-			);
-		}
-
-		setList(updatedList);
-
-		!updatedList.length ? setResultsFound(false) : setResultsFound(true);
-	};
-
- 	useEffect(() => {
-    	applyFilters();
-  	}, [categories]);
-
  	return (
-	 	<div key={id}>
-			<div className={isActive ? 'filter-category section-close' : 'filter-category section-open'}>
-				<div className='category-header'>
-					<p className='category-title'>{title}</p>
-					<img src={arrow} alt="arrow icon" className='filter-icon' onClick={handleToggle}/>
-				</div>
-
-				<ul className='category-items'>
-					{items.map((item) => (
-						<FilterCheckbox 
-							key={item.id}
-							sex={item}
-							changeChecked={handleChangeCheckedCategories}
-						/>
-					))}
-				</ul>
-			</div>
+	 	<div>
+			{filterCategories.slice(0,1)
+			.map((item) => {
+            return(
+	            <CheckBoxContainer 
+						key={item.id} 
+						title={item.title}
+						filters={categoryJackets}
+						changeCheckedFilters={changeJackets}
+					/>
+            );
+         })}
+			
+			{filterCategories.slice(1,2)
+			.map((item) => {
+            return(
+	            <CheckBoxContainer 
+						key={item.id} 
+						title={item.title}
+						filters={categoryVests}
+						changeCheckedFilters={changeVests}
+					/>
+            );
+         })}
+			
+			{filterCategories.slice(2,3)
+			.map((item) => {
+            return(
+	            <CheckBoxContainer 
+						key={item.id} 
+						title={item.title}
+						filters={categoryPants}
+						changeCheckedFilters={changePants}
+					/>
+            );
+         })}
+			
+			{filterCategories.slice(3,4)
+			.map((item) => {
+            return(
+	            <CheckBoxContainer 
+						key={item.id} 
+						title={item.title}
+						filters={categoryTShirts}
+						changeCheckedFilters={changeTShirts}
+					/>
+            );
+         })}
+			
+			{filterCategories.slice(4,5)
+			.map((item) => {
+            return(
+	            <CheckBoxContainer 
+						key={item.id} 
+						title={item.title}
+						filters={categoryShirts}
+						changeCheckedFilters={changeShirts}
+					/>
+            );
+         })}
+			
+			{filterCategories.slice(5,6)
+			.map((item) => {
+            return(
+	            <CheckBoxContainer 
+						key={item.id} 
+						title={item.title}
+						filters={categoryShorts}
+						changeCheckedFilters={changeShorts}
+					/>
+            );
+         })}
+			
+			{filterCategories.slice(6,7)
+			.map((item) => {
+            return(
+	            <CheckBoxContainer 
+						key={item.id} 
+						title={item.title}
+						filters={categoryHoodiesSweaters}
+						changeCheckedFilters={changeHoodiesSweaters}
+					/>
+            );
+         })}
+			
+			{filterCategories.slice(7,8)
+			.map((item) => {
+            return(
+	            <CheckBoxContainer 
+						key={item.id} 
+						title={item.title}
+						filters={categoryShoes}
+						changeCheckedFilters={changeShoes}
+					/>
+            );
+         })}
+			
+			{filterCategories.slice(8,9)
+			.map((item) => {
+            return(
+	            <CheckBoxContainer 
+						key={item.id} 
+						title={item.title}
+						filters={categoryAccessories}
+						changeCheckedFilters={changeAccessories}
+					/>
+            );
+         })}
+			
+			{filterCategories.slice(9,10)
+			.map((item) => {
+            return(
+	            <CheckBoxContainer 
+						key={item.id} 
+						title={item.title}
+						filters={categoryEquipment}
+						changeCheckedFilters={changeEquipment}
+					/>
+            );
+         })}
+			
+			{filterCategories.slice(10,11)
+			.map((item) => {
+            return(
+	            <CheckBoxContainer 
+						key={item.id} 
+						title={item.title}
+						filters={categoryRun}
+						changeCheckedFilters={changeRun}
+					/>
+            );
+         })}
 		</div>
   	);
 }
