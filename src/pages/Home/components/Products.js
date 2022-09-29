@@ -37,7 +37,7 @@ class Products extends Component {
       	<Wrapper>
 				<h3 className='section-title title'>Лучшие предложения</h3>
         		<Slider {...settings}>
-				  	{product_card.slice(0,6).map((item) => {
+				  	{product_card.slice(0,7).map((item) => {
                   return(
 							<div className="box-container">
 	                     <ProductBox key={ item.id } product={ item }/>

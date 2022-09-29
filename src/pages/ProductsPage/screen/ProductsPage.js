@@ -671,7 +671,7 @@ const Wrapper = styled.nav`
 	}
 
 	.box-content {
-		border: 1px solid red;
+		border: none;
 	}
 	
 	.product-image {

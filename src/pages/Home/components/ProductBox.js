@@ -16,33 +16,33 @@ const ProductBox = ({ product }) => {
 				<div className="box-header">
 					{(() => {
 						if (product.sale === 'Новинка') { 
-							return (<h5 className='product-sale button'>{product.sale}</h5>)
+							return (<button className='product-sale button'>{product.sale}</button>)
 						} else if (product.sale === null) {
-							return (<h5 className='button'></h5>)
+							return (<button className='button'></button>)
 						} else {
-							return (<h5 className='product-sale button'>-{product.sale}%</h5>)
+							return (<button className='product-sale button'>-{product.sale}%</button>)
 						}
 					})()}
 					<img src={product.saved ? greenHeart : heart} alt="saved button" className='saved-icon'/>
 				</div>
 
 				<div className="box-body">
-					<img src={product.image} alt={product.name} className='product-image'/>
+					<div className="body-text">
+						<img src={product.image} alt={product.name} className='product-image'/>
 
-					<div className="brand-name">{product.brands}</div>
-					<div className="item-name">{product.item} {product.brands} {product.name}</div>
-				</div>
+						<div className="brand-name">{product.brands}</div>
+						<div className="item-name">{product.item} {product.brands} {product.name}</div>
 
-				<div className="box-footer">
-					<div className="price-number">{product.price} {product.currency}</div>
+						<div className="price-number">{product.price} {product.currency}</div>
+					</div>
 
 					<div className="product-btns">
 						<a href={`/popup/${product.id}`}>
-							<button className='button product-button green-btn' >В корзину</button>
+							<button className='button product-button green-btn'><p>В корзину</p></button>
 						</a>
 
 						<a href={`/products/${product.id}`}>
-							<button className='button product-button white-btn'>Подробнее</button>
+							<button className='button product-button white-btn'><p>Подробнее</p></button>
 						</a>
 					</div>
 				</div>
@@ -77,7 +77,7 @@ const BoxContainer = styled.nav`
 		font-weight: 400;
 		color: var(--clr-white);
 		background-color: var(--clr-primary-1);
-		padding: 2% 0;
+		border: none;
 	}
 
 	.saved-icon {
@@ -86,7 +86,11 @@ const BoxContainer = styled.nav`
 
 	.box-body {
 		height: 75.894%;
-		padding: 14.39% 7.197% 0;
+		padding-top: 14.39%;
+	}
+
+	.body-text {
+		padding: 0 7.197%;
 	}
 
 	.product-image {
@@ -97,11 +101,12 @@ const BoxContainer = styled.nav`
 	}
 
 	.brand-name {
+		line-height: 1.25vw;
 		position: relative;
 		font-size: 16px;
 		font-weight: 700;
 		color: var(--clr-primary-3);
-		padding: 7.143% 0 4.202%;
+		padding: 8.404% 0 4.202%;
 	}
 
 	.brand-name:after {
@@ -115,32 +120,33 @@ const BoxContainer = styled.nav`
 	}
 
 	.item-name {
-		height: 16.667%;
+		height: 3.125vw;
 		font-size: 16px;
 		font-weight: 400;
 		text-align: center;
 		margin-top: 8.405%;
 	}
 	
-	.box-footer {
-		width: 100%;
-		height: 24.554%;
-	}
-	
 	.price-number {
+		line-height: 2.5vw;
 		font-size: 26px;
 		font-weight: 700;
-		line-height: 2.5rem;
 		text-align: center;
-		margin-bottom: 1.25rem;
+	}
+
+	.product-btns {
+		margin-top: 1.25vw;
 	}
 	
 	.product-button {
 		width: 50%;
-		height: 3.125rem;
+		height: 3vw;
+		border: none;
+	}
+	
+	.product-button p {
 		font-size: 18px;
 		font-weight: 400;
-		border: none;
 	}
 
 	.green-btn {
@@ -152,7 +158,128 @@ const BoxContainer = styled.nav`
 		background: var(--clr-white);
 	}
 
-	@media (max-width: 1024px) {
+	@media (max-width: 1500px) {
+		.product-sale, 
+		.product-button p {
+			font-size: 17px;
+		}
+
+		.price-number {
+			font-size: 25px;
+		}
+
+		.brand-name,
+		.item-name {
+			font-size: 15px;
+		}
+	}
+	
+	@media (max-width: 1400px) {
+		.price-number {
+			font-size: 24px;
+		}
+
+		.brand-name,
+		.item-name {
+			font-size: 14px;
+		}
+	}
+
+
+	@media (max-width: 1300px) {
+		.product-sale, 
+		.product-button p {
+			font-size: 15px;
+		}
+
+		.price-number {
+			font-size: 22px;
+		}
+
+		.brand-name,
+		.item-name {
+			font-size: 13px;
+		}
+	}
+	
+	@media (max-width: 1200px) {
+		.product-sale, 
+		.product-button p {
+			font-size: 14px;
+		}
+
+		.price-number {
+			font-size: 20px;
+		}
+
+		.brand-name,
+		.item-name {
+			font-size: 12px;
+		}
+	}
+
+	@media (max-width: 1200px) {
+		.product-sale, 
+		.product-button p {
+			font-size: 13px;
+		}
+
+		.price-number {
+			font-size: 19px;
+		}
+
+		.brand-name,
+		.item-name {
+			font-size: 11px;
+		}
+	}
+	
+	@media (max-width: 1200px) {
+		.price-number {
+			font-size: 18px;
+		}
+
+		.brand-name,
+		.item-name {
+			font-size: 10px;
+		}
+	}
+
+	@media (max-width: 992px) {
+		.product-sale, 
+		.product-button p {
+			font-size: 11px;
+		}
+		
+		.price-number {
+			font-size: 16px;
+		}
+
+		.brand-name,
+		.item-name {
+			font-size: 9px;
+		}
+	}
+
+	@media (max-width: 840px) {
+		.brand-name,
+		.item-name {
+			font-size: 8px;
+		}
+	}
+
+	@media (max-width: 890px) {
+		.product-sale, 
+		.product-button p {
+			font-size: 10px;
+		}
+		
+		.price-number {
+			font-size: 15px;
+		}
+	}
+
+	@media (max-width: 768px) {
 		width: 9.6875rem;
 		height: 14.375rem;
 		border: 1px solid var(--clr-white);
@@ -224,7 +351,7 @@ const BoxContainer = styled.nav`
 		margin: 0 5px;
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 480px) {
 		margin: 0 5px;
 	}
 `
