@@ -7,6 +7,9 @@ const useStyles = makeStyles({
 	root: {
 		width: '78.5714%',
 		height: '4px',
+		"@media (max-width: 480px)": {
+			width: '100%',
+		 }
 	},
 	thumb: {
 		color: `var(--clr-primary-2)`,

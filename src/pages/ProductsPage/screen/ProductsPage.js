@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import FilterBox from '../component/FilterBox';
-import ProductBox from '../../Home/components/ProductBox';
-import Error from '../../ErrorPage/screen/ErrorPage';
-import { filterCategories, filterGender, filterColors, filterSizes, filterBrands } from '../../../data/filter';
 import { CartState } from '../../../context/Context';
+import { filterCategories, filterGender, filterColors, filterSizes, filterBrands } from '../../../data/filter';
+import Error from '../../ErrorPage/screen/ErrorPage';
+import ProductBox from '../../Home/components/ProductBox';
+import FilterBox from '../component/FilterBox';
+import sort from '../assets/sort.svg';
+import filter from '../assets/filter.svg';
 
 function ProductPage() {
 	const { state: 
@@ -534,14 +536,39 @@ function ProductPage() {
 		setChecked5(false);
 	};
 
-  	return (
-	 	<Wrapper>
-			<p>{'Главная > Одежда > Мужские куртки'}</p>
+	const [isActive1, setActive1] = useState("false");
+	const [isActive2, setActive2] = useState("false");
+	
+	const handleToggleFilter = () => {
+		setActive1(!isActive1);	
+	};
+	
+	const handleToggleCorting = () => {
+		setActive2(!isActive2);	
+	};
+	
+	return (
+		<Wrapper>
+			<p className='section-hierarchy'>{'Главная > Одежда > Мужские куртки'}</p>
 			<h1 className='title section-title'>ВСЕ ТОВАРЫ</h1>
+
+			<div className="filter-buttons">
+				<div className="filter-btn" onClick={handleToggleCorting}>
+					<p>Сортировка</p>
+					<img src={sort} alt="sorting icon"/>
+				</div>
+				<div className="filter-btn" onClick={handleToggleFilter}>
+					<p>Фильтр</p>
+					<img src={filter} alt="filter icon"/>
+				</div>
+			</div>
+
 			<p className='section-text'>Найдено {list.length} { (list.length > 10 && list.length < 1) ? <span>товаров</span> : <span>товара</span> }</p>
 
 			<div className='products-section'>
-				<FilterBox
+				<FilterBox 
+					activeFilter={isActive1}
+					activeSorting={isActive2}
 					clearFilter={handleClearFilter}
 					category1={categoryJackets}
 					changeCategory1={handleChangeCheckedJackets}
@@ -613,6 +640,10 @@ const Wrapper = styled.nav`
 		font-weight: 500;
 	}
 
+	.filter-buttons {
+		display: none;
+	}
+
 	.section-text {
 		font-weight: 400;
 		font-size: 18px;
@@ -666,6 +697,62 @@ const Wrapper = styled.nav`
 
 	.green-btn:hover {
 		background: var(--clr-primary-2);
+	}
+
+	@media (max-width: 480px) {
+		padding: 0 0 9.375rem;
+		background-color: var(--clr-primary-6);
+
+		.section-hierarchy {
+			display: none;
+		}
+
+		.section-title {
+			position: relative;
+			font-size: 28px;
+			font-weight: 500;
+			background-color: var(--clr-white);
+			padding: 1.25rem 5.5556vw;
+		}
+
+		.section-title:after {
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 1px;
+			left: 0;
+			bottom: 0;
+			background: var(--clr-primary-6);
+		}
+
+		.filter-buttons {
+			display: flex;
+			justify-content: space-between;
+			padding: 0.625rem 5.5556vw 1.25rem;
+			background-color: var(--clr-white);
+		}
+
+		.filter-btn {
+			display: flex;
+		}
+		
+		.filter-btn p {
+			font-size: 16px;
+			font-weight: 400;
+			text-decoration: underline;
+			margin-right: 5px;
+		}
+
+		.section-text {
+			font-size: 14px;
+			font-weight: 400;
+			margin: 20px 5.5556vw 10px;
+		}
+
+		.products-section {
+			flex-direction: column;
+			margin: 0 5.5556vw;
+		}
 	}
 `
 

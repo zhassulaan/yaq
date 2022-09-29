@@ -21,7 +21,7 @@ function CheckBoxContainer({id, title, filters, changeCheckedFilters}) {
 					{filters.map((filter) => (
 						<FilterCheckbox 
 							key={filter.id}
-							sex={filter}
+							data={filter}
 							changeChecked={changeCheckedFilters}
 						/>
 					))}

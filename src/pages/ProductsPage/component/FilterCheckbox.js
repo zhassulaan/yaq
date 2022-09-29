@@ -16,9 +16,9 @@ const useStyles = makeStyles({
 	},
 });
 
-function FilterCheckbox({ changeChecked, sex }) {
+function FilterCheckbox({ changeChecked, data }) {
 	const classes = useStyles();
-	const { checked, label, id } = sex;
+	const { checked, label, id } = data;
 		
 	return (
 		<Wrapper>
