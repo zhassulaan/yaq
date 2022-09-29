@@ -546,7 +546,7 @@ function ProductPage() {
 	const handleToggleCorting = () => {
 		setActive2(!isActive2);	
 	};
-	
+
 	return (
 		<Wrapper>
 			<p className='section-hierarchy'>{'Главная > Одежда > Мужские куртки'}</p>
@@ -666,16 +666,16 @@ const Wrapper = styled.nav`
 		margin: 0 0 20px 20px;
 	}
 
-	.box-content {
-		border: none;
-	}
-	
 	.product:hover .box-content {
 		border: 1px solid var(--clr-primary-3);
 	}
 
+	.box-content {
+		border: 1px solid red;
+	}
+	
 	.product-image {
-		margin: 0 45px;
+		margin: 0 10.507%;
 	}
 
 	.product-button {
@@ -752,6 +752,10 @@ const Wrapper = styled.nav`
 		.products-section {
 			flex-direction: column;
 			margin: 0 5.5556vw;
+		}
+
+		.products-content {
+			grid-template-columns: repeat(2, 1fr);
 		}
 	}
 `

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PriceSlider from '../component/PriceSlider';
 import FilterCheckbox from './FilterCheckbox';
@@ -19,7 +19,7 @@ function FilterBox({ activeFilter, activeSorting, clearFilter, category1, change
 		<FilterContent>
 			<p className='filter-canceler' onClick={clearFilter}>Сбросить все фильтры</p>
 			
-			<div className={activeFilter ? 'filter' : 'filter active'}>
+			<div className={activeFilter ? 'filter filter-nonactive' : 'filter filter-active active1'}>
 				<div className="laptop">
 					<div className="filter-header1">
 						<h6 className='filter-title'>Категории</h6>
@@ -278,13 +278,25 @@ const FilterContent = styled.nav`
 	@media (max-width: 480px) {
 		max-width: max-content;
 
-
-		@keyframes animate {
+		@keyframes animateIn {
 			0% {
 				transform: translateY(600px);
+				opacity: 0;
 			}
 			100% {
 				transform: translateY(0px);
+				opacity: 1;
+			}
+		}
+		
+		@keyframes animateOut {
+			0% {
+				transform: translateY(0px);
+				opacity: 1;
+			}
+			100% {
+				transform: translateY(600px);
+				opacity: 0;
 			}
 		}
 
@@ -301,13 +313,24 @@ const FilterContent = styled.nav`
 
 		.filter {
 			position: absolute;
-			display: none;
 			width: 100%;
 			left: 0;
 			background: var(--clr-white);
 			padding: 1.25rem 1.25rem 1.875rem;
 			z-index: 3;
-			animation: animate 1s linear 0s;
+			opacity: 0;
+		}
+
+		.active1 {
+			opacity: 1;
+		}
+		
+		.filter-active {
+			animation: animateIn 0.7s linear 0s;
+		}
+		
+		.filter-nonactive {
+			animation: animateOut 0.7s linear 0s;
 		}
 
 		.filter-title {

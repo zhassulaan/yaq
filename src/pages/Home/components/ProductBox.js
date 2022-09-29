@@ -53,8 +53,8 @@ const ProductBox = ({ product }) => {
 
 const BoxContainer = styled.nav`
 	.box-content {
-		width: 17.5rem;
-		height: 28.125rem;
+		width: 17.5vw;
+		height: 28.125vw;
 		position: relative;
 		background-color: var(--clr-white);
 		border: 1px solid var(--clr-primary-3);
@@ -66,11 +66,11 @@ const BoxContainer = styled.nav`
 		justify-content: space-between;
 		align-items: center;
 		width: 100%;
-		height: 2.5rem;
+		height: 8.93%;
 	}
 	
 	.product-sale {
-		width: 28.78%;
+		width: 28.778%;
 		height: 100%;
 		text-align: center;
 		font-size: 18px;
@@ -81,17 +81,19 @@ const BoxContainer = styled.nav`
 	}
 
 	.saved-icon {
-		margin-right: 0.625rem;
+		margin-right: 0.625vw;
 	}
 
 	.box-body {
-		padding-top: 2.5rem;
+		height: 75.894%;
+		padding: 14.39% 7.197% 0;
 	}
 
 	.product-image {
-		width: 11.875rem;
-		height: 11.25rem;
+		width: 79.835%;
+		height: 60%;
 		margin: 0 auto;
+		padding: 0;
 	}
 
 	.brand-name {
@@ -99,8 +101,7 @@ const BoxContainer = styled.nav`
 		font-size: 16px;
 		font-weight: 700;
 		color: var(--clr-primary-3);
-		margin: 17px 1.25rem 0;
-		padding-bottom: 10px;
+		padding: 7.143% 0 4.202%;
 	}
 
 	.brand-name:after {
@@ -114,17 +115,16 @@ const BoxContainer = styled.nav`
 	}
 
 	.item-name {
+		height: 16.667%;
 		font-size: 16px;
 		font-weight: 400;
 		text-align: center;
-		margin: 15px 1.25rem 7px;
+		margin-top: 8.405%;
 	}
 	
 	.box-footer {
 		width: 100%;
-		height: 6.875rem;
-		position: absolute;
-		bottom: 0;
+		height: 24.554%;
 	}
 	
 	.price-number {
@@ -218,6 +218,10 @@ const BoxContainer = styled.nav`
 		.product-button {
 			display: none;
 		}
+	}
+
+	@media (max-width: 768px) {
+		margin: 0 5px;
 	}
 
 	@media (max-width: 768px) {
