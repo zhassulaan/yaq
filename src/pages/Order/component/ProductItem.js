@@ -1,13 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CartState } from '../../../context/Context';
 
 function ProductItem({ product }) {
-	const {
-		state: { cart },
-		dispatch,
-	 } = CartState();
-
   	return (
 	 	<Wrapper>
 			<img src={ product.image } alt="product image" className='product-image'/>

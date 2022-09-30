@@ -18,7 +18,7 @@ const ProductBox = ({ product }) => {
 						if (product.sale === 'Новинка') { 
 							return (<button className='product-sale button'>{product.sale}</button>)
 						} else if (product.sale === null) {
-							return (<button className='button'></button>)
+							return (<h1 className='button'></h1>)
 						} else {
 							return (<button className='product-sale button'>-{product.sale}%</button>)
 						}
@@ -208,20 +208,8 @@ const BoxContainer = styled.nav`
 			font-size: 14px;
 		}
 
-		.price-number {
-			font-size: 20px;
-		}
-
-		.brand-name,
-		.item-name {
-			font-size: 12px;
-		}
-	}
-
-	@media (max-width: 1200px) {
-		.product-sale, 
-		.product-button p {
-			font-size: 13px;
+		.saved-icon {
+			width: 8%;
 		}
 
 		.price-number {
@@ -230,21 +218,33 @@ const BoxContainer = styled.nav`
 
 		.brand-name,
 		.item-name {
-			font-size: 11px;
+			font-size: 12px;
 		}
 	}
-	
-	@media (max-width: 1200px) {
+
+	@media (max-width: 1100px) {
+		.product-sale, 
+		.product-button p {
+			font-size: 13px;
+		}
+
 		.price-number {
 			font-size: 18px;
 		}
 
 		.brand-name,
 		.item-name {
-			font-size: 10px;
+			font-size: 11px;
 		}
 	}
 
+	@media (max-width: 1024px) {
+		.brand-name,
+		.item-name {
+			font-size: 10px;
+		}
+	}
+	
 	@media (max-width: 992px) {
 		.product-sale, 
 		.product-button p {
@@ -268,48 +268,104 @@ const BoxContainer = styled.nav`
 		}
 	}
 
-	@media (max-width: 890px) {
-		.product-sale, 
-		.product-button p {
-			font-size: 10px;
-		}
-		
-		.price-number {
-			font-size: 15px;
-		}
-	}
-
 	@media (max-width: 768px) {
-		width: 9.6875rem;
-		height: 14.375rem;
-		border: 1px solid var(--clr-white);
-		border-radius: 7px;
-		margin: 0 1.465vw;
-		
+		.box-content {
+			width: 8.75rem;
+			height: 14.0625rem;
+		}
+
 		.box-header {
-			top: 0.625rem;
 			height: 1.25rem;
 		}
 
+		.product-sale, 
+		.product-button p {
+			font-size: 9px;
+		}
+
+		.saved-icon {
+			width: 0.625rem;
+			margin-right: 0.3125rem;
+		}
+
+		.box-body {
+			height: 14.0625rem;
+			padding-top: 1.25rem;
+		}
+		
+		.body-text {
+			padding: 0 0.625rem;
+		}
+
+		.product-image {
+			width: 5.9375rem;
+			height: 5.625rem;
+			margin: 0 auto;
+		}
+		
+		.brand-name {
+			line-height: 0.625rem;
+			font-size: 9px;
+			padding: 0.625rem 0 0.3125rem;
+		}
+
+		.item-name {
+			height: 1.5625rem;
+			font-size: 9px;
+			margin-top: 0.625rem;
+		}
+
+		.price-number {
+			line-height: 1.25rem;
+			font-size: 13px;
+		}
+
+		.product-btns {
+			margin-top: 0.475rem;
+		}
+		
+		.product-button {
+			height: 1.5625rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.box-content {
+			width: 43.056vw;
+			height: 66.667vw;
+			border: 1px solid var(--clr-white);
+			border-radius: 7px;
+		}
+		
+		.box-header {
+			top: 2.778vw;
+			height: 5.556vw;
+		}
+
 		.product-sale {
-			width: 3.125rem;
+			width: 13.889vw;
 			font-size: 12px;
 			padding: 0;
 		}
 
 		.saved-icon {
-			width: 0.938rem;
-			margin-right: 9px;
+			width: 4.167vw;
+			margin-right: 2.5vw;
 		}
 
 		.box-body {
-			height: calc(100% - 38px);
-			padding-top: 0.625rem;
+			height: 100%;
+			padding-top:  2.5vw;
+		}
+
+		.body-text {
+			padding: 0 1.944vw 0 2.222vw;
 		}
 
 		.product-image {
-			width: 7.5rem;
-			height: 8.125rem;
+			width: 33.333vw;
+			height: 36.111vw;
+			margin: 0 2.778vw;
 		}
 
 		.brand-name {
@@ -317,26 +373,23 @@ const BoxContainer = styled.nav`
 		}
 
 		.item-name {
-			font-size: 12px;
-			margin: 0.625rem 7px 0 8px;
+			height: 13.889vw;
+			font-size: 13px;
+			margin-top: 2.778vw;
+			padding-bottom: 0.833vw;
 		}
 
-		.box-footer {
-			height: 100%;
-			position: static;
-		}
-		
 		.price-number {
 			position: relative;
-			font-size: 14px;
-			margin: 0 7px 0 8px;
+			font-size: 18px;
+			padding-top: 1.944vw;
 		}
 		
 		.price-number:before {
 			content: "";
 			position: absolute;
 			width: 100%;
-			height: 2px;
+			height: 1px;
 			top: 0;
 			left: 0;
 			background: var(--clr-primary-3);
@@ -347,12 +400,20 @@ const BoxContainer = styled.nav`
 		}
 	}
 
-	@media (max-width: 768px) {
-		margin: 0 5px;
-	}
+	@media (max-width: 420px) {
+		.item-name {
+			font-size: 12px;
+		}
 
-	@media (max-width: 480px) {
-		margin: 0 5px;
+		.price-number {
+			font-size: 16px;
+		}
+	}
+	
+	@media (max-width: 380px) {
+		.price-number {
+			font-size: 14px;
+		}
 	}
 `
 

@@ -5,11 +5,38 @@ import styled from 'styled-components';
 
 const useStyles = makeStyles({
 	root: {
-		width: '78.5714%',
+		width: '13.125rem',
 		height: '4px',
+		"@media (max-width: 1400px)": {
+			width: '11.875rem;',
+		},
+		"@media (max-width: 1400px)": {
+			width: '11.875rem;',
+		},
+		"@media (max-width: 1250px)": {
+			width: '10.625rem;',
+		},
+		"@media (max-width: 1100px)": {
+			width: '13.125rem',
+		},
+		"@media (max-width: 992px)": {
+			width: '11.875rem;',
+		},
+		"@media (max-width: 768px)": {
+			width: '8.5rem;',
+		},
+		"@media (max-width: 740px)": {
+			width: '7.5rem;',
+		},
+		"@media (max-width: 700px)": {
+			width: '23vw;',
+		},
+		"@media (max-width: 540px)": {
+			width: '20vw;',
+		},
 		"@media (max-width: 480px)": {
 			width: '100%',
-		 }
+		}
 	},
 	thumb: {
 		color: `var(--clr-primary-2)`,

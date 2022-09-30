@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
 import PriceSlider from '../component/PriceSlider';
 import FilterCheckbox from './FilterCheckbox';
 import Characteristics from './Characteristics';
@@ -8,7 +9,21 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import arrow from '../assets/blackArrow.svg';
 
-function FilterBox({ activeFilter, activeSorting, clearFilter, category1, changeCategory1, category2, changeCategory2, category3, changeCategory3, category4, changeCategory4, category5, changeCategory5, category6, changeCategory6, category7, changeCategory7, category8, changeCategory8, category9, changeCategory9, category10, changeCategory10, category11, changeCategory11, selectedPrice, changePrice, gender, changeGender, colors, changeColors, sizes, changeSizes, brands, changeBrands, list, checked1, sortAscending, checked2, sortDescending, checked3, sortBySale, checked4, sortByDate, checked5, sortByDefault }) {
+const useStyles = makeStyles({
+	root: {
+		'&$checked': {
+			color: '#000',
+		},
+	},
+	checked: {},
+	wrap: {
+		margin: 0,
+	},
+});
+
+
+function FilterBox({ count, activeFilter, activeSorting, clearFilter, category1, changeCategory1, category2, changeCategory2, category3, changeCategory3, category4, changeCategory4, category5, changeCategory5, category6, changeCategory6, category7, changeCategory7, category8, changeCategory8, category9, changeCategory9, category10, changeCategory10, category11, changeCategory11, selectedPrice, changePrice, gender, changeGender, colors, changeColors, sizes, changeSizes, brands, changeBrands, checked1, sortAscending, checked2, sortDescending, checked3, sortBySale, checked4, sortByDate, checked5, sortByDefault }) {
+	const classes = useStyles();
 	const [isActive, setActive] = useState("false");
 	
 	const handleToggle = () => {
@@ -19,7 +34,7 @@ function FilterBox({ activeFilter, activeSorting, clearFilter, category1, change
 		<FilterContent>
 			<p className='filter-canceler' onClick={clearFilter}>Сбросить все фильтры</p>
 			
-			<div className={activeFilter ? 'filter filter-nonactive' : 'filter filter-active active1'}>
+			<div className={(count === 0) ? 'filter' : (activeFilter ? 'filter-nonactive filter' : 'filter filter-active active1')}>
 				<div className="laptop">
 					<div className="filter-header1">
 						<h6 className='filter-title'>Категории</h6>
@@ -130,12 +145,20 @@ function FilterBox({ activeFilter, activeSorting, clearFilter, category1, change
 					changeBrands={changeBrands}
 				/>
 			</div>	
-			
+			{console.log(activeSorting)}
 			<div className={activeSorting ? 'sorting' : 'sorting active'}>
 				<h6 className='filter-title laptop'>Сортировка</h6>
-				<FormControlLabel
+				<FormControlLabel className='category-item'
+					classes={{
+						label: classes.label,
+						root: classes.wrap,
+					}}
 					control={
 						<Checkbox
+							classes={{
+								checked: classes.checked,
+								root: classes.root,
+							}}
 							size='small'
 							checked={checked1}
 							onChange={sortAscending}
@@ -144,9 +167,17 @@ function FilterBox({ activeFilter, activeSorting, clearFilter, category1, change
 					label={"По возрастанию цен"}
 				/>
 
-				<FormControlLabel
+				<FormControlLabel className='category-item'
+					classes={{
+						label: classes.label,
+						root: classes.wrap,
+					}}
 					control={
 						<Checkbox
+							classes={{
+								checked: classes.checked,
+								root: classes.root,
+							}}
 							size='small'
 							checked={checked2}
 							onChange={sortDescending}
@@ -155,9 +186,17 @@ function FilterBox({ activeFilter, activeSorting, clearFilter, category1, change
 					label={"По убыванию цен"}
 				/>
 
-				<FormControlLabel
+				<FormControlLabel className='category-item'
+					classes={{
+						label: classes.label,
+						root: classes.wrap,
+					}}
 					control={
 						<Checkbox
+							classes={{
+								checked: classes.checked,
+								root: classes.root,
+							}}
 							size='small'
 							checked={checked3}
 							onChange={sortBySale}
@@ -166,9 +205,17 @@ function FilterBox({ activeFilter, activeSorting, clearFilter, category1, change
 					label={"Сначала скидки"}
 				/>
 
-				<FormControlLabel
+				<FormControlLabel className='category-item'
+					classes={{
+						label: classes.label,
+						root: classes.wrap,
+					}}
 					control={
 						<Checkbox
+							classes={{
+								checked: classes.checked,
+								root: classes.root,
+							}}
 							size='small'
 							checked={checked4}
 							onChange={sortByDate}
@@ -178,9 +225,17 @@ function FilterBox({ activeFilter, activeSorting, clearFilter, category1, change
 				/>
 
 				<div className="laptop">
-					<FormControlLabel
+					<FormControlLabel className='category-item'
+						classes={{
+							label: classes.label,
+							root: classes.wrap,
+						}}
 						control={
 							<Checkbox
+								classes={{
+									checked: classes.checked,
+									root: classes.root,
+								}}
 								size='small'
 								checked={checked5}
 								onChange={sortByDefault}
@@ -195,23 +250,36 @@ function FilterBox({ activeFilter, activeSorting, clearFilter, category1, change
 }
 
 const FilterContent = styled.nav`
-	max-width: 280px;
+	width: 17.5vw;
+
+	.MuiButtonBase-root.MuiIconButton-root.MuiCheckbox-root {
+		padding: 0 15px 0 0;
+	}
+
+	.MuiSvgIcon-fontSizeSmall {
+		width: 15px;
+		height: 15px;
+	}
+
+	.MuiTypography-body1 {
+		font-family: Jost;
+	}	
 
 	.filter-canceler {
 		color: var(--clr-primary-4);
 		text-decoration: underline;
-		margin-bottom: -10px;
+		margin-bottom: -0.625rem;
 		cursor: pointer;
 	}
 
 	.filter-header {
-		margin-top: 60px;
+		margin-top: 3.75rem;
 	}
 
 	.filter-title {
 		font-size: 20px;
 		font-weight: 500;
-		margin-top: 40px;
+		margin-top: 2.5rem;
 	}
 	
 	.filter-icon {
@@ -226,7 +294,6 @@ const FilterContent = styled.nav`
 		
 	.section-close .filter-icon {
 		transform: rotate(-180deg);
-		margin-bottom: 0.438rem;
 	}
 
 	.section-open .category-items {
@@ -238,16 +305,22 @@ const FilterContent = styled.nav`
 	}
 
 	.category-header {
-		width: 210px;
+		width: 13.125rem;
+		height: 1.875rem;
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
+		margin-top: 0.625rem;
 	}
 
 	.category-title,
 	.category-item {
 		font-size: 16px;
 		font-weight: 400;
-		margin-top: 10px;
+	}
+
+	.category-item {
+		margin-top: 0.625rem;
 	}
 
 	.filter-items {
@@ -255,16 +328,13 @@ const FilterContent = styled.nav`
 		margin: 10px 0 16px;
 	}
 	
-	.filter-item {
-		width: 100px;
-	}
-
 	.filter-items span {
 		text-decoration: underline;
 		color: var(--clr-black);
 	}
 	
 	.filter-item {
+		width: 6.25rem;
 		font-size: 14px;
 		font-weight: 400;
 		color: var(--clr-primary-4);
@@ -275,9 +345,226 @@ const FilterContent = styled.nav`
 		display: none;
 	}
 
+	@media (max-width: 1400px) {
+		.filter-title {
+			font-size: 19px;
+		}
+
+		.category-header {
+			width: 11.875rem;
+			height: 1.5625rem;
+		}
+
+		.filter-canceler,
+		.category-title,
+		.category-item span {
+			font-size: 15px;
+		}
+		
+		.filter-item {
+			width: 5.625rem;
+		}
+	}
+	
+	@media (max-width: 1250px) {
+		.filter-title {
+			font-size: 17px;
+			margin-top: 30px;
+		}
+
+		.category-header {
+			width: 13.125rem;
+			height: 1.25rem;
+		}
+
+		.category-item {
+			margin-top: 7px;
+		}
+
+		.filter-canceler,
+		.category-title,
+		.category-item span {
+			font-size: 13px;
+		}
+		
+		.filter-item {
+			width: 5.625rem;
+		}
+	}
+
+	@media (max-width: 1100px) {
+		width: 24vw;
+
+		.filter-title {
+			font-size: 18px;
+		}
+		
+		.category-header {
+			width: 13.125rem;
+		}
+
+		.category-title,
+		.filter-canceler,
+		.category-item span {
+			font-size: 14px;
+		}
+
+		.filter-item {
+			width: 6.25rem;
+		}
+	}
+	
+	@media (max-width: 992px) {
+		width: 32vw;
+
+		.filter-title {
+			font-size: 16px;
+		}
+		
+		.category-header {
+			width: 11.875rem;
+		}
+
+		.category-item {
+			margin-top: 5px;
+		}
+
+		.filter-icon {
+			width: 5%;
+		}
+		
+		.category-title,
+		.filter-canceler,
+		.category-item span {
+			font-size: 13px;
+		}
+
+		.filter-item {
+			width: 5.9375rem;
+		}
+	}
+	
+	@media (max-width: 768px) {
+		.filter-title {
+			font-size: 15px;
+		}
+		
+		.category-header {
+			width: 9rem;
+		}
+
+		.category-title,
+		.filter-canceler,
+		.filter-item,
+		.category-item span {
+			font-size: 12px;
+		}
+
+		.filter-item {
+			width: 5rem;
+		}
+	}
+
+	@media (max-width: 740px) {
+		width: 19vw;
+
+		.filter-title {
+			font-size: 15px;
+		}
+		
+		.category-header {
+			width: 8rem;
+			height: 1rem;
+		}
+
+		.category-title,
+		.filter-canceler,
+		.category-item span {
+			font-size: 11px;
+		}
+
+		.filter-item {
+			width: 4rem;
+			font-size: 10px;
+		}
+	}
+	
+	@media (max-width: 740px) {
+		width: 28vw;
+
+		.MuiSvgIcon-fontSizeSmall {
+			width: 12.5px;
+			height: 12.5px;
+		}
+
+		.MuiButtonBase-root.MuiIconButton-root.MuiCheckbox-root {
+			padding: 0 12px 0 0;
+		}
+
+		.filter-title {
+			font-size: 16px;
+		}
+		
+		.category-header {
+			width: 26vw;
+		}
+
+		.category-title,
+		.filter-canceler,
+		.category-item span {
+			font-size: 12px;
+		}
+
+		.filter-item {
+			width: 14vw;
+			font-size: 12px;
+		}
+	}
+
+	@media (max-width: 540px) {
+		width: 24vw;
+
+		.MuiSvgIcon-fontSizeSmall {
+			width: 10px;
+			height: 10px;
+		}
+		
+		.category-header {
+			width: 22vw;
+		}
+
+		.filter-title {
+			font-size: 12px;
+		}
+
+		.category-title,
+		.filter-canceler,
+		.category-item span {
+			font-size: 10px;
+		}
+
+		.category-item {
+			margin-top: 0.325rem;
+		}
+
+		.filter-item {
+			width: 12vw;
+			font-size: 10px;
+		}
+	}
+
 	@media (max-width: 480px) {
 		max-width: max-content;
 
+		.MuiButtonBase-root.MuiIconButton-root.MuiCheckbox-root {
+			padding: 0 15px 0 0;
+		}
+	
+		.MuiSvgIcon-fontSizeSmall {
+			width: 15px;
+			height: 15px;
+		}
+		
 		@keyframes animateIn {
 			0% {
 				transform: translateY(600px);
@@ -315,9 +602,10 @@ const FilterContent = styled.nav`
 			position: absolute;
 			width: 100%;
 			left: 0;
+			top: 20%;
 			background: var(--clr-white);
 			padding: 1.25rem 1.25rem 1.875rem;
-			z-index: 3;
+			z-index: 5;
 			opacity: 0;
 		}
 
@@ -336,6 +624,11 @@ const FilterContent = styled.nav`
 		.filter-title {
 			display: flex;
 			margin: 0 0 1.25rem;
+		}
+
+		.filter-item {
+			font-size: 14px;
+			width: 110px;
 		}
 		
 		.filter-title span {
@@ -414,21 +707,31 @@ const FilterContent = styled.nav`
 			
 		.category-header {
 			width: 100%;
+			height: 1.875rem;
+		}
+
+		.category-title,
+		.category-item span {
+			font-size: 16px;
+		}
+
+		.filter-icon {
+			width: 11px;
 		}
 
 		.sorting {
 			position: absolute;
 			width: 61.11%;
 			background: var(--clr-white);
-			top: 15.35%;
+			top: 15%;
 			left: 0;
 			z-index: 3;
 			padding: 1.25rem 0.625rem 1.25rem 0.938rem;
-			display: none;
+			opacity: 0;
 		}
 		
 		.active {
-			display: block;
+			opacity: 1;
 		}
 	}
 `

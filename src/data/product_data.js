@@ -17,7 +17,7 @@ import product3 from '../assets/products/product3.png';
 const product_card = [
 	{
 		id: 1,
-		name: "15",
+		name: "Roc Down Baltic Blue...",
 		price: 72900,
 		currency: "KZT",
 		image: bag,
@@ -33,7 +33,7 @@ const product_card = [
 			{id: 5, label: bag}
 		],
 		sale: "Новинка",
-		brands: "XT",
+		brands: "Haglofs",
 		material: "Материал",
 		characteristic1: "Еще характеристика",
 		characteristic2: "Еще характеристика",
@@ -234,7 +234,7 @@ const product_card = [
 	},
 	{
 		id: 2,
-		name: "15",
+		name: "Roc Down Baltic Blue...",
 		price: 72900,
 		currency: "KZT",
 		image: bag,
@@ -250,7 +250,7 @@ const product_card = [
 			{id: 5, label: bag}
 		],
 		sale: null,
-		brands: "XT",
+		brands: "Haglofs",
 		material: "Материал",
 		characteristic1: "Еще характеристика",
 		characteristic2: "Еще характеристика",
@@ -452,7 +452,7 @@ const product_card = [
 	},
 	{
 		id: 3,
-		name: "15",
+		name: "Roc Down Baltic Blue...",
 		price: 72900,
 		currency: "KZT",
 		image: bag,
@@ -468,7 +468,7 @@ const product_card = [
 			{id: 5, label: bag}
 		],
 		sale: "Новинка",
-		brands: "XT",
+		brands: "Haglofs",
 		material: "Материал",
 		characteristic1: "Еще характеристика",
 		characteristic2: "Еще характеристика",
@@ -670,7 +670,7 @@ const product_card = [
 	},
 	{
 		id: 4,
-		name: "15",
+		name: "Roc Down Baltic Blue...",
 		price: 72900,
 		currency: "KZT",
 		image: bag,
@@ -686,7 +686,7 @@ const product_card = [
 			{id: 5, label: bag}
 		],
 		sale: 20,
-		brands: "XT",
+		brands: "Haglofs",
 		material: "Материал",
 		characteristic1: "Еще характеристика",
 		characteristic2: "Еще характеристика",
@@ -888,7 +888,7 @@ const product_card = [
 	},
 	{
 		id: 5,
-		name: "15",
+		name: "Roc Down Baltic Blue...",
 		price: 72900,
 		currency: "KZT",
 		image: bag,
@@ -904,7 +904,7 @@ const product_card = [
 			{id: 5, label: bag}
 		],
 		sale: null,
-		brands: "XT",
+		brands: "Haglofs",
 		material: "Материал",
 		characteristic1: "Еще характеристика",
 		characteristic2: "Еще характеристика",
@@ -1106,7 +1106,7 @@ const product_card = [
 	},
 	{
 		id: 6,
-		name: "15",
+		name: "Roc Down Baltic Blue...",
 		price: 72900,
 		currency: "KZT",
 		image: bag,
@@ -1122,7 +1122,7 @@ const product_card = [
 			{id: 5, label: bag}
 		],
 		sale: null,
-		brands: "XT",
+		brands: "Haglofs",
 		material: "Материал",
 		characteristic1: "Еще характеристика",
 		characteristic2: "Еще характеристика",

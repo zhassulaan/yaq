@@ -538,35 +538,105 @@ function ProductPage() {
 
 	const [isActive1, setActive1] = useState("false");
 	const [isActive2, setActive2] = useState("false");
-	
+	const [count, setCount] = useState(0);
+
 	const handleToggleFilter = () => {
 		setActive1(!isActive1);	
+		setCount(1);
 	};
 	
-	const handleToggleCorting = () => {
+	const handleToggleSorting = () => {
 		setActive2(!isActive2);	
 	};
-
 	return (
 		<Wrapper>
-			<p className='section-hierarchy'>{'Главная > Одежда > Мужские куртки'}</p>
-			<h1 className='title section-title'>ВСЕ ТОВАРЫ</h1>
+			<div className={isActive1 ? 'section-container' : 'section-container dark-backgrounds'} onClick={isActive1 ? null : handleToggleFilter}>
+				<p className='section-hierarchy'>{'Главная > Одежда > Все товары'}</p>
+				<h1 className='title section-title'>ВСЕ ТОВАРЫ</h1>
 
-			<div className="filter-buttons">
-				<div className="filter-btn" onClick={handleToggleCorting}>
-					<p>Сортировка</p>
-					<img src={sort} alt="sorting icon"/>
+				<div className="filter-buttons">
+					<div className="filter-btn" onClick={handleToggleSorting}>
+						<p>Сортировка</p>
+						<img src={sort} alt="sorting icon"/>
+					</div>
+					<div className="filter-btn" onClick={handleToggleFilter}>
+						<p>Фильтр</p>
+						<img src={filter} alt="filter icon"/>
+					</div>
 				</div>
-				<div className="filter-btn" onClick={handleToggleFilter}>
-					<p>Фильтр</p>
-					<img src={filter} alt="filter icon"/>
+
+				<p className='section-text'>Найдено {list.length} { (list.length > 10 && list.length < 1) ? <span>товаров</span> : <span>товара</span> }</p>
+
+				<div className='products-section'>
+					<FilterBox 
+						count={count}
+						activeFilter={isActive1}
+						activeSorting={isActive2}
+						clearFilter={handleClearFilter}
+						category1={categoryJackets}
+						changeCategory1={handleChangeCheckedJackets}
+						category2={categoryVests}
+						changeCategory2={handleChangeCheckedVests}
+						category3={categoryPants}
+						changeCategory3={handleChangeCheckedPants}
+						category4={categoryTShirts}
+						changeCategory4={handleChangeCheckedTShirts}
+						category5={categoryShirts}
+						changeCategory5={handleChangeCheckedShirts}
+						category6={categoryShorts}
+						changeCategory6={handleChangeCheckedShorts}
+						category7={categoryHoodiesSweaters}
+						changeCategory7={handleChangeCheckedHoodiesSweaters}
+						category8={categoryShoes}
+						changeCategory8={handleChangeCheckedShoes}
+						category9={categoryAccessories}
+						changeCategory9={handleChangeCheckedAccessories}
+						category10={categoryEquipment}
+						changeCategory10={handleChangeCheckedEquipment}
+						category11={categoryRun}
+						changeCategory11={handleChangeCheckedRun}
+						selectedPrice={selectedPrice}
+						changePrice={handleChangePrice}
+						gender={gender}
+						changeGender={handleChangeCheckedGender}
+						colors={colors}
+						changeColors={handleChangeCheckedColors}
+						sizes={sizes}
+						changeSizes={handleChangeCheckedSizes}
+						brands={brands}
+						changeBrands={handleChangeCheckedBrands}
+						list={list}
+						sortAscending={handleSortAscending}
+						checked1={checked1}
+						sortDescending={handleSortDescending}
+						checked2={checked2}
+						sortBySale={handleSortBySale}
+						checked3={checked3}
+						sortByDate={handleSortByDate}
+						checked4={checked4}
+						sortByDefault={handleSortByDefault}
+						checked5={checked5}
+					/>
+					
+					{ (list.length === 0) ?
+							<Error title={"НИЧЕГО НЕ НАЙДЕНО"} text={"Попробуйте сбросить фильтры или обновить страницу"}/>
+						:
+							<div className="products-content">
+								{ list.map((item) => {
+									return(
+										<div className="product">
+											<ProductBox key={ item.id } product={ item }/>
+										</div>
+									);
+								}) }
+							</div>
+					}
 				</div>
 			</div>
 
-			<p className='section-text'>Найдено {list.length} { (list.length > 10 && list.length < 1) ? <span>товаров</span> : <span>товара</span> }</p>
-
-			<div className='products-section'>
+			<div className="mobile">
 				<FilterBox 
+					count={count}
 					activeFilter={isActive1}
 					activeSorting={isActive2}
 					clearFilter={handleClearFilter}
@@ -614,26 +684,21 @@ function ProductPage() {
 					sortByDefault={handleSortByDefault}
 					checked5={checked5}
 				/>
-				{ (list.length == 0) ?
-					<Error title={"НИЧЕГО НЕ НАЙДЕНО"} text={"Попробуйте сбросить фильтры или обновить страницу"}/>
-					:
-					<div className="products-content">
-						{ list.map((item) => {
-							return(
-								<div className="product">
-									<ProductBox key={ item.id } product={ item }/>
-								</div>
-							);
-						}) }
-					</div>
-				}
 			</div>
 		</Wrapper>
   	);
 }
 
 const Wrapper = styled.nav`
-	padding: 3.75rem 13.125vw 9.375rem;
+	.section-container {
+		padding: 1.875rem 13.125vw 9.375rem;
+	}
+
+	.section-hierarchy {
+		font-size: 16px;
+		font-weight: 500;
+		color: var(--clr-primary-4);
+	}
 
 	.section-title {
 		font-size: 80px;
@@ -645,14 +710,15 @@ const Wrapper = styled.nav`
 	}
 
 	.section-text {
-		font-weight: 400;
 		font-size: 18px;
+		font-weight: 400;
 		text-align: right;
-		margin: 10px 0 50px;
+		margin: 0.625rem 0 3.125rem;
 	}
 
 	.products-section {
 		display: flex;
+		justify-content: space-between;
 	}
 
 	.products-content {
@@ -662,20 +728,20 @@ const Wrapper = styled.nav`
 	}
 
 	.product {
-		max-height: 450px;
-		margin: 0 0 20px 20px;
+		margin: 0 0 1.25vw 1.25vw;
+	}
+
+	.box-content {
+		border: none;
 	}
 
 	.product:hover .box-content {
 		border: 1px solid var(--clr-primary-3);
 	}
 
-	.box-content {
-		border: none;
-	}
-	
 	.product-image {
-		margin: 0 10.507%;
+		margin: 0 1.5625vw;
+		margin-bottom: -6px;
 	}
 
 	.product-button {
@@ -687,11 +753,7 @@ const Wrapper = styled.nav`
 	}
 
 	.product:hover .product-button {
-		display: block;
-	}
-
-	.product:hover .product-button {
-		width: 139px;
+		width: 8.6875vw;
 		display: block;
 	}
 
@@ -699,10 +761,124 @@ const Wrapper = styled.nav`
 		background: var(--clr-primary-2);
 	}
 
-	@media (max-width: 480px) {
-		padding: 0 0 9.375rem;
-		background-color: var(--clr-primary-6);
+	.mobile .filter-canceler,
+	.mobile .filter,
+	.mobile .sorting {
+		display: none;
+	}
 
+
+	@media (max-width: 1100px) {
+		.section-container {
+			padding: 1.875rem 9vw 9.375rem;
+		}
+	}
+
+	@media (max-width: 1024px) {
+		.section-title {
+			font-size: 70px;
+		}
+
+		.section-hierarchy {
+			font-size: 14px;
+		}
+
+		.section-text {
+			font-size: 16px;
+		}
+	}
+	
+	@media (max-width: 992px) {
+		.section-title {
+			font-size: 60px;
+		}
+		
+		.section-hierarchy {
+			font-size: 13px;
+		}
+		
+		.section-text {
+			font-size: 15px;
+			margin: 0.625rem 0 2.5rem;
+		}
+	}
+	
+	@media (max-width: 768px) {
+		.section-title {
+			font-size: 55px;
+		}
+		
+		.section-text {
+			font-size: 14px;
+			margin: 0.3125rem 0 1.875rem;
+		}
+	}
+	
+	@media (max-width: 740px) {
+		.products-content {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.products-section {
+			display: flex;
+			justify-content: flex-start;
+		}
+
+		.product {
+			margin: 0 0 2.5vw 3.75vw;
+		}
+	}
+
+	@media (max-width: 650px) {
+		.section-title {
+			font-size: 45px;
+		}
+
+		.section-hierarchy {
+			font-size: 11px;
+		}
+
+		.section-text {
+			font-size: 12px;
+		}
+	}
+
+	@media (max-width: 590px) {
+		.product {
+			margin: 0 0 2.5vw 2.8125vw;
+		}
+	}
+	
+	@media (max-width: 550px) {
+		.product {
+			margin: 0 0 2.5vw 2.5vw;
+		}
+	}
+	
+	@media (max-width: 500px) {
+		.product {
+			margin: 0 0 1.25vw 1.25vw;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.section-container {
+			position: relative;
+			padding: 0 0 9.375rem;
+			background-color: var(--clr-primary-6);
+		}
+	
+		.dark-backgrounds:after {
+			content: "";
+			position: absolute;
+			top: -10%;
+			left: 0;
+			bottom: -34%;
+			right: 0;
+			background: #00000050;
+			z-index: 3;
+		}
+		
 		.section-hierarchy {
 			display: none;
 		}
@@ -710,7 +886,6 @@ const Wrapper = styled.nav`
 		.section-title {
 			position: relative;
 			font-size: 28px;
-			font-weight: 500;
 			background-color: var(--clr-white);
 			padding: 1.25rem 5.5556vw;
 		}
@@ -723,6 +898,11 @@ const Wrapper = styled.nav`
 			left: 0;
 			bottom: 0;
 			background: var(--clr-primary-6);
+		}
+
+		.products-section .filter,
+		.products-section .sorting {
+			display: none;
 		}
 
 		.filter-buttons {
@@ -751,11 +931,21 @@ const Wrapper = styled.nav`
 
 		.products-section {
 			flex-direction: column;
-			margin: 0 5.5556vw;
+			margin: 0 4.167vw;
 		}
 
 		.products-content {
 			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.product {
+			margin: 0 1.389vw 2.778vw;
+		}
+
+
+		.mobile .filter,
+		.mobile .sorting {
+			display: block;
 		}
 	}
 `

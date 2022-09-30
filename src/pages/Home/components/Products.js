@@ -37,7 +37,7 @@ class Products extends Component {
       	<Wrapper>
 				<h3 className='section-title title'>Лучшие предложения</h3>
         		<Slider {...settings}>
-				  	{product_card.slice(0,7).map((item) => {
+				  	{product_card.slice(0,6).map((item) => {
                   return(
 							<div className="box-container">
 	                     <ProductBox key={ item.id } product={ item }/>
@@ -60,7 +60,7 @@ const Wrapper = styled.nav`
 	}
 
 	.box-container {
-		margin-right: 1.25rem; 
+		margin-right: 1.25vw; 
 	}
 
 	.slick-prev {
@@ -118,6 +118,12 @@ const Wrapper = styled.nav`
 		.slick-prev:before,
 		.slick-next:before {
 			display: none;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.box-container {
+			margin-right: 0.625rem; 
 		}
 	}
 `
