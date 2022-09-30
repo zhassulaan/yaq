@@ -17,6 +17,7 @@ import TermsOfUse from './pages/TermsOfUse/screen/TermsOfUse';
 import FAQ from './pages/FAQ/screen/FAQ';
 import ReturnConditions from './pages/ReturnConditions/screen/ReturnConditions';
 import Error from './pages/ErrorPage/screen/ErrorPage';
+import { filterCategories } from './data/filter';
 
 function App() {
   return (
@@ -35,11 +36,16 @@ function App() {
           <Route exact path='/basket' component={Basket} />
           <Route exact path='/popup/:id' component={PopUp} />
           <Route exact path='/order' component={Order} />
-          <Route exact path='/products/clothes' component={Products} />
-          <Route exact path='/products/clothes/shoes' component={Products} />
-          <Route exact path='/products/clothes/equipment' component={Products} />
-          <Route exact path='/products/clothes/accessories' component={Products} />
-          <Route exact path='/products/clothes/run' component={Products} />
+          {/* Products Pages */}
+          <Route exact path='/products/clothes' children={<Products title={"Все товары"} index={11}/>} />
+          <Route exact path='/products/clothes/shoes' children={<Products title={"Обувь"} index={7}/>} />
+          <Route exact path='/products/clothes/shoes/men_shoes' children={<Products title={"Мужская обувь"} index={7}/>} />
+          <Route exact path='/products/clothes/shoes/women_shoes' children={<Products title={"Женская обувь"} index={7}/>} />
+          <Route exact path='/products/clothes/shoes/baby_shoes' children={<Products title={"Детская обувь"} index={7}/>} />
+          <Route exact path='/products/clothes/equipment' children={<Products title={"Снаряжение"} index={9}/>} />
+          <Route exact path='/products/clothes/accessories' children={<Products title={"Аксессуарры"} index={8}/>} />
+          <Route exact path='/products/clothes/run' children={<Products title={"Бег"} index={10}/>} />
+          
           <Route exact path='/products/:id' children={<ProductDetail/>} />
           <Redirect from='/clothes' to='/products/clothes' />
           {/* Additional Pages */}

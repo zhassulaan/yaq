@@ -8,7 +8,7 @@ import FilterBox from '../component/FilterBox';
 import sort from '../assets/sort.svg';
 import filter from '../assets/filter.svg';
 
-function ProductPage() {
+function ProductPage({ title, index }) {
 	const { state: 
 		{ products } 
 	} = CartState();
@@ -551,8 +551,8 @@ function ProductPage() {
 	return (
 		<Wrapper>
 			<div className={isActive1 ? 'section-container' : 'section-container dark-backgrounds'} onClick={isActive1 ? null : handleToggleFilter}>
-				<p className='section-hierarchy'>{'Главная > Одежда > Все товары'}</p>
-				<h1 className='title section-title'>ВСЕ ТОВАРЫ</h1>
+				<p className='section-hierarchy'>{'Главная > Одежда > '}{title}</p>
+				<h1 className='title section-title'>{title}</h1>
 
 				<div className="filter-buttons">
 					<div className="filter-btn" onClick={handleToggleSorting}>
@@ -573,6 +573,7 @@ function ProductPage() {
 						activeFilter={isActive1}
 						activeSorting={isActive2}
 						clearFilter={handleClearFilter}
+						index={index}
 						category1={categoryJackets}
 						changeCategory1={handleChangeCheckedJackets}
 						category2={categoryVests}
@@ -703,6 +704,7 @@ const Wrapper = styled.nav`
 	.section-title {
 		font-size: 80px;
 		font-weight: 500;
+		text-transform: uppercase;
 	}
 
 	.filter-buttons {

@@ -5,6 +5,7 @@ import PriceSlider from '../component/PriceSlider';
 import FilterCheckbox from './FilterCheckbox';
 import Characteristics from './Characteristics';
 import Categories from './Categories';
+import Category from './Category';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import arrow from '../assets/blackArrow.svg';
@@ -22,13 +23,16 @@ const useStyles = makeStyles({
 });
 
 
-function FilterBox({ count, activeFilter, activeSorting, clearFilter, category1, changeCategory1, category2, changeCategory2, category3, changeCategory3, category4, changeCategory4, category5, changeCategory5, category6, changeCategory6, category7, changeCategory7, category8, changeCategory8, category9, changeCategory9, category10, changeCategory10, category11, changeCategory11, selectedPrice, changePrice, gender, changeGender, colors, changeColors, sizes, changeSizes, brands, changeBrands, checked1, sortAscending, checked2, sortDescending, checked3, sortBySale, checked4, sortByDate, checked5, sortByDefault }) {
+function FilterBox({ count, activeFilter, activeSorting, clearFilter, index, category1, changeCategory1, category2, changeCategory2, category3, changeCategory3, category4, changeCategory4, category5, changeCategory5, category6, changeCategory6, category7, changeCategory7, category8, changeCategory8, category9, changeCategory9, category10, changeCategory10, category11, changeCategory11, selectedPrice, changePrice, gender, changeGender, colors, changeColors, sizes, changeSizes, brands, changeBrands, checked1, sortAscending, checked2, sortDescending, checked3, sortBySale, checked4, sortByDate, checked5, sortByDefault }) {
 	const classes = useStyles();
 	const [isActive, setActive] = useState("false");
 	
 	const handleToggle = () => {
 		setActive(!isActive);	
 	};
+
+	const categories = [category1, category2, category3, category4, category5, category6, category7, category8, category9, category10, category11];
+	const changeCategories = [changeCategory1, changeCategory2, changeCategory3, changeCategory4, changeCategory5, changeCategory6, changeCategory7, changeCategory8, changeCategory9, changeCategory10, changeCategory11];
 
 	return (
 		<FilterContent>
@@ -40,30 +44,18 @@ function FilterBox({ count, activeFilter, activeSorting, clearFilter, category1,
 						<h6 className='filter-title'>Категории</h6>
 					</div>
 
-					<Categories 
-						categoryJackets={category1}
-						changeJackets={changeCategory1}	
-						categoryVests={category2}
-						changeVests={changeCategory2}	
-						categoryPants={category3}
-						changePants={changeCategory3}	
-						categoryTShirts={category4}
-						changeTShirts={changeCategory4}	
-						categoryShirts={category5}
-						changeShirts={changeCategory5}	
-						categoryShorts={category6}
-						changeShorts={changeCategory6}	
-						categoryHoodiesSweaters={category7}
-						changeHoodiesSweaters={changeCategory7}	
-						categoryShoes={category8}
-						changeShoes={changeCategory8}	
-						categoryAccessories={category9}
-						changeAccessories={changeCategory9}	
-						categoryEquipment={category10}
-						changeEquipment={changeCategory10}	
-						categoryRun={category11}
-						changeRun={changeCategory11}	
-					/>
+					{(index === 11) ?
+							<Categories 
+								categories={categories}	
+								changeCategories={changeCategories}	
+							/>
+						:
+							<Category 
+								index={index}
+								categories={categories}	
+								changeCategories={changeCategories}	
+							/>
+					}
 				</div>
 
 				<h6 className='filter-title'>Цена <span className='mobile'> (KZT)</span></h6>
@@ -107,30 +99,18 @@ function FilterBox({ count, activeFilter, activeSorting, clearFilter, category1,
 						<h6 className='filter-title'>Категории</h6>
 					</div>
 
-					<Categories 
-						categoryJackets={category1}
-						changeJackets={changeCategory1}	
-						categoryVests={category2}
-						changeVests={changeCategory2}	
-						categoryPants={category3}
-						changePants={changeCategory3}	
-						categoryTShirts={category4}
-						changeTShirts={changeCategory4}	
-						categoryShirts={category5}
-						changeShirts={changeCategory5}	
-						categoryShorts={category6}
-						changeShorts={changeCategory6}	
-						categoryHoodiesSweaters={category7}
-						changeHoodiesSweaters={changeCategory7}	
-						categoryShoes={category8}
-						changeShoes={changeCategory8}	
-						categoryAccessories={category9}
-						changeAccessories={changeCategory9}	
-						categoryEquipment={category10}
-						changeEquipment={changeCategory10}	
-						categoryRun={category11}
-						changeRun={changeCategory11}	
-					/>
+					{(index === 11) ?
+							<Categories 
+								categories={categories}	
+								changeCategories={changeCategories}	
+							/>
+						:
+							<Category 
+								index={index}
+								categories={categories}	
+								changeCategories={changeCategories}	
+							/>
+					}
 				</div>
 
 				<div className="filter-header2">
@@ -145,7 +125,7 @@ function FilterBox({ count, activeFilter, activeSorting, clearFilter, category1,
 					changeBrands={changeBrands}
 				/>
 			</div>	
-			{console.log(activeSorting)}
+
 			<div className={activeSorting ? 'sorting' : 'sorting active'}>
 				<h6 className='filter-title laptop'>Сортировка</h6>
 				<FormControlLabel className='category-item'

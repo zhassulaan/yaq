@@ -17,13 +17,13 @@ function Shoes({setShow}) {
 					<img src={arrow} alt="open arrow" className='dropdown-icon' onClick={handleToggle}/>
 				</li>
 				<li className='dropdown-item' onClick="setShow window.location.reload()">
-					<NavLink activeStyle={{ textDecoration: 'underline' }} to="/clothes/shoes/men_shoes" className='dropdown-link'>Мужская обувь</NavLink>
+					<NavLink activeStyle={{ textDecoration: 'underline' }} to="/products/clothes/shoes/men_shoes" className='dropdown-link'>Мужская обувь</NavLink>
 				</li>
 				<li className='dropdown-item' onClick="setShow window.location.reload()">
-					<NavLink activeStyle={{ textDecoration: 'underline' }} to="/clothes/shoes/women_shoes" className='dropdown-link'>Женская обувь</NavLink>
+					<NavLink activeStyle={{ textDecoration: 'underline' }} to="/products/clothes/shoes/women_shoes" className='dropdown-link'>Женская обувь</NavLink>
 				</li>
 				<li className='dropdown-item' onClick="setShow window.location.reload()">
-					<NavLink activeStyle={{ textDecoration: 'underline' }} to="/clothes/shoes/baby_shoes" className='dropdown-link'>Детская обувь</NavLink>
+					<NavLink activeStyle={{ textDecoration: 'underline' }} to="/products/clothes/shoes/baby_shoes" className='dropdown-link'>Детская обувь</NavLink>
 				</li>
 			</ul>
 		</>

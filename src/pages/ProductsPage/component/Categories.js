@@ -2,8 +2,7 @@ import React from 'react';
 import CheckBoxContainer from './CheckBoxContainer';
 import { filterCategories } from '../../../data/filter';
 
-function Categories({ categoryJackets, changeJackets, categoryVests, changeVests, categoryPants, changePants, categoryTShirts, changeTShirts, categoryShirts, changeShirts, categoryShorts, changeShorts, categoryHoodiesSweaters, changeHoodiesSweaters, categoryShoes, changeShoes, categoryAccessories, changeAccessories, categoryEquipment, changeEquipment, categoryRun, changeRun }) {
-	
+function Categories({ categories, changeCategories }) {
  	return (
 	 	<div>
 			{filterCategories.slice(0,1)
@@ -12,8 +11,8 @@ function Categories({ categoryJackets, changeJackets, categoryVests, changeVests
 	            <CheckBoxContainer 
 						key={item.id} 
 						title={item.title}
-						filters={categoryJackets}
-						changeCheckedFilters={changeJackets}
+						filters={categories[0]}
+						changeCheckedFilters={changeCategories[0]}
 					/>
             );
          })}
@@ -24,8 +23,8 @@ function Categories({ categoryJackets, changeJackets, categoryVests, changeVests
 	            <CheckBoxContainer 
 						key={item.id} 
 						title={item.title}
-						filters={categoryVests}
-						changeCheckedFilters={changeVests}
+						filters={categories[1]}
+						changeCheckedFilters={changeCategories[1]}
 					/>
             );
          })}
@@ -36,8 +35,8 @@ function Categories({ categoryJackets, changeJackets, categoryVests, changeVests
 	            <CheckBoxContainer 
 						key={item.id} 
 						title={item.title}
-						filters={categoryPants}
-						changeCheckedFilters={changePants}
+						filters={[2]}
+						changeCheckedFilters={[2]}
 					/>
             );
          })}
@@ -48,8 +47,8 @@ function Categories({ categoryJackets, changeJackets, categoryVests, changeVests
 	            <CheckBoxContainer 
 						key={item.id} 
 						title={item.title}
-						filters={categoryTShirts}
-						changeCheckedFilters={changeTShirts}
+						filters={categories[3]}
+						changeCheckedFilters={changeCategories[3]}
 					/>
             );
          })}
@@ -60,8 +59,8 @@ function Categories({ categoryJackets, changeJackets, categoryVests, changeVests
 	            <CheckBoxContainer 
 						key={item.id} 
 						title={item.title}
-						filters={categoryShirts}
-						changeCheckedFilters={changeShirts}
+						filters={categories[4]}
+						changeCheckedFilters={changeCategories[4]}
 					/>
             );
          })}
@@ -72,8 +71,8 @@ function Categories({ categoryJackets, changeJackets, categoryVests, changeVests
 	            <CheckBoxContainer 
 						key={item.id} 
 						title={item.title}
-						filters={categoryShorts}
-						changeCheckedFilters={changeShorts}
+						filters={categories[5]}
+						changeCheckedFilters={changeCategories[5]}
 					/>
             );
          })}
@@ -84,8 +83,8 @@ function Categories({ categoryJackets, changeJackets, categoryVests, changeVests
 	            <CheckBoxContainer 
 						key={item.id} 
 						title={item.title}
-						filters={categoryHoodiesSweaters}
-						changeCheckedFilters={changeHoodiesSweaters}
+						filters={categories[6]}
+						changeCheckedFilters={changeCategories[6]}
 					/>
             );
          })}
@@ -96,8 +95,8 @@ function Categories({ categoryJackets, changeJackets, categoryVests, changeVests
 	            <CheckBoxContainer 
 						key={item.id} 
 						title={item.title}
-						filters={categoryShoes}
-						changeCheckedFilters={changeShoes}
+						filters={categories[7]}
+						changeCheckedFilters={changeCategories[7]}
 					/>
             );
          })}
@@ -108,8 +107,8 @@ function Categories({ categoryJackets, changeJackets, categoryVests, changeVests
 	            <CheckBoxContainer 
 						key={item.id} 
 						title={item.title}
-						filters={categoryAccessories}
-						changeCheckedFilters={changeAccessories}
+						filters={categories[8]}
+						changeCheckedFilters={changeCategories[8]}
 					/>
             );
          })}
@@ -120,8 +119,8 @@ function Categories({ categoryJackets, changeJackets, categoryVests, changeVests
 	            <CheckBoxContainer 
 						key={item.id} 
 						title={item.title}
-						filters={categoryEquipment}
-						changeCheckedFilters={changeEquipment}
+						filters={categories[9]}
+						changeCheckedFilters={changeCategories[9]}
 					/>
             );
          })}
@@ -132,8 +131,8 @@ function Categories({ categoryJackets, changeJackets, categoryVests, changeVests
 	            <CheckBoxContainer 
 						key={item.id} 
 						title={item.title}
-						filters={categoryRun}
-						changeCheckedFilters={changeRun}
+						filters={categories[10]}
+						changeCheckedFilters={changeCategories[10]}
 					/>
             );
          })}
