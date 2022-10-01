@@ -138,7 +138,7 @@ const Wrapper = styled.nav`
 		font-size: 14px;
 		font-weight: 400;
 	}
-
+	
 	.text1 {
 		width: 65.5172%;
 	}
@@ -155,9 +155,10 @@ const Wrapper = styled.nav`
 		width: 100%;
 		text-align: right;
 	}
-
-	.text2 span {
+	
+	.text2 a {
 		text-decoration: underline;
+		color: white;
 	}
 
 	@media (max-width: 1433px) {

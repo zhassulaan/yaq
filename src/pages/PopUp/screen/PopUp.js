@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import ProductModal from '../../../components/ProductModal';
 import products from '../../../data/product_data';
 
 function PopUp() {
@@ -17,14 +18,8 @@ function PopUp() {
 
   	return (
 	 	<Wrapper>
-		  	{/* onClick={() => 
-				dispatch({
-					type: "ADD_TO_CART",
-					payload: product
-				})
-		 	} */}
 			<div className="popup-container">
-				<p>{singleProduct.id}</p>
+				<ProductModal product={singleProduct} />
 			</div>
 		</Wrapper>
   	);
@@ -32,17 +27,11 @@ function PopUp() {
 
 const Wrapper = styled.nav`
 	background: #00000080;
-	padding: 8.75rem 0 13.125rem;
-	display: flex;
+	padding: 8.75rem 13.125rem 13.125rem;
 
 	.popup-container {
 		background: var(--clr-white);
-		margin-left: 13.125vw;
-	}
-
-	.left-box {
-		width: 480px;
-		margin: 40px 0 0 100px;
+		padding: 90px 0 50px;
 	}
 `
 

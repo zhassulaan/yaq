@@ -122,18 +122,7 @@ function FilterBox({ count, activeFilter, activeSorting, clearFilter, index, cat
 					brands={brands}
 					changeBrands={changeBrands}
 				/>
-			</div>	
-
-			<div className={activeSorting ? 'sorting' : 'sorting active'}>
-				<h6 className='filter-title laptop'>Сортировка</h6>
-				{sorting.map((sort) => (
-					<FilterCheckbox
-						key={sort.id}
-						data={sort}
-						changeChecked={changeSorting}
-					/>
-				))}
-			</div>
+			</div>	 
 		</FilterContent>
 	);
 }
@@ -622,7 +611,7 @@ const FilterContent = styled.nav`
 			position: absolute;
 			width: 61.11%;
 			background: var(--clr-white);
-			top: 190px;
+			top: 0;
 			left: 0;
 			padding: 1.25rem 0.625rem 1.25rem 0.938rem;
 			z-index: -3;
