@@ -12,7 +12,7 @@ const ProductBox = ({ product }) => {
 
 	return(
 		<BoxContainer key={product.id}>
-			<div className="box-content">
+			<div className="box-content"><a href={`/products/${product.id}`}>
 				<div className="box-header">
 					{(() => {
 						if (product.sale === 'Новинка') { 
@@ -46,7 +46,7 @@ const ProductBox = ({ product }) => {
 						</a>
 					</div>
 				</div>
-			</div>
+			</a></div>
 		</BoxContainer>
 	);
 }

@@ -567,7 +567,6 @@ function ProductPage({ title, index, sex }) {
 		item.length !== 0
 	).length;
 
-	console.log(selectedFiltersNumber);
 	return (
 		<Wrapper>
 			<div className={isActive1 ? 'section-container' : 'section-container dark-backgrounds'} onClick={isActive1 ? null : handleToggleFilter}>
@@ -1056,7 +1055,8 @@ const Wrapper = styled.nav`
 	}
 
 	@media (max-width: 480px) {
-		.laptop {
+		.laptop,
+		.product:hover .product-button {
 			display: none
 		}
 

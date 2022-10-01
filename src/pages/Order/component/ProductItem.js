@@ -10,11 +10,11 @@ function ProductItem({ product }) {
 				<p className='product-title'>{ product.item } { product.brands } { product.name }</p>
 				
 				<div className='product-color'>
-					<p><span>Цвет:</span> { product.colors[0].label }</p>
+					<p><span>Цвет:</span> { product.color }</p>
 				</div>
 				
 				<div className='product-size'>
-					<p><span>Размер:</span> { product.sizes[0].label }</p>
+					<p><span>Размер:</span> { product.size }</p>
 				</div>					
 
 				<div className='product-price'>

@@ -17,11 +17,11 @@ function ProductItem({ product, quantity }) {
 				<p className='product-title'>{ product.item } { product.brands } { product.name }</p>
 				
 				<div className='product-color'>
-					<p><span>Цвет:</span> { product.colors[0].label }</p>
+					<p><span>Цвет:</span> { product.color }</p>
 				</div>
-				
+
 				<div className='product-size'>
-					<p><span>Размер:</span> { product.sizes[0].label }</p>
+					<p><span>Размер:</span> { product.size }</p>
 				</div>					
 			</div>
 			
@@ -29,7 +29,7 @@ function ProductItem({ product, quantity }) {
 				<p>Количество:</p>
 				<div className="product-count">
 					<div 
-						className='product-count-adder'
+						className='button product-count-adder'
 						onClick={() =>
 							dispatch({
 								type: "DECREMENT-QUANTITY",
@@ -41,7 +41,7 @@ function ProductItem({ product, quantity }) {
 					</div>
 					<div className='product-count-number'>{quantity}</div>
 					<div 
-						className='product-count-remover'
+						className='button product-count-remover'
 						onClick={() =>
 							dispatch({
 								type: "INCREMENT-QUANTITY",

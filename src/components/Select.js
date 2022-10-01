@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 import styled from 'styled-components';
 
-function SelectInput({options, placeholder}) {
-  const [selectedOption, setSelectedOption] = useState(null);
-
+function SelectInput({options, placeholder, selectedOption, setSelectedOption }) {
   const style = {
     dropdownIndicator: (provided) => ({
       ...provided,

@@ -1,12 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { CartState } from '../context/Context';
 
-function AddButton() {
-  	return (
+function AddButton({ product }) {
+	const {
+		state: { cart },
+		dispatch
+	} = CartState();
+
+	return (
 	 	<Wrapper>
 			<Link>
-				<button className='button'>В корзину</button>
+				<button className='button'
+					onClick={() => 
+						dispatch({
+							type: "ADD_TO_CART",
+							payload: product,
+						})
+					}
+				>
+					В корзину
+				</button>
 			</Link>
 		</Wrapper>
   	);

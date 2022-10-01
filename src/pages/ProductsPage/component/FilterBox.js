@@ -122,7 +122,18 @@ function FilterBox({ count, activeFilter, activeSorting, clearFilter, index, cat
 					brands={brands}
 					changeBrands={changeBrands}
 				/>
-			</div>	 
+			</div>	
+
+			<div className={activeSorting ? 'sorting' : 'sorting active'}>
+				<h6 className='filter-title laptop'>Сортировка</h6>
+				{sorting.map((sort) => (
+					<FilterCheckbox
+						key={sort.id}
+						data={sort}
+						changeChecked={changeSorting}
+					/>
+				))}
+			</div>
 		</FilterContent>
 	);
 }

@@ -42,6 +42,8 @@ const product_card = [
 		category: "Рюкзаки",
 		item: "Рюкзак",
 		gender: "",
+		color: "",
+		size: "",
 		colors: [
 			{id: 2, value: "белый", label: "Белый"},
 			{id: 3, value: "серый", label: "Серый"},
@@ -259,6 +261,8 @@ const product_card = [
 		category: "Рюкзаки",
 		item: "Рюкзак",
 		gender: "",
+		color: "",
+		size: "",
 		colors: [
 			{id: 1, value: "черный", label: "Черный"},
 			{id: 2, value: "белый", label: "Белый"},
@@ -477,6 +481,8 @@ const product_card = [
 		category: "Рюкзаки",
 		item: "Рюкзак",
 		gender: "",
+		color: "",
+		size: "",
 		colors: [
 			{id: 1, value: "черный", label: "Черный"},
 			{id: 2, value: "белый", label: "Белый"},
@@ -695,6 +701,8 @@ const product_card = [
 		category: "Рюкзаки",
 		item: "Рюкзак",
 		gender: "",
+		color: "",
+		size: "",
 		colors: [
 			{id: 1, value: "черный", label: "Черный"},
 			{id: 2, value: "белый", label: "Белый"},
@@ -913,6 +921,8 @@ const product_card = [
 		category: "Рюкзаки",
 		item: "Рюкзак",
 		gender: "",
+		color: "",
+		size: "",
 		colors: [
 			{id: 1, value: "черный", label: "Черный"},
 			{id: 2, value: "белый", label: "Белый"},
@@ -1131,6 +1141,8 @@ const product_card = [
 		category: "Рюкзаки",
 		item: "Рюкзак",
 		gender: "",
+		color: "",
+		size: "",
 		colors: [
 			{id: 1, value: "черный", label: "Черный"},
 			{id: 2, value: "белый", label: "Белый"},
@@ -1350,6 +1362,8 @@ const product_card = [
 		item: "Куртка мужская",
 		category: "Куртки Softshell",
 		gender: "Мужской",
+		color: "",
+		size: "",
 		colors: [
 			{id: 1, value: "черный", label: "Черный"},
 			{id: 2, value: "белый", label: "Белый"},
@@ -1569,6 +1583,8 @@ const product_card = [
 		item: "Куртка женская",
 		category: "Ветрозащитные куртки",
 		gender: "Женский",
+		color: "",
+		size: "",
 		colors: [
 			{id: 1, value: "черный", label: "Черный"},
 			{id: 2, value: "белый", label: "Белый"},
@@ -1788,6 +1804,8 @@ const product_card = [
 		item: "Куртка мужская",
 		category: "Штормовые куртки",
 		gender: "Мужской",
+		color: "",
+		size: "",
 		colors: [
 			{id: 1, value: "черный", label: "Черный"},
 			{id: 2, value: "белый", label: "Белый"},
@@ -2007,6 +2025,8 @@ const product_card = [
 		item: "Куртка мужская",
 		category: "Куртки Softshell",
 		gender: "Мужской",
+		color: "",
+		size: "",
 		colors: [
 			{id: 1, value: "черный", label: "Черный"},
 			{id: 2, value: "белый", label: "Белый"},
@@ -2226,6 +2246,8 @@ const product_card = [
 		item: "Куртка женская",
 		category: "Ветрозащитные куртки",
 		gender: "Женский",
+		color: "",
+		size: "",
 		colors: [
 			{id: 1, value: "черный", label: "Черный"},
 			{id: 2, value: "белый", label: "Белый"},
@@ -2445,6 +2467,8 @@ const product_card = [
 		item: "Куртка мужская",
 		category: "Штормовые куртки",
 		gender: "Мужской",
+		color: "",
+		size: "",
 		colors: [
 			{id: 1, value: "черный", label: "Черный"},
 			{id: 2, value: "белый", label: "Белый"},

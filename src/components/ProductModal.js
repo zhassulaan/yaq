@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import styled from 'styled-components';
 import Select from '../components/Select';
 import AddButton from '../components/AddButton';
 import delivery from '../assets/delivery.svg';
+import ImageCarousel from './ImageCarousel';
 
-function ProductModal({product}) {
+function ProductModal({ product }) {
 	const colorOptions = product.colors;
 	const sizeOptions = product.sizes;
 
@@ -16,6 +17,13 @@ function ProductModal({product}) {
 		slidesToShow: 1,
 		slidesToScroll: 1
 	};
+
+	const [selectedColor, setSelectedColor] = useState([null]);
+	const [selectedSize, setSelectedSize] = useState([null]);
+
+	product.color = selectedColor.label;
+	product.size = selectedSize.label;
+	console.log(product);
 
   	return (
 		<Wrapper>
@@ -41,14 +49,7 @@ function ProductModal({product}) {
 						})()}
 						
 						<img src={product.image} alt="product image"/>
-
-						{/* <Slider {...settings}>
-							{product.images.map(image => {
-								return(
-									<img src={image.label} alt="product image"/>
-									);
-								})}
-						</Slider> */}
+						{/* <ImageCarousel images={product.images}/> */}
 					</div>
 				</div>
 			</div>
@@ -68,24 +69,18 @@ function ProductModal({product}) {
 						:
 						product.price + product.currency
 					}
-					 	{/* onClick={() => 
-				dispatch({
-					type: "ADD_TO_CART",
-					payload: product
-				})
-		 	} */}
 				</p>
 				<div className="product-color">
 					<p>Цвет:</p>
-					<Select options={colorOptions} placeholder={"Выберите цвет"}/>
+					<Select options={colorOptions} placeholder={"Выберите цвет"} selectedOption={selectedColor} setSelectedOption={setSelectedColor}/>
 				</div>
 				<div className="product-size">
 					<p>Размер:</p>
-					<Select options={sizeOptions} placeholder={"Выберите размер"}/>
+					<Select options={sizeOptions} placeholder={"Выберите размер"} selectedOption={selectedSize} setSelectedOption={setSelectedSize}/>
 				</div>
 
 				<div className="product-button">
-					<AddButton/>
+					<AddButton product={product} />
 				</div>
 
 				<div className="product-delivery">

@@ -21,7 +21,7 @@ function Brands() {
 			<Slider {...settings}>
 				{brands.map((brand) => {
 					return(
-						<img src={brand} alt="brand logo" className='brand-logo'/>
+						<img src={brand} alt="brand logo" className=' button brand-logo'/>
 					);
 				})}
 			</Slider>

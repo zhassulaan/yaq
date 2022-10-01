@@ -33,7 +33,9 @@ function Context({ children }) {
 		item: productData[index].item,
 		gender: productData[index].gender,
 		colors: productData[index].colors,
-		sizes: productData[index].sizes
+		color: productData.color,
+		sizes: productData[index].sizes,
+		size: productData.sizs
 	}));
 	
 	const [state, dispatch] = useReducer(cartReducer, {

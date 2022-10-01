@@ -41,7 +41,7 @@ class Hero extends Component {
         		<Slider {...settings}>
 				  	{images.map((image) => {
                   return(
-                     <div className="image-box">
+                     <div className="image-box button">
          	            <img src={image} alt="home image" className='home-image'/>
                      </div>
                   );

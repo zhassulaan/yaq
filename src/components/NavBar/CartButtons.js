@@ -38,9 +38,9 @@ function CartButtons({show, setShow}) {
 
 				{show 
 					? 
-						<img src={close} alt="close button" className='nav-item close-button' onClick={setShow}/>
+						<img src={close} alt="close button" className='button nav-item close-button' onClick={setShow}/>
 					: 
-						<img src={search2} alt="search button" className='nav-item' onClick={setShow}/>
+						<img src={search2} alt="search button" className='button nav-item' onClick={setShow}/>
 				}
 			</div>
 					
@@ -49,9 +49,9 @@ function CartButtons({show, setShow}) {
 				
 				{show 
 					? 
-						<img src={close} alt="close button" className='nav-item' onClick={setShow}/>
+						<img src={close} alt="close button" className='button nav-item' onClick={setShow}/>
 					: 
-						<img src={search} alt="search button" className='nav-item' onClick={setShow}/>
+						<img src={search} alt="search button" className='button nav-item' onClick={setShow}/>
 				}
 
 				<Link to="/saved" className='nav-item cart-container'>
