@@ -23,7 +23,7 @@ const ProductBox = ({ product }) => {
 							return (<button className='product-sale button'>-{product.sale}%</button>)
 						}
 					})()}
-					<img src={product.saved ? greenHeart : heart} alt="saved button" className='saved-icon'/>
+					<img src={product.saved ? greenHeart : heart} alt="saved button" className='button saved-icon'/>
 				</div>
 
 				<div className="box-body">

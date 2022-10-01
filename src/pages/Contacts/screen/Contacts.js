@@ -21,13 +21,13 @@ function Contacts() {
 					<p className='section-text text'>Где нас также можно найти:</p>
 					
 					<div className="icons-box">
-						<div className='section-icon'>
+						<div className='button section-icon'>
 							<img src={instagram} alt="instagram icon"/>
 						</div>
-						<div className='section-icon'>
+						<div className='button section-icon'>
 							<img src={telegram} alt="instagram icon"/>
 						</div>
-						<div className='section-icon'>
+						<div className='button section-icon'>
 							<img src={whatsapp} alt="instagram icon"/>
 						</div>
 					</div>

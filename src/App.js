@@ -17,7 +17,6 @@ import TermsOfUse from './pages/TermsOfUse/screen/TermsOfUse';
 import FAQ from './pages/FAQ/screen/FAQ';
 import ReturnConditions from './pages/ReturnConditions/screen/ReturnConditions';
 import Error from './pages/ErrorPage/screen/ErrorPage';
-import { filterCategories } from './data/filter';
 
 function App() {
   return (
@@ -38,13 +37,41 @@ function App() {
           <Route exact path='/order' component={Order} />
           {/* Products Pages */}
           <Route exact path='/products/clothes' children={<Products title={"Все товары"} index={11}/>} />
+          <Route exact path='/products/clothes/jackets' children={<Products title={"Куртки"} index={0}/>} />
+          <Route exact path='/products/clothes/men_jackets' children={<Products title={"Мужские куртки"} index={0} sex={0}/>} />
+          <Route exact path='/products/clothes/women_jackets' children={<Products title={"Женские куртки"} index={0} sex={1}/>} />
+          <Route exact path='/products/clothes/baby_jackets' children={<Products title={"Детские куртки"} index={0} sex={2}/>} />
+          <Route exact path='/products/clothes/vests' children={<Products title={"Жилеты"} index={1}/>} />
+          <Route exact path='/products/clothes/men_vests' children={<Products title={"Мужские жилеты"} index={1} sex={0}/>} />
+          <Route exact path='/products/clothes/women_vests' children={<Products title={"Женские жилеты"} index={1} sex={1}/>} />
+          <Route exact path='/products/clothes/baby_vests' children={<Products title={"Детские жилеты"} index={1} sex={2}/>} />
+          <Route exact path='/products/clothes/pants' children={<Products title={"Брюки"} index={2}/>} />
+          <Route exact path='/products/clothes/men_pants' children={<Products title={"Мужские брюки"} index={2} sex={0}/>} />
+          <Route exact path='/products/clothes/women_pants' children={<Products title={"Женские брюки"} index={2} sex={1}/>} />
+          <Route exact path='/products/clothes/baby_pants' children={<Products title={"Детские брюки"} index={2} sex={2}/>} />
+          <Route exact path='/products/clothes/tshirts' children={<Products title={"Футболки"} index={3}/>} />
+          <Route exact path='/products/clothes/men_tshirts' children={<Products title={"Мужские футболки"} index={3} sex={0}/>} />
+          <Route exact path='/products/clothes/women_tshirts' children={<Products title={"Женские футболки"} index={3} sex={1}/>} />
+          <Route exact path='/products/clothes/baby_tshirts' children={<Products title={"Детские футболки"} index={3} sex={2}/>} />
+          <Route exact path='/products/clothes/shirts' children={<Products title={"Рубашки"} index={4}/>} />
+          <Route exact path='/products/clothes/men_shirts' children={<Products title={"Мужские рубашки"} index={4} sex={0}/>} />
+          <Route exact path='/products/clothes/women_shirts' children={<Products title={"Женские рубашки"} index={4} sex={1}/>} />
+          <Route exact path='/products/clothes/baby_shirts' children={<Products title={"Детские рубашки"} index={4} sex={2}/>} />
+          <Route exact path='/products/clothes/shorts' children={<Products title={"Шорты"} index={5}/>} />
+          <Route exact path='/products/clothes/men_shorts' children={<Products title={"Мужские шорты"} index={5} sex={0}/>} />
+          <Route exact path='/products/clothes/women_shorts' children={<Products title={"Женские шорты"} index={5} sex={1}/>} />
+          <Route exact path='/products/clothes/baby_shorts' children={<Products title={"Детские шорты"} index={5} sex={2}/>} />
+          <Route exact path='/products/clothes/hoodies_sweaters' children={<Products title={"Толстовки и свитер"} index={6}/>} />
+          <Route exact path='/products/clothes/men_hoodies_sweaters' children={<Products title={"Мужские толстовки и свитера"} index={6} sex={0}/>} />
+          <Route exact path='/products/clothes/women_hoodies_sweaters' children={<Products title={"Женские толстовки и свитера"} index={6} sex={1}/>} />
+          <Route exact path='/products/clothes/baby_hoodies_sweaters' children={<Products title={"Детские толстовки и свитера"} index={6} sex={2}/>} />
           <Route exact path='/products/clothes/shoes' children={<Products title={"Обувь"} index={7}/>} />
-          <Route exact path='/products/clothes/shoes/men_shoes' children={<Products title={"Мужская обувь"} index={7}/>} />
-          <Route exact path='/products/clothes/shoes/women_shoes' children={<Products title={"Женская обувь"} index={7}/>} />
-          <Route exact path='/products/clothes/shoes/baby_shoes' children={<Products title={"Детская обувь"} index={7}/>} />
-          <Route exact path='/products/clothes/equipment' children={<Products title={"Снаряжение"} index={9}/>} />
-          <Route exact path='/products/clothes/accessories' children={<Products title={"Аксессуарры"} index={8}/>} />
-          <Route exact path='/products/clothes/run' children={<Products title={"Бег"} index={10}/>} />
+          <Route exact path='/products/clothes/men_shoes' children={<Products title={"Мужская обувь"} index={7} sex={0}/>} />
+          <Route exact path='/products/clothes/women_shoes' children={<Products title={"Женская обувь"} index={7} sex={1}/>} />
+          <Route exact path='/products/clothes/baby_shoes' children={<Products title={"Детская обувь"} index={7} sex={2}/>} />
+          <Route exact path='/products/equipment' children={<Products title={"Снаряжение"} index={9}/>} />
+          <Route exact path='/products/accessories' children={<Products title={"Аксессуарры"} index={8}/>} />
+          <Route exact path='/products/run' children={<Products title={"Бег"} index={10}/>} />
           
           <Route exact path='/products/:id' children={<ProductDetail/>} />
           <Redirect from='/clothes' to='/products/clothes' />

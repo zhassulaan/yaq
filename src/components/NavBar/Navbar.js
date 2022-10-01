@@ -83,13 +83,13 @@ function Navbar() {
 										<Link to="/products/clothes/shoes" className='nav-link'>ОБУВЬ</Link>
 									</li>
 									<li className='nav-item' onClick="window.location.reload()">
-										<Link to="/products/clothes/equipment" className='nav-link'>СНАРЯЖЕНИЕ</Link>
+										<Link to="/products/equipment" className='nav-link'>СНАРЯЖЕНИЕ</Link>
 									</li>
 									<li className='nav-item' onClick="window.location.reload()">
-										<Link to="/products/clothes/accessories" className='nav-link'>АКСЕССУАРЫ</Link>
+										<Link to="/products/accessories" className='nav-link'>АКСЕССУАРЫ</Link>
 									</li>
 									<li className='nav-item' onClick="window.location.reload()">
-										<Link to="/products/clothes/run" className='nav-link'>БЕГ</Link>
+										<Link to="/products/run" className='nav-link'>БЕГ</Link>
 									</li>
 								</div>
 

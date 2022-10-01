@@ -12,7 +12,7 @@ function RunClothes({setShow}) {
 	 return (
 		<div>
 		  	<li className={isActive ? 'dropdown-header dropdown-close' : 'dropdown-header dropdown-open'} onClick="setShow window.location.reload()">
-				<NavLink activeStyle={{ textDecoration: 'underline' }} to="/products/clothes/run" className='dropdown-title'>Бег</NavLink>
+				<NavLink activeStyle={{ textDecoration: 'underline' }} to="/products/run" className='dropdown-title'>Бег</NavLink>
 				<img src={arrow} alt="open arrow" className='dropdown-icon'  onClick={handleToggle}/>
 			</li>
 	  	</div>

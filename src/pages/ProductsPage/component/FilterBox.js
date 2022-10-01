@@ -6,8 +6,6 @@ import FilterCheckbox from './FilterCheckbox';
 import Characteristics from './Characteristics';
 import Categories from './Categories';
 import Category from './Category';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import arrow from '../assets/blackArrow.svg';
 
 const useStyles = makeStyles({
@@ -23,7 +21,7 @@ const useStyles = makeStyles({
 });
 
 
-function FilterBox({ count, activeFilter, activeSorting, clearFilter, index, category1, changeCategory1, category2, changeCategory2, category3, changeCategory3, category4, changeCategory4, category5, changeCategory5, category6, changeCategory6, category7, changeCategory7, category8, changeCategory8, category9, changeCategory9, category10, changeCategory10, category11, changeCategory11, selectedPrice, changePrice, gender, changeGender, colors, changeColors, sizes, changeSizes, brands, changeBrands, checked1, sortAscending, checked2, sortDescending, checked3, sortBySale, checked4, sortByDate, checked5, sortByDefault }) {
+function FilterBox({ count, activeFilter, activeSorting, clearFilter, index, category1, changeCategory1, category2, changeCategory2, category3, changeCategory3, category4, changeCategory4, category5, changeCategory5, category6, changeCategory6, category7, changeCategory7, category8, changeCategory8, category9, changeCategory9, category10, changeCategory10, category11, changeCategory11, selectedPrice, changePrice, gender, changeGender, colors, changeColors, sizes, changeSizes, brands, changeBrands, changeSorting, sorting }) {
 	const classes = useStyles();
 	const [isActive, setActive] = useState("false");
 	
@@ -38,7 +36,7 @@ function FilterBox({ count, activeFilter, activeSorting, clearFilter, index, cat
 		<FilterContent>
 			<p className='filter-canceler' onClick={clearFilter}>Сбросить все фильтры</p>
 			
-			<div className={(count === 0) ? 'filter' : (activeFilter ? 'filter-nonactive filter' : 'filter filter-active active1')}>
+			<div className={(count === 0) ? 'filter nonactive1' : (activeFilter ? 'filter filter-nonactive' : 'filter filter-active active1')}>
 				<div className="laptop">
 					<div className="filter-header1">
 						<h6 className='filter-title'>Категории</h6>
@@ -128,102 +126,13 @@ function FilterBox({ count, activeFilter, activeSorting, clearFilter, index, cat
 
 			<div className={activeSorting ? 'sorting' : 'sorting active'}>
 				<h6 className='filter-title laptop'>Сортировка</h6>
-				<FormControlLabel className='category-item'
-					classes={{
-						label: classes.label,
-						root: classes.wrap,
-					}}
-					control={
-						<Checkbox
-							classes={{
-								checked: classes.checked,
-								root: classes.root,
-							}}
-							size='small'
-							checked={checked1}
-							onChange={sortAscending}
-						/>
-					}
-					label={"По возрастанию цен"}
-				/>
-
-				<FormControlLabel className='category-item'
-					classes={{
-						label: classes.label,
-						root: classes.wrap,
-					}}
-					control={
-						<Checkbox
-							classes={{
-								checked: classes.checked,
-								root: classes.root,
-							}}
-							size='small'
-							checked={checked2}
-							onChange={sortDescending}
-						/>
-					}
-					label={"По убыванию цен"}
-				/>
-
-				<FormControlLabel className='category-item'
-					classes={{
-						label: classes.label,
-						root: classes.wrap,
-					}}
-					control={
-						<Checkbox
-							classes={{
-								checked: classes.checked,
-								root: classes.root,
-							}}
-							size='small'
-							checked={checked3}
-							onChange={sortBySale}
-						/>
-					}
-					label={"Сначала скидки"}
-				/>
-
-				<FormControlLabel className='category-item'
-					classes={{
-						label: classes.label,
-						root: classes.wrap,
-					}}
-					control={
-						<Checkbox
-							classes={{
-								checked: classes.checked,
-								root: classes.root,
-							}}
-							size='small'
-							checked={checked4}
-							onChange={sortByDate}
-						/>
-					}
-					label={"Сначала новинки"}
-				/>
-
-				<div className="laptop">
-					<FormControlLabel className='category-item'
-						classes={{
-							label: classes.label,
-							root: classes.wrap,
-						}}
-						control={
-							<Checkbox
-								classes={{
-									checked: classes.checked,
-									root: classes.root,
-								}}
-								size='small'
-								checked={checked5}
-								onChange={sortByDefault}
-							/>
-						}
-						label={"По умолчанию"}
+				{sorting.map((sort) => (
+					<FilterCheckbox
+						key={sort.id}
+						data={sort}
+						changeChecked={changeSorting}
 					/>
-				</div>
+				))}
 			</div>
 		</FilterContent>
 	);
@@ -344,6 +253,12 @@ const FilterContent = styled.nav`
 		.filter-item {
 			width: 5.625rem;
 		}
+
+		.MuiSlider-thumb {
+			width: 18px;
+			height: 18px;
+			margin-top: -8px;
+		}
 	}
 	
 	@media (max-width: 1250px) {
@@ -353,7 +268,7 @@ const FilterContent = styled.nav`
 		}
 
 		.category-header {
-			width: 13.125rem;
+			width: 12.125rem;
 			height: 1.25rem;
 		}
 
@@ -373,7 +288,6 @@ const FilterContent = styled.nav`
 	}
 
 	@media (max-width: 1100px) {
-		width: 24vw;
 
 		.filter-title {
 			font-size: 18px;
@@ -392,10 +306,20 @@ const FilterContent = styled.nav`
 		.filter-item {
 			width: 6.25rem;
 		}
+
+		.MuiSlider-thumb {
+			width: 16px;
+			height: 16px;
+			margin-top: -7px;
+		}
 	}
 	
 	@media (max-width: 992px) {
 		width: 32vw;
+
+		.MuiButtonBase-root.MuiIconButton-root.MuiCheckbox-root {
+			padding: 0 10px 0 0;
+		}
 
 		.filter-title {
 			font-size: 16px;
@@ -431,6 +355,7 @@ const FilterContent = styled.nav`
 		
 		.category-header {
 			width: 9rem;
+			margin-top: 0.3125rem;
 		}
 
 		.category-title,
@@ -443,40 +368,22 @@ const FilterContent = styled.nav`
 		.filter-item {
 			width: 5rem;
 		}
-	}
 
-	@media (max-width: 740px) {
-		width: 19vw;
-
-		.filter-title {
-			font-size: 15px;
-		}
-		
-		.category-header {
-			width: 8rem;
-			height: 1rem;
-		}
-
-		.category-title,
-		.filter-canceler,
-		.category-item span {
-			font-size: 11px;
-		}
-
-		.filter-item {
-			width: 4rem;
-			font-size: 10px;
+		.MuiSlider-thumb {
+			width: 14px;
+			height: 14px;
+			margin-top: -6px;
 		}
 	}
 	
 	@media (max-width: 740px) {
-		width: 28vw;
+		width: 22vw;
 
 		.MuiSvgIcon-fontSizeSmall {
 			width: 12.5px;
 			height: 12.5px;
 		}
-
+		
 		.MuiButtonBase-root.MuiIconButton-root.MuiCheckbox-root {
 			padding: 0 12px 0 0;
 		}
@@ -486,7 +393,7 @@ const FilterContent = styled.nav`
 		}
 		
 		.category-header {
-			width: 26vw;
+			width: 20vw;
 		}
 
 		.category-title,
@@ -498,6 +405,14 @@ const FilterContent = styled.nav`
 		.filter-item {
 			width: 14vw;
 			font-size: 12px;
+		}
+	}
+
+	@media (max-width: 740px) {
+		width: 29vw;
+		
+		.category-header {
+			width: 23vw;
 		}
 	}
 
@@ -564,6 +479,7 @@ const FilterContent = styled.nav`
 			100% {
 				transform: translateY(600px);
 				opacity: 0;
+				position: absolute;
 			}
 		}
 
@@ -585,12 +501,15 @@ const FilterContent = styled.nav`
 			top: 20%;
 			background: var(--clr-white);
 			padding: 1.25rem 1.25rem 1.875rem;
+			z-index: -1;
+		}
+		
+		.active1 {
 			z-index: 5;
-			opacity: 0;
 		}
 
-		.active1 {
-			opacity: 1;
+		.nonactive1 {
+			display: none;
 		}
 		
 		.filter-active {
@@ -703,15 +622,14 @@ const FilterContent = styled.nav`
 			position: absolute;
 			width: 61.11%;
 			background: var(--clr-white);
-			top: 15%;
+			top: 190px;
 			left: 0;
-			z-index: 3;
 			padding: 1.25rem 0.625rem 1.25rem 0.938rem;
-			opacity: 0;
+			z-index: -3;
 		}
 		
 		.active {
-			opacity: 1;
+			z-index: 3;
 		}
 	}
 `

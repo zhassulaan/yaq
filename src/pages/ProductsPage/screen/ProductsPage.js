@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { CartState } from '../../../context/Context';
-import { filterCategories, filterGender, filterColors, filterSizes, filterBrands } from '../../../data/filter';
+import { filterCategories, filterGender, filterColors, filterSizes, filterBrands, filterSorting } from '../../../data/filter';
 import Error from '../../ErrorPage/screen/ErrorPage';
 import ProductBox from '../../Home/components/ProductBox';
 import FilterBox from '../component/FilterBox';
+import SavedFilter from '../component/SavedFilter';
 import sort from '../assets/sort.svg';
 import filter from '../assets/filter.svg';
 
-function ProductPage({ title, index }) {
+function ProductPage({ title, index, sex }) {
 	const { state: 
 		{ products } 
 	} = CartState();
@@ -31,20 +32,19 @@ function ProductPage({ title, index }) {
 	const [sizes, setSizes] = useState(filterSizes);
 	const [brands, setBrands] = useState(filterBrands);
 	// for Sorting
-	const [checked1, setChecked1] = useState(false);
-	const [checked2, setChecked2] = useState(false);
-	const [checked3, setChecked3] = useState(false);
-	const [checked4, setChecked4] = useState(false);
-	const [checked5, setChecked5] = useState(false);
+	const [sortingOptions, setSortingOptions] = useState(filterSorting);
 	// Final list
 	const [list, setList] = useState(products);
 	const [resultsFound, setResultsFound] = useState(true);
+	// Selected filters
+	const [selectedFilters, setSelectedFilters] = useState([]);
 
+	// While checked actions
 	const handleChangeCheckedJackets = (id) => {
 		const categoryStateList = categoryJackets;
 		const changeCheckedCategory = categoryStateList.map((item) =>
-			item.id === id ? { ...item, checked: !item.checked } : item
-		);
+			item.id === id ? { ...item, checked: !item.checked } : item,
+			);
 		setCategoryJackets(changeCheckedCategory);
 	};
 
@@ -165,48 +165,55 @@ function ProductPage({ title, index }) {
 	};
 
 	// for Sorting
-	const handleSortAscending = (event) => {
-		setChecked1(event.target.checked);
-		setChecked2(false);
-		setChecked3(false);
-		setChecked4(false);
-		setChecked5(false);
-	};
-	
-	const handleSortDescending = (event) => {
-		setChecked2(event.target.checked);
-		setChecked1(false);
-		setChecked3(false);
-		setChecked4(false);
-		setChecked5(false);
-	};
-	
-	const handleSortBySale = (event) => {
-		setChecked3(event.target.checked);
-		setChecked1(false);
-		setChecked2(false);
-		setChecked4(false);
-		setChecked5(false);
-	};
-	
-	const handleSortByDate = (event) => {
-		setChecked4(event.target.checked);
-		setChecked1(false);
-		setChecked2(false);
-		setChecked3(false);
-		setChecked5(false);
-	};
-	
-	const handleSortByDefault = (event) => {
-		setChecked5(event.target.checked);
-		setChecked1(false);
-		setChecked2(false);
-		setChecked3(false);
-		setChecked4(false);
+	const handleChangeCheckedSorting = (id) => {
+		const sortingStateList = sortingOptions;
+		const changeCheckedSorting = sortingStateList.map((item) =>
+		  	item.id === id ? { ...item, checked: !item.checked } : { ...item, checked: false }
+		);
+		setSortingOptions(changeCheckedSorting);
 	};
 
+	const filterItems = [categoryJackets, categoryVests, categoryPants, categoryTShirts, categoryShirts, categoryShorts, categoryHoodiesSweaters, categoryShoes, categoryAccessories, categoryEquipment, categoryRun, selectedPrice, gender, colors, sizes, brands, sortingOptions];
+	const handleDeleteSelectedFilters = (label) => {
+		const selectedFilterList = filterItems;
+		const deletePickedFilter = selectedFilterList.map(item => 
+			item.map(item => 
+				item.label === label ? {  ...item, checked: !item.checked} : item
+			)
+		);
+		setCategoryJackets(deletePickedFilter[0]);
+		setCategoryVests(deletePickedFilter[1]);
+		setCategoryPants(deletePickedFilter[2]);
+		setCategoryTShirts(deletePickedFilter[3]);
+		setCategoryShirts(deletePickedFilter[4]);
+		setCategoryShorts(deletePickedFilter[5]);
+		setCategoryHoodiesSweaters(deletePickedFilter[6]);
+		setCategoryShoes(deletePickedFilter[7]);
+		setCategoryAccessories(deletePickedFilter[8]);
+		setCategoryEquipment(deletePickedFilter[9]);
+		setCategoryRun(deletePickedFilter[10]);
+		setSelectedPrice(deletePickedFilter[11]);
+		setGender(deletePickedFilter[12]);
+		setColors(deletePickedFilter[13]);
+		setSizes(deletePickedFilter[14]);
+		setBrands(deletePickedFilter[15]);
+		setSortingOptions(deletePickedFilter[16]);
+	};
+	
   	const applyFilters = () => {
     	let updatedList = products;
+
+		if (index !== 11) {
+			if (sex === 0 || sex === 1 || sex === 2) {
+				const genderLabel = gender[sex].label;
+				updatedList = updatedList.filter((item) => genderLabel.includes(item.gender));
+			}
+
+			const categoryLabelList = filterCategories[index].items.map(
+				(item) => item.label
+			);
+			updatedList = updatedList.filter((item) => categoryLabelList.includes(item.category));
+		}
 
 		// Category Filter
 		const categoryCheckedJackets = categoryJackets
@@ -402,38 +409,45 @@ function ProductPage({ title, index }) {
 			}
 		}
 
-		if (checked1 === true) {
+		if (sortingOptions[0].checked === true) {
 			updatedList = updatedList.sort(sortByPrice(true));
 		}
 
-		if (checked2 === true) {
+		if (sortingOptions[1].checked === true) {
 			updatedList = updatedList.sort(sortByPrice(false));
 		}
 
-		if (checked3 === true) {
+		if (sortingOptions[2].checked === true) {
 			updatedList = updatedList.filter((item) =>
 				(item.sale !== null) && (item.sale !== "Новинка")
 			);
 		}
 
-		if (checked4 === true) {
+		if (sortingOptions[3].checked === true) {
 			updatedList = updatedList.filter((item) =>
 				(item.sale === "Новинка")
 			);
 		}
 
-		if (checked5 === true) {
+		if (sortingOptions[4].checked === true) {
 			updatedList = updatedList.sort(sortDefault)
 		}
 
+		const updatedSelectedList = filterItems.map(item => 
+			item.filter(item => 
+				item.checked === true
+			)
+		);
+		setSelectedFilters(updatedSelectedList);
+		
 		setList(updatedList);
-
+		
 		!updatedList.length ? setResultsFound(false) : setResultsFound(true);
 	};
 
 	useEffect(() => {
     	applyFilters();
-  	}, [categoryAccessories, categoryEquipment, categoryRun, categoryJackets, categoryVests, categoryPants, categoryTShirts, categoryShirts, categoryShorts, categoryHoodiesSweaters, categoryShoes, selectedPrice, gender, colors, sizes, brands, checked1, checked2, checked3, checked4, checked5]);
+  	}, [categoryAccessories, categoryEquipment, categoryRun, categoryJackets, categoryVests, categoryPants, categoryTShirts, categoryShirts, categoryShorts, categoryHoodiesSweaters, categoryShoes, selectedPrice, gender, colors, sizes, brands, sortingOptions]);
 
 	const handleClearFilter = () => {
 		const jacketsList = categoryJackets;
@@ -528,12 +542,12 @@ function ProductPage({ title, index }) {
 			item.checked === true ? { ...item, checked: !item.checked } : item
 		);
 		setBrands(changeBrands);
-
-		setChecked1(false);
-		setChecked2(false);
-		setChecked3(false);
-		setChecked4(false);
-		setChecked5(false);
+	
+		const sortingList = sortingOptions;
+		const changeSorting = sortingList.map((item) =>
+			item.checked === true ? { ...item, checked: !item.checked } : item
+		);
+		setSortingOptions(changeSorting);
 	};
 
 	const [isActive1, setActive1] = useState("false");
@@ -548,11 +562,27 @@ function ProductPage({ title, index }) {
 	const handleToggleSorting = () => {
 		setActive2(!isActive2);	
 	};
+	
+	const selectedFiltersNumber = selectedFilters.filter(item =>
+		item.length !== 0
+	).length;
+
+	console.log(selectedFiltersNumber);
 	return (
 		<Wrapper>
 			<div className={isActive1 ? 'section-container' : 'section-container dark-backgrounds'} onClick={isActive1 ? null : handleToggleFilter}>
-				<p className='section-hierarchy'>{'Главная > Одежда > '}{title}</p>
-				<h1 className='title section-title'>{title}</h1>
+				<p className='section-hierarchy'>{'Главная > '} {index === 8 || index === 9 || index === 10 ? '' : 'Одежда > '} {title}</p>
+				<div className="section-header">
+					<h1 className='title section-title'>{title}</h1>
+					<div className='selected-filters mobile'>
+						{selectedFilters.map(item =>
+							item.map((item) => 
+								<SavedFilter item={item} deleteFilter={handleDeleteSelectedFilters}/>
+							)
+						)}
+						{(selectedFiltersNumber === 0) ? null : <p className='filter-canceler mobile' onClick={handleClearFilter}>Сбросить все фильтры</p>}
+					</div>
+				</div>
 
 				<div className="filter-buttons">
 					<div className="filter-btn" onClick={handleToggleSorting}>
@@ -564,8 +594,18 @@ function ProductPage({ title, index }) {
 						<img src={filter} alt="filter icon"/>
 					</div>
 				</div>
+				
+				<div className="products-data">
+					<div className='selected-filters laptop'>
+						{selectedFilters.map(item =>
+							item.map((item) => 
+								<SavedFilter item={item} deleteFilter={handleDeleteSelectedFilters}/>
+							)
+						)}
+					</div>
 
-				<p className='section-text'>Найдено {list.length} { (list.length > 10 && list.length < 1) ? <span>товаров</span> : <span>товара</span> }</p>
+					<p className='section-text'>Найдено {list.length} { (list.length > 10 && list.length < 1) ? <span>товаров</span> : <span>товара</span> }</p>
+				</div>
 
 				<div className='products-section'>
 					<FilterBox 
@@ -607,16 +647,8 @@ function ProductPage({ title, index }) {
 						brands={brands}
 						changeBrands={handleChangeCheckedBrands}
 						list={list}
-						sortAscending={handleSortAscending}
-						checked1={checked1}
-						sortDescending={handleSortDescending}
-						checked2={checked2}
-						sortBySale={handleSortBySale}
-						checked3={checked3}
-						sortByDate={handleSortByDate}
-						checked4={checked4}
-						sortByDefault={handleSortByDefault}
-						checked5={checked5}
+						changeSorting={handleChangeCheckedSorting}
+						sorting={sortingOptions}
 					/>
 					
 					{ (list.length === 0) ?
@@ -636,55 +668,48 @@ function ProductPage({ title, index }) {
 			</div>
 
 			<div className="mobile">
-				<FilterBox 
-					count={count}
-					activeFilter={isActive1}
-					activeSorting={isActive2}
-					clearFilter={handleClearFilter}
-					category1={categoryJackets}
-					changeCategory1={handleChangeCheckedJackets}
-					category2={categoryVests}
-					changeCategory2={handleChangeCheckedVests}
-					category3={categoryPants}
-					changeCategory3={handleChangeCheckedPants}
-					category4={categoryTShirts}
-					changeCategory4={handleChangeCheckedTShirts}
-					category5={categoryShirts}
-					changeCategory5={handleChangeCheckedShirts}
-					category6={categoryShorts}
-					changeCategory6={handleChangeCheckedShorts}
-					category7={categoryHoodiesSweaters}
-					changeCategory7={handleChangeCheckedHoodiesSweaters}
-					category8={categoryShoes}
-					changeCategory8={handleChangeCheckedShoes}
-					category9={categoryAccessories}
-					changeCategory9={handleChangeCheckedAccessories}
-					category10={categoryEquipment}
-					changeCategory10={handleChangeCheckedEquipment}
-					category11={categoryRun}
-					changeCategory11={handleChangeCheckedRun}
-					selectedPrice={selectedPrice}
-					changePrice={handleChangePrice}
-					gender={gender}
-					changeGender={handleChangeCheckedGender}
-					colors={colors}
-					changeColors={handleChangeCheckedColors}
-					sizes={sizes}
-					changeSizes={handleChangeCheckedSizes}
-					brands={brands}
-					changeBrands={handleChangeCheckedBrands}
-					list={list}
-					sortAscending={handleSortAscending}
-					checked1={checked1}
-					sortDescending={handleSortDescending}
-					checked2={checked2}
-					sortBySale={handleSortBySale}
-					checked3={checked3}
-					sortByDate={handleSortByDate}
-					checked4={checked4}
-					sortByDefault={handleSortByDefault}
-					checked5={checked5}
-				/>
+			<FilterBox 
+						count={count}
+						activeFilter={isActive1}
+						activeSorting={isActive2}
+						clearFilter={handleClearFilter}
+						index={index}
+						category1={categoryJackets}
+						changeCategory1={handleChangeCheckedJackets}
+						category2={categoryVests}
+						changeCategory2={handleChangeCheckedVests}
+						category3={categoryPants}
+						changeCategory3={handleChangeCheckedPants}
+						category4={categoryTShirts}
+						changeCategory4={handleChangeCheckedTShirts}
+						category5={categoryShirts}
+						changeCategory5={handleChangeCheckedShirts}
+						category6={categoryShorts}
+						changeCategory6={handleChangeCheckedShorts}
+						category7={categoryHoodiesSweaters}
+						changeCategory7={handleChangeCheckedHoodiesSweaters}
+						category8={categoryShoes}
+						changeCategory8={handleChangeCheckedShoes}
+						category9={categoryAccessories}
+						changeCategory9={handleChangeCheckedAccessories}
+						category10={categoryEquipment}
+						changeCategory10={handleChangeCheckedEquipment}
+						category11={categoryRun}
+						changeCategory11={handleChangeCheckedRun}
+						selectedPrice={selectedPrice}
+						changePrice={handleChangePrice}
+						gender={gender}
+						changeGender={handleChangeCheckedGender}
+						colors={colors}
+						changeColors={handleChangeCheckedColors}
+						sizes={sizes}
+						changeSizes={handleChangeCheckedSizes}
+						brands={brands}
+						changeBrands={handleChangeCheckedBrands}
+						list={list}
+						changeSorting={handleChangeCheckedSorting}
+						sorting={sortingOptions}
+					/>
 			</div>
 		</Wrapper>
   	);
@@ -711,11 +736,26 @@ const Wrapper = styled.nav`
 		display: none;
 	}
 
+	.products-data {
+		display: flex;
+		justify-content: space-between;
+		margin: 0.625rem 0 3.125rem;
+	}
+
+	.selected-filters {
+		display: flex;
+		width: auto;
+		margin-left: 18.75vw;
+		display: grid;
+		grid-template-columns: repeat(4, auto);
+		grid-auto-rows: max-content;
+	}
+
 	.section-text {
+		width: auto;
 		font-size: 18px;
 		font-weight: 400;
 		text-align: right;
-		margin: 0.625rem 0 3.125rem;
 	}
 
 	.products-section {
@@ -763,107 +803,267 @@ const Wrapper = styled.nav`
 		background: var(--clr-primary-2);
 	}
 
-	.mobile .filter-canceler,
-	.mobile .filter,
-	.mobile .sorting {
+	.mobile {
 		display: none;
 	}
 
 
-	@media (max-width: 1100px) {
-		.section-container {
-			padding: 1.875rem 9vw 9.375rem;
+	@media (max-width: 1500px) {
+		.section-hierarchy {
+			font-size: 15px;
+		}
+
+		.section-title {
+			font-size: 75px;
+		}
+
+		.section-text {
+			font-size: 16.7px;
 		}
 	}
-
-	@media (max-width: 1024px) {
-		.section-title {
-			font-size: 70px;
-		}
-
+	
+	@media (max-width: 1400px) {
 		.section-hierarchy {
 			font-size: 14px;
+		}
+
+		.section-title {
+			font-size: 70px;
 		}
 
 		.section-text {
 			font-size: 16px;
 		}
 	}
-	
-	@media (max-width: 992px) {
-		.section-title {
-			font-size: 60px;
-		}
-		
+
+	@media (max-width: 1300px) {
 		.section-hierarchy {
 			font-size: 13px;
 		}
-		
-		.section-text {
-			font-size: 15px;
-			margin: 0.625rem 0 2.5rem;
-		}
-	}
-	
-	@media (max-width: 768px) {
+
 		.section-title {
-			font-size: 55px;
+			font-size: 64px;
 		}
 		
 		.section-text {
 			font-size: 14px;
-			margin: 0.3125rem 0 1.875rem;
 		}
 	}
 	
-	@media (max-width: 740px) {
-		.products-content {
-			grid-template-columns: repeat(2, 1fr);
+	@media (max-width: 1200px) {
+		.section-title {
+			font-size: 60px;
 		}
 
-		.products-section {
-			display: flex;
-			justify-content: flex-start;
-		}
-
-		.product {
-			margin: 0 0 2.5vw 3.75vw;
+		.section-text {
+			font-size: 14.2px;
 		}
 	}
 
-	@media (max-width: 650px) {
-		.section-title {
-			font-size: 45px;
+	@media (max-width: 1100px) {
+		.section-hierarchy {
+			font-size: 12.5px;
 		}
 
+		.section-container {
+			padding: 1.875rem 9vw 9.375rem;
+		}
+
+		.selected-filters {
+			grid-template-columns: repeat(3, auto);
+			margin-left: 27.25vw;
+		}
+
+		.section-text {
+			font-size: 13.5px;
+		}
+	}
+
+	@media (max-width: 1024px) {
+		.section-hierarchy {
+			font-size: 12px;
+		}
+
+		.section-title {
+			font-size: 58px;
+		}
+
+		.section-text {
+			font-size: 13px;
+		}
+	}
+	
+	@media (max-width: 992px) {
 		.section-hierarchy {
 			font-size: 11px;
+		}
+		
+		.section-title {
+			font-size: 55px;
+		}
+		
+		.products-data {
+			margin: 0.625rem 0 2.5rem;
 		}
 
 		.section-text {
 			font-size: 12px;
 		}
 	}
+	
+	@media (max-width: 920px) {
+		.section-title {
+			font-size: 52px;
+		}
+
+		.section-text {
+			font-size: 11.5px;
+		}
+	}
+	
+	@media (max-width: 870px) {
+		.section-hierarchy {
+			font-size: 10px;
+		}
+
+		.section-title {
+			font-size: 48px;
+		}
+
+		.section-text {
+			font-size: 10.5px;
+		}
+	}
+	
+	@media (max-width: 810px) {
+		.section-title {
+			font-size: 46px;
+		}
+
+		.section-text {
+			font-size: 9.5px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.section-hierarchy {
+			font-size: 9px;
+		}
+
+		.section-title {
+			font-size: 44px;
+		}
+
+		.products-data {
+			margin: 0.3125rem 0 1.875rem;
+		}
+	}
+	
+	@media (max-width: 740px) {
+		.selected-filters {
+			margin-left: 30vw;
+		}
+
+		.section-text {
+			font-size: 9px;
+		}
+
+		.products-section {
+			display: flex;
+		}
+
+		.product {
+			margin: 0 0 1vw 1vw;
+		}
+	}
+
+	@media (max-width: 730px) {
+		.section-title {
+			font-size: 40px;
+		}
+		
+		.products-section {
+			display: flex;
+			justify-content: start;
+		}
+
+		.products-content {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	
+	@media (max-width: 675px) {
+		.section-title {
+			font-size: 38px;
+		}
+	}
+
+	@media (max-width: 650px) {
+		.section-title {
+			font-size: 35px;
+		}
+
+		.section-text {
+			font-size: 11px;
+		}
+
+		.selected-filters {
+			grid-template-columns: repeat(2, auto);
+		}
+	}
 
 	@media (max-width: 590px) {
+		.section-title {
+			font-size: 32px;
+		}
+
+		.section-text {
+			font-size: 10px;
+		}
+		
 		.product {
 			margin: 0 0 2.5vw 2.8125vw;
 		}
 	}
 	
 	@media (max-width: 550px) {
+		.section-title {
+			font-size: 30px;
+		}
+
+		.section-text {
+			font-size: 9.5px;
+		}
+		
 		.product {
-			margin: 0 0 2.5vw 2.5vw;
+			margin: 0 0 1.6vw 1.6vw;
 		}
 	}
 	
 	@media (max-width: 500px) {
+		.section-title {
+			font-size: 26px;
+		}
+
+		.selected-filters {
+			margin-left: 27vw;
+		}
+		
+		
 		.product {
 			margin: 0 0 1.25vw 1.25vw;
 		}
 	}
 
 	@media (max-width: 480px) {
+		.laptop {
+			display: none
+		}
+
+		.mobile {
+			display: block;
+		}
+
 		.section-container {
 			position: relative;
 			padding: 0 0 9.375rem;
@@ -885,14 +1085,13 @@ const Wrapper = styled.nav`
 			display: none;
 		}
 
-		.section-title {
+		.section-header {
 			position: relative;
-			font-size: 28px;
 			background-color: var(--clr-white);
 			padding: 1.25rem 5.5556vw;
 		}
-
-		.section-title:after {
+		
+		.section-header:after {
 			content: "";
 			position: absolute;
 			width: 100%;
@@ -900,6 +1099,24 @@ const Wrapper = styled.nav`
 			left: 0;
 			bottom: 0;
 			background: var(--clr-primary-6);
+		}
+		
+		.section-title {
+			font-size: 28px;
+			line-height: 3.125rem;
+		}
+
+		.section-header .selected-filters {
+			display: grid;
+			grid-template-columns: repeat(2, auto);
+			margin: 0;
+		}
+
+		.filter-canceler {
+			width: max-content;
+			font-size: 16px;
+			font-weight: 400;
+			text-decoration: underline;
 		}
 
 		.products-section .filter,
@@ -925,10 +1142,15 @@ const Wrapper = styled.nav`
 			margin-right: 5px;
 		}
 
+		.products-data {
+			margin: 0.625rem 5.5556vw 1.25rem;
+		}
+		
 		.section-text {
+			width: 100%;
 			font-size: 14px;
 			font-weight: 400;
-			margin: 20px 5.5556vw 10px;
+			text-align: right;
 		}
 
 		.products-section {
@@ -942,12 +1164,6 @@ const Wrapper = styled.nav`
 
 		.product {
 			margin: 0 1.389vw 2.778vw;
-		}
-
-
-		.mobile .filter,
-		.mobile .sorting {
-			display: block;
 		}
 	}
 `

@@ -35,8 +35,8 @@ function Categories({ categories, changeCategories }) {
 	            <CheckBoxContainer 
 						key={item.id} 
 						title={item.title}
-						filters={[2]}
-						changeCheckedFilters={[2]}
+						filters={categories[2]}
+						changeCheckedFilters={changeCategories[2]}
 					/>
             );
          })}
