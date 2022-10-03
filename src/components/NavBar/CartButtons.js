@@ -10,11 +10,11 @@ import search from '../../assets/search.svg';
 import search2 from '../../assets/search2.svg';
 import close from '../../assets/close.svg';
 
-function CartButtons({show, setShow}) {
+function CartButtons({ show, setShow, open }) {
 	const {
 		state: { cart },
 	} = CartState();
-
+	
 	let totalItems = 0;
 	cart.map((item) =>
 		// totalItems = totalItems + item.quantity
@@ -45,7 +45,7 @@ function CartButtons({show, setShow}) {
 			</div>
 					
 			<div className="laptop-icons">
-				<Link to="/sign-up" className='nav-item' id='signup'>ВХОД</Link>
+				<p className='button nav-item' id='signup' onClick={open}>ВХОД</p>
 				
 				{show 
 					? 

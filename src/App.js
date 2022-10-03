@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Navbar from './components/NavBar/Navbar';
 import Footer from './components/Footer';
@@ -17,12 +17,51 @@ import TermsOfUse from './pages/TermsOfUse/screen/TermsOfUse';
 import FAQ from './pages/FAQ/screen/FAQ';
 import ReturnConditions from './pages/ReturnConditions/screen/ReturnConditions';
 import Error from './pages/ErrorPage/screen/ErrorPage';
+import LoginForm from './pages/Login/LoginForm';
 
 function App() {
+  const adminUser = {
+    email: "admin@gmail.com",
+    password: "qwerty123"
+  }
+
+  const [user, setUser] = useState({ username: "", email: "" });
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const Login = details => {
+    console.log(details);
+    if (details.email === adminUser.email && details.password === adminUser.password)
+      setUser({
+        username: details.username,
+        email: details.email
+      })
+    else
+      setErrorMessage("Неверный логин или пароль.");
+  }
+
+  const Logout = () => {
+    setUser({ username: "", email: "" })
+  }
+
+  const [showLogin, setShowLogin] = useState(false)
+	useEffect(() => {
+		if (showLogin) {
+			document.body.style.overflow = 'hidden'
+		} else {
+			document.body.style.overflow = 'unset';
+		}
+	}, [showLogin]);
+  const handleOpen = () => {
+		setShowLogin(true);	
+	};
+  const handleClose = () => {
+		setShowLogin(false);	
+	};
+
   const DefaultContainer = () => (
     <div>
-      <Route component={Navbar}/>
-      
+      <Route><LoginForm showLogin={showLogin} login={Login} error={errorMessage} close={handleClose} /></Route>
+      <Route><Navbar open={handleOpen}/></Route>
       <Switch>
         {/* Main Pages */}
         <Route exact path='/' component={Home} />
@@ -80,7 +119,7 @@ function App() {
         <Route path='/not-found'><Error title={"НИЧЕГО НЕ НАЙДЕНО"} text={"Попробуйте сбросить фильтры или обновить страницу"}/></Route>
         <Redirect to='/not-found' />
       </Switch>
-
+    
       <Route component={Footer}/>
     </div>
   )
@@ -91,7 +130,7 @@ function App() {
         <Switch>
           <Route exact path='/basket' component={Basket} />
           <Route exact path='/popup/:id' component={PopUp} />
-          <Route component={DefaultContainer} />
+            <Route component={DefaultContainer} />
         </Switch>
       </Router>
     </div>

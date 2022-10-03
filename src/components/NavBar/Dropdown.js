@@ -19,7 +19,7 @@ function Dropdown({setShow, setHide}) {
 
   	return (
 		<DropdownContainer className={navbar ? 'active' : ''}>
-			<div className='container' onMouseLeave={setHide}>
+			<div className='container' onClick={setHide}>
 				<AllGoods setShow={setShow}/>
 				<div className="dd-header-content">
 					<Header/>

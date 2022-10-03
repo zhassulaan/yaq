@@ -8,7 +8,7 @@ import Dropdown from './Dropdown';
 import toggle from '../../assets/toggle.svg';
 import logo from '../../assets/logo.svg';
 
-function Navbar() {
+function Navbar({ open }) {
 	const [show, setShow] = useState(false);
 	const [showSearchBar, setShowSearchBar] = useState(false);
 	const [navbar, setNavbar] = useState(false);
@@ -103,7 +103,8 @@ function Navbar() {
 					{showSearchBar ? <SearchBar/> : null}
 					<CartButtons 
 						show={showSearchBar} 
-						setShow={search} 
+						setShow={search}
+						open={open}
 					/>
 				</div>
 			</div>

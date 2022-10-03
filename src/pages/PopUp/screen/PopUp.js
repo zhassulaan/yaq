@@ -27,7 +27,7 @@ function PopUp() {
 
 const Wrapper = styled.nav`
 	background: #00000080;
-	padding: 8.75rem 13.125rem 13.125rem;
+	padding: 8.75rem 13.125vw 13.125rem;
 
 	.popup-container {
 		background: var(--clr-white);

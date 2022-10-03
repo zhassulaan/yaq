@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function LoginButton({text}) {
+function LoginButton({ text }) {
   return (
 	  <Button>
       <div className='button-container'>
