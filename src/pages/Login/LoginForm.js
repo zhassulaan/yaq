@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import LoginButton from '../../components/LoginButton';
 import closeButton from '../../assets/close.svg';
 
-function LoginForm({ login, error, showLogin, close }) {
+function LoginForm({ showLogin, login, empty, error, close }) {
 	const [details, setDetails] = useState({ email: "", password: "" });
 
 	const handleSubmit = e => {
@@ -47,13 +47,16 @@ function LoginForm({ login, error, showLogin, close }) {
 								</span>
 							</div>
 
-							{(error !== "") ? ( <div className='error-message'>{error}</div> ) : ""}
+							{(error !== "" && empty === false) ? ( <div className='error-message'>{error}</div> ) : ""}
 
 							<form onSubmit={ handleSubmit } >
 								<div className="form-group">
-									<label htmlFor="email">Email</label>
+									<div className="form-label">
+										<label htmlFor="email">Email</label>
+										{(empty === true) ? ( <div className='error-message'>{error}</div> ) : ""}
+									</div>
 									<input 
-										type="email"
+										type="text"
 										name="email"
 										id="email"
 										onChange={e => setDetails({...details, email: e.target.value})}
@@ -62,12 +65,14 @@ function LoginForm({ login, error, showLogin, close }) {
 										// ref={userRef}
 										// onChange={(e) => setUser(e.target.value)}
 										// value={user}
-										required
 									/>
 								</div>
-
+								
 								<div className="form-group">
-									<label htmlFor="password">Пароль</label>
+									<div className="form-label">
+										<label htmlFor="password">Пароль</label>
+										{(empty === true) ? ( <div className='error-message'>{error}</div> ) : ""}
+									</div>
 									<input 
 										type="password"
 										name="password"
@@ -76,7 +81,6 @@ function LoginForm({ login, error, showLogin, close }) {
 										value={details.password}
 										// onChange={(e) => setPassword(e.target.value)}
 										// value={password}
-										required
 									/>
 								</div>
 
@@ -145,8 +149,8 @@ const Wrapper = styled.nav`
 
 	.error-message {
 		font-size: 18px;
-		font-weight: 500;
-		color: red;
+		font-weight: 400;
+		color: #FA0000;
 	}
 
 	.form-group {
@@ -154,12 +158,17 @@ const Wrapper = styled.nav`
 		flex-direction: column;
 		margin-top: 20px;
 	}
+
+	.form-label {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 10px;
+	}
 	
-	.form-group label {
+	.form-label label {
 		font-size: 18px;
 		font-weight: 400;
 		line-height: 20px;
-		margin-bottom: 10px;
 	}
 	
 	.form-group input {
@@ -169,8 +178,12 @@ const Wrapper = styled.nav`
 		padding: 20px;
 	}
 
+	.form-label error-message {
+
+	}
+
 	.email-error {
-		border: 1px solid red;
+		border: 1px solid #FA0000;
 	}
 
 	.form-footer {

@@ -27,23 +27,32 @@ function App() {
 
   const [user, setUser] = useState({ username: "", email: "" });
   const [errorMessage, setErrorMessage] = useState("");
+  const [showLogin, setShowLogin] = useState(false);
+  const [emptyLogin, setEmptyLogin] = useState(false);
 
   const Login = details => {
-    console.log(details);
-    if (details.email === adminUser.email && details.password === adminUser.password)
+    if (details.email === adminUser.email && details.password === adminUser.password) {
       setUser({
         username: details.username,
         email: details.email
-      })
-    else
+      });
+      setShowLogin(false);
+      setEmptyLogin(false);
+    }
+    else if (details.email === "" && details.password === "") {
+      setEmptyLogin(true);
+      setErrorMessage("Заполните поле");
+    }
+    else {
+      setEmptyLogin(false);
       setErrorMessage("Неверный логин или пароль.");
+    }
   }
 
   const Logout = () => {
     setUser({ username: "", email: "" })
   }
 
-  const [showLogin, setShowLogin] = useState(false)
 	useEffect(() => {
 		if (showLogin) {
 			document.body.style.overflow = 'hidden'
@@ -51,6 +60,7 @@ function App() {
 			document.body.style.overflow = 'unset';
 		}
 	}, [showLogin]);
+
   const handleOpen = () => {
 		setShowLogin(true);	
 	};
@@ -60,7 +70,7 @@ function App() {
 
   const DefaultContainer = () => (
     <div>
-      <Route><LoginForm showLogin={showLogin} login={Login} error={errorMessage} close={handleClose} /></Route>
+      <Route><LoginForm showLogin={showLogin} login={Login} empty={emptyLogin} error={errorMessage} close={handleClose} /></Route>
       <Route><Navbar open={handleOpen}/></Route>
       <Switch>
         {/* Main Pages */}
