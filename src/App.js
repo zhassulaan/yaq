@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import Navbar from './components/NavBar/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home/screen/HomePage';
@@ -22,17 +22,10 @@ import Signup from './components/Signup/SignupForm';
 import { UserState } from './context/UserContext';
 
 function App() {
-	// useEffect(() => {
-	// 	if (showLogin || showSignup) {
-	// 		document.body.style.overflow = 'hidden'
-	// 	} else {
-	// 		document.body.style.overflow = 'unset';
-	// 	}
-	// }, [showLogin, showSignup]);
 
   const DefaultContainer = () => (
     <div>
-      <Route><Signup/></Route>
+      <Route component={Signup} />
       <Route><LoginForm/></Route>
       <Route><Navbar/></Route>
       <Switch>
@@ -45,7 +38,7 @@ function App() {
         <Route exact path='/products/clothes/jackets' children={<Products title={"Куртки"} index={0}/>} />
         <Route exact path='/products/clothes/men_jackets' children={<Products title={"Мужские куртки"} index={0} sex={0}/>} />
         <Route exact path='/products/clothes/women_jackets' children={<Products title={"Женские куртки"} index={0} sex={1}/>} />
-        <Route exact path='/products/clothes/baby_jackets' children={<Products title={"Детские куртки"} index={0} sex={2}/>} />
+        <Route exact path='/products/clothes/baby_jackets' children={<jkProducts title={"Детские куртки"} index={0} sex={2}/>} />
         <Route exact path='/products/clothes/vests' children={<Products title={"Жилеты"} index={1}/>} />
         <Route exact path='/products/clothes/men_vests' children={<Products title={"Мужские жилеты"} index={1} sex={0}/>} />
         <Route exact path='/products/clothes/women_vests' children={<Products title={"Женские жилеты"} index={1} sex={1}/>} />

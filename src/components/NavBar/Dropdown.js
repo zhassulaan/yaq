@@ -4,7 +4,7 @@ import AllGoods from './AllGoods';
 import LoginButton from '../Button';
 import Header from './Header';
 
-function Dropdown({setShow, setHide}) {
+function Dropdown({ setShow, setHide }) {
 	const [navbar, setNavbar] = useState(false);
 	
 	const changeTop = () => {
@@ -19,8 +19,8 @@ function Dropdown({setShow, setHide}) {
 
   	return (
 		<DropdownContainer className={navbar ? 'active' : ''}>
-			<div className='container' onClick={setHide}>
-				<AllGoods setShow={setShow}/>
+			<div className='container' onMouseEnter={setShow} onMouseLeave={setHide}>
+				<AllGoods/>
 				<div className="dd-header-content">
 					<Header/>
 				</div>
@@ -35,7 +35,6 @@ function Dropdown({setShow, setHide}) {
 
 
 const DropdownContainer = styled.nav`
-	position: fixed;
 	z-index: 2;
 	height: 100%;
 
@@ -43,7 +42,7 @@ const DropdownContainer = styled.nav`
 		background: var(--clr-white);
 		width: 73.75vw;
 		height: 29.375vw;
-		padding: 7.5vw 6.25vw 3.75vw;
+		padding: 2.5vw 6.25vw 3.75vw;
 		margin: 0 13.125vw;
 	}
 
@@ -91,25 +90,11 @@ const DropdownContainer = styled.nav`
 	@media (max-width: 1100px) {
 		.container {
 			width: 82vw;
-			margin: 3.75rem 9vw 0;
-		}
-
-		.active {
-			margin-top: 1.25rem;
+			margin: 0 9vw;
 		}
 
 		.dropdown-item {
 			line-height: 50%;
-		}
-	}
-
-	@media (max-width: 768px) {
-		.container {
-			margin-top: 3.125rem;
-		}
-
-		.active {
-			margin-top: 0.625rem;
 		}
 	}
 
@@ -128,7 +113,7 @@ const DropdownContainer = styled.nav`
 		}
 		
 		.dropdown-header {
-			border-bottom: 1px solid #D9D9D9;
+			border-bottom: 1px solid var(--clr-primary-5);
 			margin-bottom: 20px;
 		}
 		
@@ -140,6 +125,10 @@ const DropdownContainer = styled.nav`
 			line-height: 30px;
 			font-size: 16px;
 			font-weight: 400;
+		}
+		
+		.weighted {
+			font-weight: 600;
 		}
 		
 		.dropdown-close .dropdown-item {

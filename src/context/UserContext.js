@@ -26,10 +26,6 @@ function UserProvider({ children }) {
 		auth: true 
 	}]);
 
-	console.log(showSignup);
-	console.log(user);
-	console.log(showLogin);
-	
 	function checkUppercase (str) {
 		for (var i = 0; i < str.length; i++) {
 			if (str.charAt(i) == str.charAt(i).toUpperCase() && str.charAt(i).match(/[a-z]/i)) {

@@ -88,7 +88,7 @@ function LoginForm() {
 const Wrapper = styled.nav`
 	width: 100%;
 	height: 100%;
-	position: absolute;
+	position: fixed;
 	z-index: 10;
 
 	.form-outer {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import arrow from '../../assets/blackArrow.svg';
 
-function BabyClothes({setShow}) {
+function BabyClothes() {
 	const [isActive, setActive] = useState("false");
 
 	const handleToggle = () => {

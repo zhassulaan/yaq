@@ -60,68 +60,71 @@ function Navbar() {
 				/>
 			</div>
 
-			<div className={navbar ? ' active' : ''}>
-				<div className='navbar-container'>
-					{showSearchBar ? null :
-						<div className="left-container">
-							<img src={toggle} alt="navbar toggle" className='nav-toggle' onClick={handleSubmit}/>
+			<div className={ navbar ? 'navbar active' : 'navbar' }>
+					<div className='navbar-container'>
+						{showSearchBar ? null :
+							<div className="left-container">
+								<img src={toggle} alt="navbar toggle" className='nav-toggle' onClick={handleSubmit}/>
 
-							<div className='nav-logo'>
-								<img src={logo} alt="logo"/>
-							</div>
-					
-							<ul className='nav-menu'>
-								<li className='nav-item' onClick="window.location.reload()" onMouseEnter={handleSubmitClose}>
-									<Link to="/" className='nav-link'>ГЛАВНАЯ</Link>
-								</li>
-
-								<div onMouseEnter={handleSubmitOpen}>
-									<li className='nav-item' onClick="window.location.reload()">
-										<Link to="/products/clothes" className='nav-link'>ОДЕЖДА</Link>
-									</li>
-									<li className='nav-item' onClick="window.location.reload()">
-										<Link to="/products/clothes/shoes" className='nav-link'>ОБУВЬ</Link>
-									</li>
-									<li className='nav-item' onClick="window.location.reload()">
-										<Link to="/products/equipment" className='nav-link'>СНАРЯЖЕНИЕ</Link>
-									</li>
-									<li className='nav-item' onClick="window.location.reload()">
-										<Link to="/products/accessories" className='nav-link'>АКСЕССУАРЫ</Link>
-									</li>
-									<li className='nav-item' onClick="window.location.reload()">
-										<Link to="/products/run" className='nav-link'>БЕГ</Link>
-									</li>
+								<div className='nav-logo'>
+									<img src={logo} alt="logo"/>
 								</div>
+						
+								<ul className='nav-menu'>
+									<li className='nav-item' onClick="window.location.reload()">
+										<Link to="/" className='nav-link'>ГЛАВНАЯ</Link>
+									</li>
 
-								<li className='nav-item' onClick="window.location.reload()" onMouseEnter={handleSubmitClose}>
-									<Link to="/contacts" className='nav-link'>КОНТАКТЫ</Link>
-								</li>
-							</ul>
-						</div>
-					}
+									<div onMouseEnter={handleSubmitOpen} onMouseLeave={handleSubmitClose}>
+										<li className='nav-item' onClick="window.location.reload()">
+											<Link to="/products/clothes" className='nav-link'>ОДЕЖДА</Link>
+										</li>
+										<li className='nav-item' onClick="window.location.reload()">
+											<Link to="/products/clothes/shoes" className='nav-link'>ОБУВЬ</Link>
+										</li>
+										<li className='nav-item' onClick="window.location.reload()">
+											<Link to="/products/equipment" className='nav-link'>СНАРЯЖЕНИЕ</Link>
+										</li>
+										<li className='nav-item' onClick="window.location.reload()">
+											<Link to="/products/accessories" className='nav-link'>АКСЕССУАРЫ</Link>
+										</li>
+										<li className='nav-item' onClick="window.location.reload()">
+											<Link to="/products/run" className='nav-link'>БЕГ</Link>
+										</li>
+									</div>
 
-					{showSearchBar ? <SearchBar/> : null}
-					<CartButtons 
-						show={showSearchBar} 
-						setShow={search}
-					/>
-				</div>
+									<li className='nav-item' onClick="window.location.reload()">
+										<Link to="/contacts" className='nav-link'>КОНТАКТЫ</Link>
+									</li>
+								</ul>
+							</div>
+						}
+
+						{showSearchBar ? <SearchBar/> : null}
+						<CartButtons 
+							show={showSearchBar} 
+							setShow={search}
+						/>
+					</div>
+
+				{show ? <Dropdown setShow={handleSubmitOpen}  setHide={handleSubmitClose}/> : null}
 			</div>
-
-			{show ? <Dropdown setShow={handleSubmit}  setHide={handleSubmitClose}/> : null}
 		</Wrapper>
   )
 }
 
 const Wrapper = styled.nav`
 	max-width: 100rem;
-	margin-bottom: 5rem;
+	height: 8.125rem;
+
+	.navbar {
+		width: 100%;
+		position: fixed;
+		z-index: 3;
+	}
 
   	.navbar-container {
 		background: var(--clr-white);
-		position: fixed;
-		z-index: 3;
-		width: 100%;
 		height: 5rem;
     	display: flex;
     	justify-content: space-between;
@@ -129,8 +132,7 @@ const Wrapper = styled.nav`
 		padding: 0 13.125vw;
   	}
 
-	.active,
-	.active .navbar-container {
+	.active {
 		top: 0;
 	}
 
@@ -173,7 +175,7 @@ const Wrapper = styled.nav`
 	}
 
 	@media (max-width: 1100px) {
-		margin-bottom: 3.75rem;
+		height: 6.25rem;
 
 		.navbar-container {
 			height: 3.75rem;
@@ -186,7 +188,7 @@ const Wrapper = styled.nav`
 	}
 
 	@media (max-width: 768px) {
-		margin-bottom: 6.361vw;
+		height: calc(1.875rem + 6.361vw);
 
 		.navbar-container {
 			height: 6.361vw;
@@ -202,8 +204,8 @@ const Wrapper = styled.nav`
 	}
 
 	@media (max-width: 480px) {
-		margin-bottom: 3.125rem;
-
+		height: 3.125rem;
+		
 		.header {
 			display: none;
 		}
