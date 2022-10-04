@@ -21,8 +21,6 @@ function LoginForm() {
 		e.preventDefault();
 		Signup(details);
 	}
-	console.log(errorMessage);
-	console.log(details);
 
 	return (
 		showSignup ?
@@ -74,7 +72,7 @@ function LoginForm() {
 								<div className="form-group">
 									<div className="form-label">
 										<label htmlFor="email">Email</label>
-										{(details.name === "" && empty === true) ? <div className='error-message'>{errorMessage}</div> : ""}
+										{(details.email === "" && empty === true) ? <div className='error-message'>{errorMessage}</div> : ""}
 									</div>
 									<input
 										type="text"

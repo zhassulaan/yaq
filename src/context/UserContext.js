@@ -14,7 +14,7 @@ function UserProvider({ children }) {
 		name: "Admin1",
 		phone: "+7 (775) 976-41-65",
 		email: "admin@gmail.com",
-		password: "qwerty123",
+		password: "QWErty123",
 		auth: true 
 	}, 
 	{
@@ -22,29 +22,81 @@ function UserProvider({ children }) {
 		name: "Admin2",
 		phone: "+7 (778) 000-23-10",
 		email: "admin2@gmail.com",
-		password: "qwerty123",
+		password: "QWErty123",
 		auth: true 
 	}]);
 
+	console.log(showSignup);
+	console.log(user);
+	console.log(showLogin);
+	
+	function checkUppercase (str) {
+		for (var i = 0; i < str.length; i++) {
+			if (str.charAt(i) == str.charAt(i).toUpperCase() && str.charAt(i).match(/[a-z]/i)) {
+				return true;
+			}
+		}
+		return false;
+	};
+	function checkLowercase (str) {
+		for (var i = 0; i < str.length; i++) {
+			if (str.charAt(i) == str.charAt(i).toLowerCase() && str.charAt(i).match(/[a-z]/i)) {
+				return true;
+			}
+		}
+		return false;
+	};
+	function checkNumber (str) {
+		return /[0-9]/.test(str);
+	}
+	function checkPhoneNumber (str) {
+		for (var i = 0; i < str.length; i++) {
+			if (str.charAt(i) === '_') {
+				return true;
+			}
+		}
+		return false;
+	};
+	
 	const Signup = details => {
-		if (users.filter(user => (user.email === details.email)).length > 0) {
+		if ((details.name === "") || (details.phone === "") || (details.email === "") || (details.password === "") || (details.passwordConf === "")) {
+			setEmpty(true);
+			setErrorMessage("Заполните поле");
+		}
+		else if (checkPhoneNumber(details.phone)) {
+			setEmpty(false);
+			setErrorMessage("Укажите правильный номер телефона.");
+		}
+		else if (users.filter(user => (user.email === details.email)).length > 0) {
 			setEmpty(false);
 		   setErrorMessage("Пользователь с таким e-mail (" + details.email + ") уже существует.");
 		}
 		else if (users.filter(user => (user.phone === details.phone)).length > 0) {
 			setEmpty(false);
-		   setErrorMessage("Пользователь с таким e-mail (" + details.phone + ") уже существует.");
+		   setErrorMessage("Пользователь с таким номером (" + details.phone + ") уже существует.");
 		}
 		else if (details.password !== details.passwordConf) {
 			setEmpty(false);
 		   setErrorMessage("Введите корректный повтор пароля.");
 		}
-		else if ((details.name === "") || (details.phone === "") || (details.email === "") || (details.password === "") || (details.passwordConf === "")) {
-			setEmpty(true);
-			setErrorMessage("Заполните поле");
+		else if (details.password.length < 8) {
+			setEmpty(false);
+		   setErrorMessage("Пароль должен состоять хотя бы из 8 символов.");
+		}
+		else if (!checkUppercase(details.password)) {
+			setEmpty(false);
+		   setErrorMessage("Пароль должен содержать хотя бы одну прописную букву.");
+		}
+		else if (!checkLowercase(details.password)) {
+			setEmpty(false);
+		   setErrorMessage("Пароль должен содержать хотя бы одну строчную букву.");
+		}
+		else if (!checkNumber(details.password)) {
+			setEmpty(false);
+		   setErrorMessage("Пароль должен содержать хотя бы одну цифру.");
 		}
 		else {
-			setUser((user) => {
+			setUsers((user) => {
 				return [
 					...users,
 					{
@@ -56,7 +108,15 @@ function UserProvider({ children }) {
 					}
 				]
 			});
+			setUser((user) => ({
+				name: details.name,
+				phone: details.phone,
+				email: details.email,
+				password: details.password,
+				auth: true
+			}));
 			setEmpty(false);
+			setShowSignup(false);
 		}
 	};
 
@@ -73,6 +133,7 @@ function UserProvider({ children }) {
 				auth: currentUser[0].auth
 			}));
 			setEmpty(false);
+			setShowLogin(false);
 		}
 		else if (details.email === "" || details.password === "") {
 			setEmpty(true);
