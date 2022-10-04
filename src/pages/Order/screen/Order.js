@@ -41,18 +41,26 @@ function Order() {
 						<div className="form-address form-box1">
 							<p className='form-text'>Адресная информация:</p>
 							<Select placeholder={"Выберите свой город"}/>
-							<Input placeholder={'Адрес *'} type={"email"}/>
+							<div className='form-input'>
+								<Input placeholder={'Адрес *'} type={"email"}/>
+							</div>
 						</div>	
 
 						<div className="form-person form-box1">
 							<p className='form-text'>Информация о получателе:</p>
-							<Input placeholder={'Имя *'} type={"text"}/>
-							<Input placeholder={'Фамилия ' + '*'} type={"text"}/>
+							<div className='form-input'>
+								<Input placeholder={'Имя *'} type={"text"}/>
+							</div>
+							<div className='form-input'>
+								<Input placeholder={'Фамилия ' + '*'} type={"text"}/>
+							</div>
 						</div>			
 						
 						<div className="form-phone form-box1">
 							<p className='form-text'>Телефон:</p>
-							<Input placeholder={'+7 (___) ___-__-__'} mask={['+', '7', ' ', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}/>
+							<div className='form-input'>
+								<Input placeholder={'+7 (___) ___-__-__'} mask={['+', '7', ' ', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}/>
+							</div>
 						</div>
 
 						<div className="form-comment form-box">
@@ -120,6 +128,10 @@ const Wrapper = styled.nav`
 		font-size: 18px;
 		font-weight: 500;
 		margin-bottom: 10px;
+	}
+
+	.form-input {
+		margin: 20px 0 -10px;
 	}
 
 	.select-placeholder-text,

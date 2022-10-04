@@ -17,61 +17,24 @@ import TermsOfUse from './pages/TermsOfUse/screen/TermsOfUse';
 import FAQ from './pages/FAQ/screen/FAQ';
 import ReturnConditions from './pages/ReturnConditions/screen/ReturnConditions';
 import Error from './pages/ErrorPage/screen/ErrorPage';
-import LoginForm from './pages/Login/LoginForm';
+import LoginForm from './components/Login/LoginForm';
+import Signup from './components/Signup/SignupForm';
+import { UserState } from './context/UserContext';
 
 function App() {
-  const adminUser = {
-    email: "admin@gmail.com",
-    password: "qwerty123"
-  }
-
-  const [user, setUser] = useState({ username: "", email: "" });
-  const [errorMessage, setErrorMessage] = useState("");
-  const [showLogin, setShowLogin] = useState(false);
-  const [emptyLogin, setEmptyLogin] = useState(false);
-
-  const Login = details => {
-    if (details.email === adminUser.email && details.password === adminUser.password) {
-      setUser({
-        username: details.username,
-        email: details.email
-      });
-      setShowLogin(false);
-      setEmptyLogin(false);
-    }
-    else if (details.email === "" && details.password === "") {
-      setEmptyLogin(true);
-      setErrorMessage("Заполните поле");
-    }
-    else {
-      setEmptyLogin(false);
-      setErrorMessage("Неверный логин или пароль.");
-    }
-  }
-
-  const Logout = () => {
-    setUser({ username: "", email: "" })
-  }
-
-	useEffect(() => {
-		if (showLogin) {
-			document.body.style.overflow = 'hidden'
-		} else {
-			document.body.style.overflow = 'unset';
-		}
-	}, [showLogin]);
-
-  const handleOpen = () => {
-		setShowLogin(true);	
-	};
-  const handleClose = () => {
-		setShowLogin(false);	
-	};
+	// useEffect(() => {
+	// 	if (showLogin || showSignup) {
+	// 		document.body.style.overflow = 'hidden'
+	// 	} else {
+	// 		document.body.style.overflow = 'unset';
+	// 	}
+	// }, [showLogin, showSignup]);
 
   const DefaultContainer = () => (
     <div>
-      <Route><LoginForm showLogin={showLogin} login={Login} empty={emptyLogin} error={errorMessage} close={handleClose} /></Route>
-      <Route><Navbar open={handleOpen}/></Route>
+      <Route><Signup/></Route>
+      <Route><LoginForm/></Route>
+      <Route><Navbar/></Route>
       <Switch>
         {/* Main Pages */}
         <Route exact path='/' component={Home} />

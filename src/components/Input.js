@@ -2,13 +2,15 @@ import React from 'react';
 import MaskedInput from 'react-text-mask'
 import styled from 'styled-components';
 
-function Input({type, mask, placeholder}) {
+function Input({ type, mask, placeholder, onChange, value }) {
   	return (
     	<Wrapper>
 			<MaskedInput
 				type={type}
 				mask={mask}
 				placeholder={placeholder}
+				onChange={onChange}
+				value={value}
 				className='input-placeholder-text'
 			/>
     	</Wrapper>
@@ -16,8 +18,6 @@ function Input({type, mask, placeholder}) {
 }
 
 const Wrapper = styled.nav`
-	margin: 20px 0 -10px;
-
 	.input-placeholder-text {
 		width: 100%;
 		font-family: 'Jost';

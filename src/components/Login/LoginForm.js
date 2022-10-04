@@ -1,59 +1,47 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import LoginButton from '../../components/LoginButton';
+import { UserState } from '../../context/UserContext';
+import LoginButton from '../LoginButton';
 import closeButton from '../../assets/close.svg';
 
-function LoginForm({ showLogin, login, empty, error, close }) {
+function LoginForm() {
+	const {
+		errorMessage,
+		empty,
+		Login,
+		showLogin,
+		handleOpenRegistration,
+		handleClose
+	} = UserState();
+
 	const [details, setDetails] = useState({ email: "", password: "" });
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		login(details);
+		Login(details);
 	}
-	// const userRef = useRef();
-	// const errRef = useRef();
 
-	// const [user, setUser] = useState('');
-	// const [password, setPassword] = useState('');
-	// const [errorMessage, setErrorMessage] = useState('');
-	// const [success, setSuccess] = useState(false);
-
-	// useEffect(() => {
-	// 	useRef.current.focus();
-	// }, []);
-	
-	// useEffect(() => {
-	// 	setErrorMessage('');
-	// }, [user, password]);
-
-	// const handleSubmit = async (e) =>{
-	// 	e.preventDefault();
-	// 	console.log(user, password);
-	// 	setUser('');
-	// 	setPassword('');
-	// 	setSuccess(true);
-	// }
   	return (
-		showLogin ?
+		(showLogin) ?
 			<Wrapper>
 				<div className="form-outer">
 					<div className="form-inner">
 						<div className="form-container">
 							<div className="form-header">
-								<h2 className='title form-title'>Вход</h2>
+								<h2 className='title form-title'>ВХОД</h2>
 								
-								<span className='form-registration'>
-									<a href="/registration">Регистрация</a>
+								<span className='form-registration' onClick={handleOpenRegistration}>
+									<p>Регистрация</p>
 								</span>
 							</div>
 
-							{(error !== "" && empty === false) ? ( <div className='error-message'>{error}</div> ) : ""}
+							{(errorMessage !== "" && empty === false) ? <div className='error-message'>{errorMessage}</div> : ""}
 
-							<form onSubmit={ handleSubmit } >
+							<form onSubmit={handleSubmit}>
 								<div className="form-group">
 									<div className="form-label">
 										<label htmlFor="email">Email</label>
-										{(empty === true) ? ( <div className='error-message'>{error}</div> ) : ""}
+										{(details.email === "" && empty === true) ? <div className='error-message'>{errorMessage}</div> : ""}
 									</div>
 									<input 
 										type="text"
@@ -61,17 +49,14 @@ function LoginForm({ showLogin, login, empty, error, close }) {
 										id="email"
 										onChange={e => setDetails({...details, email: e.target.value})}
 										value={details.email}
-										className={(details.email !== "") ? (details.email.includes("@") ? "" : "email-error") : ""}
-										// ref={userRef}
-										// onChange={(e) => setUser(e.target.value)}
-										// value={user}
+										className={(details.email !== "" && empty === true) ? (details.email.includes("@") ? "" : "email-error") : ""}
 									/>
 								</div>
 								
 								<div className="form-group">
 									<div className="form-label">
 										<label htmlFor="password">Пароль</label>
-										{(empty === true) ? ( <div className='error-message'>{error}</div> ) : ""}
+										{(details.password === "" && empty === true) ? <div className='error-message'>{errorMessage}</div> : ""}
 									</div>
 									<input 
 										type="password"
@@ -79,8 +64,6 @@ function LoginForm({ showLogin, login, empty, error, close }) {
 										id="password"
 										onChange={e => setDetails({...details, password: e.target.value})}
 										value={details.password}
-										// onChange={(e) => setPassword(e.target.value)}
-										// value={password}
 									/>
 								</div>
 
@@ -93,7 +76,7 @@ function LoginForm({ showLogin, login, empty, error, close }) {
 							</form>
 						</div>
 
-						<img src={closeButton} alt="close button" className="button login-icon" onClick={close}/>
+						<img src={closeButton} alt="close button" className="button close-icon" onClick={handleClose}/>
 					</div>
 				</div>
 			</Wrapper>
@@ -145,6 +128,7 @@ const Wrapper = styled.nav`
 		font-weight: 400;
 		line-height: 20px;
 		margin-top: 20px;
+		cursor: pointer;
 	}
 
 	.error-message {
@@ -178,10 +162,6 @@ const Wrapper = styled.nav`
 		padding: 20px;
 	}
 
-	.form-label error-message {
-
-	}
-
 	.email-error {
 		border: 1px solid #FA0000;
 	}
@@ -201,7 +181,7 @@ const Wrapper = styled.nav`
 		margin-top: 10px;
 	}
 
-	.login-icon {
+	.close-icon {
 		width: 17px;
 		height: 17px;
 		margin-top: -40px; 

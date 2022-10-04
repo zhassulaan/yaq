@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { CartState } from '../../context/Context';
+import { UserState } from '../../context/UserContext';
 import heart from '../../assets/heart.svg';
 import heart2 from '../../assets/heart2.svg';
 import shop from '../../assets/shop.svg';
@@ -10,7 +11,11 @@ import search from '../../assets/search.svg';
 import search2 from '../../assets/search2.svg';
 import close from '../../assets/close.svg';
 
-function CartButtons({ show, setShow, open }) {
+function CartButtons({ show, setShow }) {
+	const {
+		handleOpenLogin,
+	} = UserState();
+
 	const {
 		state: { cart },
 	} = CartState();
@@ -45,7 +50,7 @@ function CartButtons({ show, setShow, open }) {
 			</div>
 					
 			<div className="laptop-icons">
-				<p className='button nav-item' id='signup' onClick={open}>ВХОД</p>
+				<p className='button nav-item' id='signup' onClick={handleOpenLogin}>ВХОД</p>
 				
 				{show 
 					? 
