@@ -58,12 +58,15 @@ const Wrapper = styled.nav`
 	.slick-track {
 		margin-left: 38%;
 	}
+
+	.slick-slide {
+		transform: skew(8.13deg);
+	}
 	
 	.image-box {
 		max-width: 43.75vw;
 		height: 35rem;
 		background-color: var(--clr-primary-3);
-		transform: skew(8.13deg);
 		overflow: hidden;
 	}
 

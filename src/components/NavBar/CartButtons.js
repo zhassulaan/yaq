@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { CartState } from '../../context/Context';
 import { UserState } from '../../context/UserContext';
@@ -10,9 +9,11 @@ import shop2 from '../../assets/shop2.svg';
 import search from '../../assets/search.svg';
 import search2 from '../../assets/search2.svg';
 import close from '../../assets/close.svg';
+import userIcon from '../../assets/user.svg';
 
 function CartButtons({ show, setShow }) {
 	const {
+		user,
 		handleOpenLogin,
 	} = UserState();
 
@@ -31,13 +32,20 @@ function CartButtons({ show, setShow }) {
 			<div className="mobile-icons">
 				{show ? null :
 					<div className="mobile-add-icons">
-						<Link to="/saved" className='nav-item'>
+						{ user.auth ?
+							<a href="/personal" className='nav-item'>
+								<img src={userIcon} alt="user icon"/>
+							</a>
+								:
+							null
+						}
+						<a href="/saved" className='nav-item'>
 							<img src={heart2} alt="saved icon"/>
-						</Link>
-						<Link to="/purchased" className='nav-item cart-container'>
+						</a>
+						<a href="/purchased" className='nav-item cart-container'>
 							<img src={shop2} alt="purchased icon"/>
 							<span className="purchased-cart"></span>
-						</Link>
+						</a>
 					</div>
 				}
 
@@ -50,7 +58,7 @@ function CartButtons({ show, setShow }) {
 			</div>
 					
 			<div className="laptop-icons">
-				<p className='button nav-item' id='signup' onClick={handleOpenLogin}>ВХОД</p>
+				{user.auth ? <a href="/personal" className='button nav-user nav-link'>АККАУНТ</a> : <p className='button nav-user nav-link' id='signup' onClick={handleOpenLogin}>ВХОД</p>}
 				
 				{show 
 					? 
@@ -59,18 +67,18 @@ function CartButtons({ show, setShow }) {
 						<img src={search} alt="search button" className='button nav-item' onClick={setShow}/>
 				}
 
-				<Link to="/saved" className='nav-item cart-container'>
+				<a href="/saved" className='nav-item cart-container'>
 					<img src={heart} alt="saved icon" onClick="window.location.reload()"/>
 					<span className="saved-cart">
           			{'0'}
         			</span>
-				</Link>
-				<Link to="/basket" className='nav-item cart-container'>
+				</a>
+				<a href="/basket" className='nav-item cart-container'>
 					<img src={shop} alt="purchased icon" onClick="window.location.reload()"/>
 					<span className="purchased-cart">
           			{totalItems}
         			</span>
-				</Link>
+				</a>
 			</div>
 		</Wrapper>
   	)
@@ -92,6 +100,10 @@ const Wrapper = styled.nav`
 
 	.cart-container {
 		position: relative;
+	}
+
+	.nav-user {
+		margin: 0 0.9375vw;
 	}
 	
 	.saved-cart,

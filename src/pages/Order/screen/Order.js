@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { UserState } from '../../../context/UserContext';
 import { CartState } from '../../../context/Context';
 import ProductItem from '../component/ProductItem';
 import Select from '../../../components/Select';
@@ -7,6 +8,19 @@ import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 
 function Order() {
+	const {
+		showLogin,
+		showSignup
+	} = UserState();
+	
+	useEffect(() => {
+		if (showLogin || showSignup) {
+			document.body.style.overflow = 'hidden'
+		} else {
+			document.body.style.overflow = 'unset';
+		}
+	}, [showLogin, showSignup])
+	
 	const {
 		state: { cart },
 		dispatch

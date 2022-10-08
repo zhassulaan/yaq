@@ -1,7 +1,6 @@
 import { createContext, useContext, useReducer, useEffect } from 'react';
 import productData from '../data/product_data';
 import { cartReducer } from './Reducers';
-
 	
 const getLocalStorage = () => {
 	let cart = localStorage.getItem("cart-items");

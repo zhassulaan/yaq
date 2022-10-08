@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { UserState } from '../../../context/UserContext';
 import LoginButton from '../../../components/Button';
 
 function Saved() {
+	const {
+		showLogin,
+		showSignup
+	} = UserState();
+	
+	useEffect(() => {
+		if (showLogin || showSignup) {
+			document.body.style.overflow = 'hidden'
+		} else {
+			document.body.style.overflow = 'unset';
+		}
+	}, [showLogin, showSignup])
+
   	return (
 	 	<Wrapper>
 			<h1 className='title section-title'>СОХРАНЕННЫЕ ТОВАРЫ</h1>

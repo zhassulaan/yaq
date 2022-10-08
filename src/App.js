@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import Navbar from './components/NavBar/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home/screen/HomePage';
 import Products from './pages/ProductsPage/screen/ProductsPage';
 import ProductDetail from './pages/ProductsPage/screen/ProductDetail';
+import Personal from './pages/Personal/screen/Personal';
 import Saved from './pages/Saved/screen/Saved';
 import Basket from './pages/Basket/screen/Basket';
 import PopUp from './pages/PopUp/screen/PopUp';
@@ -18,21 +19,26 @@ import FAQ from './pages/FAQ/screen/FAQ';
 import ReturnConditions from './pages/ReturnConditions/screen/ReturnConditions';
 import Error from './pages/ErrorPage/screen/ErrorPage';
 import LoginForm from './components/Login/LoginForm';
-import Signup from './components/Signup/SignupForm';
-import { UserState } from './context/UserContext';
+import LoginPage from './components/Login/LoginPage';
+import SignupForm from './components/Signup/SignupForm';
+import SignupPage from './components/Signup/SignupPage';
+import ResetPassword from './pages/ResetPassword/ResetPassword';
 
 function App() {
-
   const DefaultContainer = () => (
     <div>
-      <Route component={Signup} />
-      <Route><LoginForm/></Route>
+      <Route component={LoginForm} />
+      <Route component={SignupForm} />
       <Route><Navbar/></Route>
       <Switch>
+        <Route exact path='/login' component={LoginPage} />
+        <Route exact path='/signup' component={SignupPage} />
+        <Route exact path='/reset-password' component={ResetPassword} />
         {/* Main Pages */}
         <Route exact path='/' component={Home} />
         <Route exact path='/saved' component={Saved} />
         <Route exact path='/order' component={Order} />
+        <Route exact path='/personal' component={Personal} />
         {/* Products Pages */}
         <Route exact path='/products/clothes' children={<Products title={"Все товары"} index={11}/>} />
         <Route exact path='/products/clothes/jackets' children={<Products title={"Куртки"} index={0}/>} />

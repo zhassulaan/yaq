@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import questions from '../../../data/questions.js';
 import QABox from '../components/QABox';
+import { UserState } from '../../../context/UserContext';
 
 function FAQ() {
+	const {
+		showLogin,
+		showSignup
+	} = UserState();
+	
+	useEffect(() => {
+		if (showLogin || showSignup) {
+			document.body.style.overflow = 'hidden'
+		} else {
+			document.body.style.overflow = 'unset';
+		}
+	}, [showLogin, showSignup])
+	
   	return (
 	 	<Wrapper>
 			<h1 className='title section-title'>FAQ</h1>
@@ -123,6 +137,7 @@ const Wrapper = styled.nav`
 
 		.section-title {
 			font-size: 28px;
+			line-height: 3.125rem;
 			background-color: var(--clr-white);
 			margin: 0;
 			padding: 1.25rem 5.5556vw;

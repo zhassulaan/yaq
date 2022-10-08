@@ -8,8 +8,22 @@ import FilterBox from '../component/FilterBox';
 import SavedFilter from '../component/SavedFilter';
 import sort from '../assets/sort.svg';
 import filter from '../assets/filter.svg';
+import { UserState } from '../../../context/UserContext';
 
 function ProductPage({ title, index, sex }) {
+	const {
+		showLogin,
+		showSignup
+	} = UserState();
+	
+	useEffect(() => {
+		if (showLogin || showSignup) {
+			document.body.style.overflow = 'hidden'
+		} else {
+			document.body.style.overflow = 'unset';
+		}
+	}, [showLogin, showSignup])
+
 	const { state: 
 		{ products } 
 	} = CartState();

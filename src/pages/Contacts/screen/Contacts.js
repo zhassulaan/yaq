@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import instagram from '../assets/instagram-icon.svg';
 import telegram from '../assets/telegram-icon.svg';
 import whatsapp from '../assets/whatsapp-icon.svg';
+import { UserState } from '../../../context/UserContext';
 
 function Contacts() {
+	const {
+		showLogin,
+		showSignup
+	} = UserState();
+	
+	useEffect(() => {
+		if (showLogin || showSignup) {
+			document.body.style.overflow = 'hidden'
+		} else {
+			document.body.style.overflow = 'unset';
+		}
+	}, [showLogin, showSignup])
+
 	return (
 	  	<Wrapper>
 		 	<h1 className='title section-title'>КОНТАКТЫ</h1>
@@ -272,6 +286,7 @@ const Wrapper = styled.nav`
 
 		.section-title {
 			font-size: 28px;
+			line-height: 3.125rem;
 			background-color: var(--clr-white);
 			padding: 1.25rem 5.5556vw;
 		}

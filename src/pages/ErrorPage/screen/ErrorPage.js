@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import error from '../assets/error.svg';
+import { UserState } from '../../../context/UserContext';
 
 function ErrorPage({ title, text }) {
+	const {
+		showLogin,
+		showSignup
+	} = UserState();
+	
+	useEffect(() => {
+		if (showLogin || showSignup) {
+			document.body.style.overflow = 'hidden'
+		} else {
+			document.body.style.overflow = 'unset';
+		}
+	}, [showLogin, showSignup])
+	
  	return (
 	 	<Wrapper>
 			<img src={error} alt="error smile" className='error-icon'/>

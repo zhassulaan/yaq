@@ -2,7 +2,7 @@ import React from 'react';
 import MaskedInput from 'react-text-mask'
 import styled from 'styled-components';
 
-function Input({ type, mask, placeholder, onChange, value }) {
+function Input({ type, mask, placeholder, onChange, value, classname }) {
   	return (
     	<Wrapper>
 			<MaskedInput
@@ -11,6 +11,7 @@ function Input({ type, mask, placeholder, onChange, value }) {
 				placeholder={placeholder}
 				onChange={onChange}
 				value={value}
+				className={classname}
 				className='input-placeholder-text'
 			/>
     	</Wrapper>

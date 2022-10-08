@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import AllGoods from './AllGoods';
-import LoginButton from '../Button';
+import LoginButton from '../Button1';
 import Header from './Header';
+import { UserState } from '../../context/UserContext';
 
 function Dropdown({ setShow, setHide }) {
+	const {
+		user
+	} = UserState();
+
 	const [navbar, setNavbar] = useState(false);
 	
 	const changeTop = () => {
@@ -25,9 +30,13 @@ function Dropdown({ setShow, setHide }) {
 					<Header/>
 				</div>
 
-				<div className="login-button button">
-					<LoginButton text={"ВХОД"}/>
-				</div>
+				{ user.auth ?
+					null
+						:
+					<a href="/login" className="login-button button">
+						<LoginButton text={"ВХОД"}/>
+					</a> 
+				}
 			</div>
 	 	</DropdownContainer>
   	)

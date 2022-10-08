@@ -1,30 +1,33 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react';
+
+const getLocalStorageUsers = () => {
+	let user = localStorage.getItem("user-items");
+	if (user) {
+	  return JSON.parse(localStorage.getItem('user-items'));
+	} else {
+	  return [];
+	}
+}
+
+const getLocalStorageAuth = () => {
+	let user = localStorage.getItem("auth-item");
+	if (user) {
+	  return JSON.parse(localStorage.getItem('auth-item'));
+	} else {
+	  return [];
+	}
+}
 
 const User = createContext({ name: '', auth: false });
 
 function UserProvider({ children }) {
-	const [user, setUser] = useState({ name: '', phone: '', email: '', password: '', auth: false });
+	const [user, setUser] = useState(getLocalStorageAuth());
 	const [errorMessage, setErrorMessage] = useState("");
 	const [empty, setEmpty] = useState(false);
 	const [showSignup, setShowSignup] = useState(false);
 	const [showLogin, setShowLogin] = useState(false);
 
-	const [users, setUsers] = useState([{
-		id: 0,
-		name: "Admin1",
-		phone: "+7 (775) 976-41-65",
-		email: "admin@gmail.com",
-		password: "QWErty123",
-		auth: true 
-	}, 
-	{
-		id: 1,
-		name: "Admin2",
-		phone: "+7 (778) 000-23-10",
-		email: "admin2@gmail.com",
-		password: "QWErty123",
-		auth: true 
-	}]);
+	const [users, setUsers] = useState(getLocalStorageUsers());
 
 	function checkUppercase (str) {
 		for (var i = 0; i < str.length; i++) {
@@ -34,6 +37,7 @@ function UserProvider({ children }) {
 		}
 		return false;
 	};
+
 	function checkLowercase (str) {
 		for (var i = 0; i < str.length; i++) {
 			if (str.charAt(i) == str.charAt(i).toLowerCase() && str.charAt(i).match(/[a-z]/i)) {
@@ -42,9 +46,11 @@ function UserProvider({ children }) {
 		}
 		return false;
 	};
+
 	function checkNumber (str) {
 		return /[0-9]/.test(str);
 	}
+
 	function checkPhoneNumber (str) {
 		for (var i = 0; i < str.length; i++) {
 			if (str.charAt(i) === '_') {
@@ -54,7 +60,7 @@ function UserProvider({ children }) {
 		return false;
 	};
 	
-	const Signup = details => {
+	const Signup = (details, history) => {
 		if ((details.name === "") || (details.phone === "") || (details.email === "") || (details.password === "") || (details.passwordConf === "")) {
 			setEmpty(true);
 			setErrorMessage("Заполните поле");
@@ -62,6 +68,10 @@ function UserProvider({ children }) {
 		else if (checkPhoneNumber(details.phone)) {
 			setEmpty(false);
 			setErrorMessage("Укажите правильный номер телефона.");
+		}
+		else if (!details.email.includes("@")) {
+			setEmpty(false);
+			setErrorMessage("Укажите правильный электронный адрес.");
 		}
 		else if (users.filter(user => (user.email === details.email)).length > 0) {
 			setEmpty(false);
@@ -96,6 +106,7 @@ function UserProvider({ children }) {
 				return [
 					...users,
 					{
+						id: users.length,
 						name: details.name,
 						phone: details.phone,
 						email: details.email,
@@ -113,11 +124,13 @@ function UserProvider({ children }) {
 			}));
 			setEmpty(false);
 			setShowSignup(false);
+			history.push("/");
+			history.go(0);
 		}
 	};
 
 	// Login updates the user data with a name parameter
-	const Login = details => {
+	const Login = (details, history) => {
 		const currentUser = users.filter(user => (user.email === details.email) && (user.password === details.password))
  
 		if (currentUser.length > 0) {
@@ -129,7 +142,10 @@ function UserProvider({ children }) {
 				auth: currentUser[0].auth
 			}));
 			setEmpty(false);
+			setErrorMessage("");
 			setShowLogin(false);
+			history.push("/");
+			history.go(0);
 		}
 		else if (details.email === "" || details.password === "") {
 			setEmpty(true);
@@ -172,6 +188,11 @@ function UserProvider({ children }) {
 		setErrorMessage("");
 		setEmpty(false);
 	};
+
+	useEffect(() => {
+		localStorage.setItem('user-items', JSON.stringify(users));
+		localStorage.setItem('auth-item', JSON.stringify(user));
+	}, [users, user]);
   
   	return (
 	 	<User.Provider value={{ user, errorMessage, empty, Signup, Login, Logout, showLogin, handleOpenLogin, handleClose, showSignup, handleOpenRegistration }}>

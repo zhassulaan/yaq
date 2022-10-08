@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { UserState } from '../../context/UserContext'
 import Header from './Header';
 import SearchBar from './SearchBar';
 import CartButtons from './CartButtons';
@@ -9,6 +10,10 @@ import toggle from '../../assets/toggle.svg';
 import logo from '../../assets/logo.svg';
 
 function Navbar() {
+	const {
+		user,
+	} = UserState();
+
 	const [show, setShow] = useState(false);
 	const [showSearchBar, setShowSearchBar] = useState(false);
 	const [navbar, setNavbar] = useState(false);
@@ -64,7 +69,7 @@ function Navbar() {
 					<div className='navbar-container'>
 						{showSearchBar ? null :
 							<div className="left-container">
-								<img src={toggle} alt="navbar toggle" className='nav-toggle' onClick={handleSubmit}/>
+								<img src={toggle} alt="navbar toggle" className={user.auth ? 'nav-toggle loged-in' : 'nav-toggle'} onClick={handleSubmit}/>
 
 								<div className='nav-logo'>
 									<img src={logo} alt="logo"/>
@@ -166,12 +171,18 @@ const Wrapper = styled.nav`
 	}
 	
 	.nav-link {
-		font-size: 14px;
+		font-size: 16px;
 	}
 
 	.nav-link:hover {
 		color: var(--clr-primary-2);
 		text-decoration: underline;
+	}
+
+	@media (max-width: 1280px) {
+		.nav-link {
+			font-size: 14px;
+		}
 	}
 
 	@media (max-width: 1100px) {
@@ -181,7 +192,9 @@ const Wrapper = styled.nav`
 			height: 3.75rem;
 			padding: 0 9vw;
 		}
+	}
 
+	@media (max-width: 992px) {
 		.nav-link {
 			font-size: 12px;
 		}
@@ -219,6 +232,10 @@ const Wrapper = styled.nav`
 		.nav-toggle {
 			display: flex;
 			margin-right: 31.944vw;
+		}
+		
+		.loged-in {
+			margin-right: 7.5vw;
 		}
 		
 		.nav-menu {
