@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import { UserState } from '../../context/UserContext';
 import Button from '../Button';
 import Error from '../../pages/ErrorPage/screen/ErrorPage';
-import { useHistory } from "react-router-dom";
 
 function Login() {
-	const history = useHistory();
 	const {
 		errorMessage,
 		empty,
@@ -15,6 +14,7 @@ function Login() {
 
 	const [details, setDetails] = useState({ email: "", password: "" });
 
+	const history = useHistory();
 	const handleSubmit = e => {
 		e.preventDefault();
 		Login(details, history);

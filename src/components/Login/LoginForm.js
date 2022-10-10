@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import { UserState } from '../../context/UserContext';
 import LoginButton from '../Button';
 import closeButton from '../../assets/close.svg';
 
 function Login() {
-const {
+	const {
 		errorMessage,
 		empty,
 		Login,
@@ -16,9 +17,10 @@ const {
 
 	const [details, setDetails] = useState({ email: "", password: "" });
 
+	const history = useHistory();
 	const handleSubmit = e => {
 		e.preventDefault();
-		Login(details);
+		Login(details, history);
 	}
 
   	return (

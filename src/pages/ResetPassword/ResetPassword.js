@@ -98,24 +98,24 @@ const Wrapper = styled.nav`
 	.section-text1 {
 		width: 56.25vw;
 		font-size: 20px;
-		margin-bottom: 40px;
+		margin-bottom: 2.5rem;
 	}
 	
 	.section-text2 {
 		width: 30vw;
 		font-size: 18px;
-		margin-bottom: 30px;		
+		margin-bottom: 1.875rem;		
 	}
 
 	.form-label {
 		font-size: 18px;
 		font-weight: 400;
-		margin-bottom: 10px;
+		margin-bottom: 0.625rem;
 	}
 
 	input,
 	.input-placeholder-text {
-		margin-bottom: 30px;
+		margin-bottom: 1.875rem;		
 	} 
 	
 	.input-placeholder-text {
@@ -123,26 +123,26 @@ const Wrapper = styled.nav`
 	}
 
 	.form-button .button {
-		height: 50px;
+		height: 3.125rem;
 		width: 16.25vw;
-		margin-top: 20px;
+		margin-top: 1.25rem;
 	}
 
 	.default-border input,
 	.default-border .input-placeholder-text {
 		width: 26.25vw;
-		height: 50px;
+		height: 3.125rem;
 		border: 1px solid var(--clr-primary-4);
-		padding-left: 20px;
+		padding-left: 1.25rem;
 		font-size: 16px;
 	}
 
 	.error-border input,
 	.error-border .input-placeholder-text {
 		width: 26.25vw;
-		height: 50px;
+		height: 3.125rem;
 		border: 1px solid #FA0000;
-		padding-left: 20px;
+		padding-left: 1.25rem;
 		font-size: 16px;
 	}
 
@@ -154,13 +154,13 @@ const Wrapper = styled.nav`
 		.section-text1 {
 			width: 60.25vw;
 			font-size: 19px;
-			margin-bottom: 35px;
+			margin-bottom: 2.1875rem;
 		}
 		
 		.section-text2 {
 			width: 34vw;
 			font-size: 17px;
-			margin-bottom: 25px;	
+			margin-bottom: 1.5625rem;	
 		}
 
 		.form-label {
@@ -196,19 +196,19 @@ const Wrapper = styled.nav`
 		.default-border input,
 		.default-border .input-placeholder-text {
 			width: 34.25vw;
-			height: 45px;
+			height: 2.8125rem;
 		}
 		
 		.error-border input,
 		.error-border .input-placeholder-text {
 			width: 34.25vw;
-			height: 45px;
+			height: 2.8125rem;
 		}
 		
-				.form-button .button {
-					width: 24.25vw;
-					height: 45px;
-				}
+		.form-button .button {
+			width: 24.25vw;
+			height: 2.8125rem;
+		}
 	}
 
 	@media (max-width: 1024px) {
@@ -220,19 +220,19 @@ const Wrapper = styled.nav`
 	@media (max-width: 992px) {
 		.section-title {
 			font-size: 60px;
-			margin-bottom: 45px;
+			margin-bottom: 2.8125rem;
 		}
 
 		.section-text1 {
 			width: 62.25vw;
 			font-size: 18px;
-			margin-bottom: 30px;
+			margin-bottom: 1.875rem;
 		}
 		
 		.section-text2 {
 			width: 36vw;
 			font-size: 16px;
-			margin-bottom: 20px;	
+			margin-bottom: 1.25rem;	
 		}
 
 		.form-label {
@@ -241,27 +241,27 @@ const Wrapper = styled.nav`
 
 		input,
 		.input-placeholder-text {
-			margin-bottom: 25px;
+			margin-bottom: 1.5625rem;
 		} 
 		
 		.default-border input,
 		.default-border .input-placeholder-text {
 			width: 32.25vw;
 			font-size: 14px;
-			padding-left: 15px;
+			padding-left: 0.9375rem;
 		}
 		
 		.error-border input,
 		.error-border .input-placeholder-text {
 			width: 32.25vw;
 			font-size: 14px;
-			padding-left: 15px;
+			padding-left: 0.9375rem;
 		}
 		
 		.form-button .button {
 			width: 22.25vw;
 			font-size: 20px;
-			margin-top: 15px;
+			margin-top: 0.9375rem;
 		}
 	}
 
@@ -273,51 +273,51 @@ const Wrapper = styled.nav`
 		.section-text1 {
 			width: 66.25vw;
 			font-size: 16px;
-			margin-bottom: 25px;
+			margin-bottom: 1.5625rem;
 		}
 		
 		.section-text2 {
 			width: 40vw;
 			font-size: 14px;
-			margin-bottom: 15px;	
+			margin-bottom: 0.9375rem;	
 		}
 		
 		.form-label {
 			font-size: 14px;
-			margin-bottom: 5px;	
+			margin-bottom: 0.3125rem;	
 		}
 
 		input,
 		.input-placeholder-text {
-			margin-bottom: 25px;
+			margin-bottom: 1.5625rem;
 		} 
 		
 		.default-border input,
 		.default-border .input-placeholder-text {
 			width: 36.25vw;
-			height: 40px;
-			margin-bottom: 20px;
+			height: 2.5rem;
+			margin-bottom: 1.25rem;
 		}
 		
 		.error-border input,
 		.error-border .input-placeholder-text {
 			width: 36.25vw;
-			height: 40px;
-			margin-bottom: 20px;
+			height: 2.5rem;
+			margin-bottom: 1.25rem;
 		}
 		
 		.form-button .button {
 			width: 26.25vw;
-			height: 40px;
+			height: 2.5rem;
 			font-size: 18px;
-			margin-top: 10px;
+			margin-top: 0.625rem;
 		}
 	}
 
 	@media (max-width: 650px) {
 		.section-title {
 			font-size: 45px;
-			margin-bottom: 40px;
+			margin-bottom: 2.5rem;
 		}
 
 		.section-text1 {
@@ -337,32 +337,32 @@ const Wrapper = styled.nav`
 		.default-border input,
 		.default-border .input-placeholder-text {
 			width: 40.25vw;
-			height: 35px;
+			height: 2.1875rem;
 			font-size: 12px;
 		}
 		
 		.error-border input,
 		.error-border .input-placeholder-text {
 			width: 40.25vw;
-			height: 35px;
+			height: 2.1875rem;
 			font-size: 12px;
 		}
 		
 		.form-button .button {
 			width: 30.25vw;
-			height: 40px;
+			height: 2.5rem;
 		}
 	}
 	
 	@media (max-width: 610px) {
 		.section-title {
 			font-size: 40px;
-			margin-bottom: 35px;
+			margin-bottom: 2.1875rem;
 		}
 
 		.section-text1 {
 			font-size: 14px;
-			margin-bottom: 20px;
+			margin-bottom: 1.25rem;
 		}
 		
 		.section-text2 {
@@ -375,29 +375,29 @@ const Wrapper = styled.nav`
 		
 		.default-border input,
 		.default-border .input-placeholder-text {
-			height: 30px;
+			height: 1.875rem;
 			font-size: 11px;
-			margin-bottom: 15px;
+			margin-bottom: 0.9375;
 		}
 		
 		.error-border input,
 		.error-border .input-placeholder-text {
-			height: 30px;
+			height: 1.875rem;
 			font-size: 11px;
-			margin-bottom: 15px;
+			margin-bottom: 0.9375;
 		}
 		
 		.form-button .button {
 			width: 30.25vw;
-			height: 35px;
+			height: 2.1875rem;
 			font-size: 17px;
 		}
 	}
 	
 	@media (max-width: 550px) {
 		.section-title {
-			font-size: 35px;
-			margin-bottom: 30px;
+			font-size: 2.1875rem;
+			margin-bottom: 1.875rem;
 		}
 
 		.section-text1 {
@@ -408,7 +408,7 @@ const Wrapper = styled.nav`
 		.section-text2 {
 			width: 46vw;
 			font-size: 10px;
-			margin-bottom: 10px;
+			margin-bottom: 0.625ren=m;
 		}
 		
 		.form-label {
@@ -454,12 +454,12 @@ const Wrapper = styled.nav`
 
 		.section-text1,
 		.section-text2 {
-			line-height: 30px;
-			margin-bottom: 20px;
+			line-height: 1.875rem;
+			margin-bottom: 1.25rem;
 		}
 		
 		.form-label {
-			margin-bottom: 10px;
+			margin-bottom: 0.625rem
 		}
 
 		.section-text1,
@@ -481,10 +481,10 @@ const Wrapper = styled.nav`
 		.default-border .input-placeholder-text,
 		.error-border input,
 		.error-border .input-placeholder-text {
-			height: 50px;
+			height: 3.125rem;
 			font-size: 14px;
-			margin-bottom: 20px;
-			padding-left: 20px;
+			margin-bottom: 1.25rem;
+			padding-left: 1.25rem;
 		}
 
 		.form-button {
@@ -492,10 +492,10 @@ const Wrapper = styled.nav`
 		}
 
 		.form-button .button {
-			width: 200px;
-			height: 50px;
+			width: 12.5rem;
+			height: 3.125rem;
 			font-size: 22px;
-			margin: 10px 0 20px;
+			margin: 0.625rem 0 1.25rem;
 		}
 	}
 `

@@ -16,22 +16,22 @@ function FooterLinkMenu() {
 				<img src={arrow} alt="open arrow" className='icon-arrow' onClick={handleToggle}/>
 			</div>
 			<li className='footer-item' onClick="window.location.reload()">
-				<Link to="/discount_system" className='footer-link'>Дисконтная система</Link>
+				<Link to="/discount-system" className='footer-link'>Дисконтная система</Link>
 			</li>
 			<li className='footer-item' onClick="window.location.reload()">
 				<Link to="/about" className='footer-link'>О компании</Link>
 			</li>
 			<li className='footer-item' onClick="window.location.reload()">
-				<Link to="/terms_of_use" className='footer-link'>Пользовательское соглашение</Link>
+				<Link to="/terms-of-use" className='footer-link'>Пользовательское соглашение</Link>
 			</li>
 			<li className='footer-item' onClick="window.location.reload()">
 				<Link to="/faq" className='footer-link'>FAQ</Link>
 			</li>
 			<li className='footer-item' onClick="window.location.reload()">
-				<Link to="/delivery_payment" className='footer-link'>Доставка и оплата</Link>
+				<Link to="/delivery-payment" className='footer-link'>Доставка и оплата</Link>
 			</li>
 			<li className='footer-item' onClick="window.location.reload()">
-				<Link to="/return_conditions" className='footer-link'>Условия возврата</Link>
+				<Link to="/return-conditions" className='footer-link'>Условия возврата</Link>
 			</li>
 		</ul>
  	);

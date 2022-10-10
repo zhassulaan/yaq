@@ -1,18 +1,39 @@
 import React from 'react';
 import styled from 'styled-components';
 import { CartState } from '../../../context/Context';
+import { UserState } from '../../../context/UserContext';
 import heart from '../assets/heart.svg';
 import greenHeart from '../assets/green-heart.svg';
 
 const ProductBox = ({ product }) => {
 	const {
-		state: { cart },
+		user,
+	} = UserState();
+
+	const {
+		state: { saved },
 		dispatch
 	} = CartState();
 
+	const handleSubmit = e => {
+		e.preventDefault();
+		if (user.auth === true) {
+			(user.saved.filter(item => item.product.id === product.id).length === 0) ?
+				dispatch({
+					type: "ADD_TO_SAVED",
+					payload: product,
+				})
+			:
+				dispatch({
+					type: "REMOVE_FROM_SAVED",
+					payload: product,
+				})
+		}
+	}
+
 	return(
 		<BoxContainer key={product.id}>
-			<div className="box-content"><a href={`/products/${product.id}`}>
+			<div className="box-content">
 				<div className="box-header">
 					{(() => {
 						if (product.sale === 'Новинка') { 
@@ -23,30 +44,37 @@ const ProductBox = ({ product }) => {
 							return (<button className='product-sale button'>-{product.sale}%</button>)
 						}
 					})()}
-					<img src={product.saved ? greenHeart : heart} alt="saved button" className='button saved-icon'/>
+					
+					<img 
+						src={(user.saved.filter(item => item.product.id === product.id).length === 1) ? greenHeart : heart} 
+						alt="saved button" 
+						className='button saved-icon' 
+						onClick={handleSubmit}
+					/>
 				</div>
+				<a href={`/products/${product.id}`}>
+					<div className="box-body">
+						<div className="body-text">
+							<img src={product.image} alt={product.name} className='product-image'/>
 
-				<div className="box-body">
-					<div className="body-text">
-						<img src={product.image} alt={product.name} className='product-image'/>
+							<div className="brand-name">{product.brands}</div>
+							<div className="item-name">{product.item} {product.brands} {product.name}</div>
 
-						<div className="brand-name">{product.brands}</div>
-						<div className="item-name">{product.item} {product.brands} {product.name}</div>
+							<div className="price-number">{product.price} {product.currency}</div>
+						</div>
 
-						<div className="price-number">{product.price} {product.currency}</div>
+						<div className="product-btns">
+							<a href={`/popup/${product.id}`}>
+								<button className='button product-button green-btn'><p>В корзину</p></button>
+							</a>
+
+							<a href={`/products/${product.id}`}>
+								<button className='button product-button white-btn'><p>Подробнее</p></button>
+							</a>
+						</div>
 					</div>
-
-					<div className="product-btns">
-						<a href={`/popup/${product.id}`}>
-							<button className='button product-button green-btn'><p>В корзину</p></button>
-						</a>
-
-						<a href={`/products/${product.id}`}>
-							<button className='button product-button white-btn'><p>Подробнее</p></button>
-						</a>
-					</div>
-				</div>
-			</a></div>
+				</a>
+			</div>
 		</BoxContainer>
 	);
 }

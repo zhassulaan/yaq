@@ -18,12 +18,11 @@ function CartButtons({ show, setShow }) {
 	} = UserState();
 
 	const {
-		state: { cart },
+		state: { cart, saved },
 	} = CartState();
 	
 	let totalItems = 0;
 	cart.map((item) =>
-		// totalItems = totalItems + item.quantity
 		totalItems = totalItems + item.quantity
 	);
 
@@ -70,7 +69,7 @@ function CartButtons({ show, setShow }) {
 				<a href="/saved" className='nav-item cart-container'>
 					<img src={heart} alt="saved icon" onClick="window.location.reload()"/>
 					<span className="saved-cart">
-          			{'0'}
+						{user.auth ? saved.length : 0}
         			</span>
 				</a>
 				<a href="/basket" className='nav-item cart-container'>

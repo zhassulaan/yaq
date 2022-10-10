@@ -28,10 +28,10 @@ function Header({show, setShow}) {
 					<Link to="/" className='header-paragraph'>WhatsApp</Link>
 				</li>
 				<li className='header-item' onClick="window.location.reload()">
-					<Link to="/discount_system" className='header-paragraph'>Дисконтная система</Link>
+					<Link to="/discount-system" className='header-paragraph'>Дисконтная система</Link>
 				</li>
 				<li className='header-item' onClick="window.location.reload()">
-					<Link to="/delivery_payment" className='header-paragraph'>Доставка и оплата</Link>
+					<Link to="/delivery-payment" className='header-paragraph'>Доставка и оплата</Link>
 				</li>
 				<li className='header-item' onClick="window.location.reload()">
 					<Link to="/faq" className='header-paragraph'>FAQ</Link>

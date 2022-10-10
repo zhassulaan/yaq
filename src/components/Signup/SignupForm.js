@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import { UserState } from '../../context/UserContext';
 import Button from '../Button';
@@ -22,9 +23,10 @@ function Signup() {
 
 	const [details, setDetails] = useState({ name: "", phone: "", email: "", password: "", passwordConf: "" });
 
+	const history = useHistory();
 	const handleSubmit = e => {
 		e.preventDefault();
-		Signup(details);
+		Signup(details, history);
 	}
 
 	return (
@@ -156,7 +158,6 @@ const Wrapper = styled.nav`
 	.form-container {
 		position: relative;
 		width: 36.25rem;
-		height: 52.5rem;
 		background: var(--clr-white);
 		margin: auto;
 		padding: 3.75rem 5rem 5rem;
@@ -273,7 +274,6 @@ const Wrapper = styled.nav`
 	@media (max-width: 1024px) {
 		.form-container {
 			width: 30rem;
-			height: 49.0625rem;
 			padding: 3.125rem 3.75rem 4.375rem;
 		}
 		
@@ -327,7 +327,6 @@ const Wrapper = styled.nav`
 	@media (max-width: 768px) {
 		.form-container {
 			width: 26.25rem;
-			height: 43.4375rem;
 			padding: 2.8125rem 2.5rem 3.75rem;
 		}
 

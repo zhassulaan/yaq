@@ -39,7 +39,7 @@ class Products extends Component {
         		<Slider {...settings}>
 				  	{product_card.slice(0,6).map((item) => {
                   return(
-							<div className="button box-container">
+							<div className="box-container">
 	                     <ProductBox key={ item.id } product={ item }/>
 							</div>
                   );

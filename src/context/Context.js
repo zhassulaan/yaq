@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer, useEffect } from 'react';
 import productData from '../data/product_data';
 import { cartReducer } from './Reducers';
+import { UserState } from './UserContext';
 	
 const getLocalStorage = () => {
 	let cart = localStorage.getItem("cart-items");
@@ -14,6 +15,13 @@ const getLocalStorage = () => {
 const Cart = createContext();
 
 function Context({ children }) {
+	const {
+		user,
+		setUser,
+		users,
+		setUsers
+	} = UserState();
+
 	const products = [...Array(12)].map((product, index) => ({
 		id: productData[index].id,
 		name: productData[index].name,
@@ -34,17 +42,35 @@ function Context({ children }) {
 		colors: productData[index].colors,
 		color: productData.color,
 		sizes: productData[index].sizes,
-		size: productData.sizs
+		size: productData.size
 	}));
 	
 	const [state, dispatch] = useReducer(cartReducer, {
 		products: products,
 		cart: getLocalStorage(),
+		saved: (user.auth ? user.saved : []),
 	});
-		
+	
 	useEffect(() => {
 		localStorage.setItem('cart-items', JSON.stringify(state.cart));
-	}, [state.cart]);
+		localStorage.setItem('saved-items', JSON.stringify(state.saved));
+		let saved = JSON.parse(localStorage.getItem("saved-items"));
+		setUser((item) => ({
+			...item,
+			saved: saved
+		}))
+		if (user.auth === true) {
+			const currentUser = users.find(element => (element.email === user.email))
+			const currentUsers = users;
+			for (var i = 0; i < users.length; i++) {
+				currentUsers[i] = users[i];
+				if (currentUser.id === users[i].id) {
+					currentUsers[i].saved = saved;
+				}
+			}
+			setUsers(currentUsers);
+		}
+	}, [state.cart, state.saved]);
 	
   	return (
 	 	<Cart.Provider value={{ state, dispatch }}>

@@ -23,7 +23,6 @@ function ProductModal({ product }) {
 
 	product.color = selectedColor.label;
 	product.size = selectedSize.label;
-	console.log(product);
 
   	return (
 		<Wrapper>

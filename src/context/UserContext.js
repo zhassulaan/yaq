@@ -59,7 +59,7 @@ function UserProvider({ children }) {
 		}
 		return false;
 	};
-	
+
 	const Signup = (details, history) => {
 		if ((details.name === "") || (details.phone === "") || (details.email === "") || (details.password === "") || (details.passwordConf === "")) {
 			setEmpty(true);
@@ -111,7 +111,9 @@ function UserProvider({ children }) {
 						phone: details.phone,
 						email: details.email,
 						password: details.password,
-						auth: true
+						auth: true,
+						saved: [],
+						history: []
 					}
 				]
 			});
@@ -120,11 +122,12 @@ function UserProvider({ children }) {
 				phone: details.phone,
 				email: details.email,
 				password: details.password,
-				auth: true
+				auth: true,
+				saved: [],
+				history: []
 			}));
 			setEmpty(false);
 			setShowSignup(false);
-			history.push("/");
 			history.go(0);
 		}
 	};
@@ -139,12 +142,13 @@ function UserProvider({ children }) {
 				phone: currentUser[0].phone,
 				email: currentUser[0].email,
 				password: currentUser[0].password,
-				auth: currentUser[0].auth
+				auth: currentUser[0].auth,
+				saved: currentUser[0].saved,
+				history: currentUser[0].history
 			}));
 			setEmpty(false);
 			setErrorMessage("");
 			setShowLogin(false);
-			history.push("/");
 			history.go(0);
 		}
 		else if (details.email === "" || details.password === "") {
@@ -158,15 +162,72 @@ function UserProvider({ children }) {
 	};
 
 	// Logout updates the user data to default
-	const Logout = () => {
+	const Logout = (history) => {
 		setUser((user) => ({
 		  	name: '',
 			phone: '',
 			email: '',
 			password: '',
-			auth: false
+			auth: false,
+			saved: [],
+			history: []
 		}));
+		history.push("/");
+		history.go(0);
 	};
+
+	const Update = (details) => {
+		if ((details.name === "") || (details.phone === "") || (details.email === "") || checkPhoneNumber(details.phone) || !details.email.includes("@")) {
+			setErrorMessage("Ошибка, повторите попытку");
+		}
+		else {
+			const currentUser = users.find(element => (element.email === user.email))
+			const currentUsers = users;
+			for (var i = 0; i < users.length; i++) {
+				currentUsers[i] = users[i];
+				if (currentUser.id === users[i].id) {
+					currentUsers[i].name = details.name;
+					currentUsers[i].phone = details.phone;
+					currentUsers[i].email = details.email;
+				}
+			}
+			setUsers(currentUsers);
+			setUser((item) => ({
+				name: details.name,
+				phone: details.phone,
+				email: details.email,
+				password: user.password,
+				auth: true
+			}));
+			setErrorMessage("Вы успешно изменили и сохранили информацию");
+		}
+	};
+	
+	const ChangePassword = (details) => {
+		if ((details.password === "") || (details.newPassword === "") || (details.newPasswordConf === "") || (details.password !== user.password) || (details.newPassword !== details.newPasswordConf) || (details.password === details.newPassword) || (details.newPassword.length < 8) || !checkUppercase(details.newPassword) || !checkLowercase(details.newPassword) || !checkNumber(details.newPassword)) {
+			setErrorMessage("Ошибка, повторите попытку");
+			console.log("hello");
+		}
+		else {
+			const currentUser = users.find(element => (element.email === user.email))
+			const currentUsers = users;
+			for (var i = 0; i < users.length; i++) {
+				currentUsers[i] = users[i];
+				if (currentUser.id === users[i].id) {
+					currentUsers[i].password = details.newPassword;
+				}
+			}
+			setUsers(currentUsers);
+			setUser((item) => ({
+				name: user.name,
+				phone: user.phone,
+				email: user.email,
+				password: details.newPassword,
+				auth: true
+			}));
+			setErrorMessage("Вы успешно изменили и сохранили пароль");
+		}
+	};	
 
 	const handleOpenLogin = () => {
 		setShowSignup(false);	
@@ -195,7 +256,7 @@ function UserProvider({ children }) {
 	}, [users, user]);
   
   	return (
-	 	<User.Provider value={{ user, errorMessage, empty, Signup, Login, Logout, showLogin, handleOpenLogin, handleClose, showSignup, handleOpenRegistration }}>
+	 	<User.Provider value={{ user, setUser, users, setUsers, errorMessage, empty, Signup, Login, Logout, Update, ChangePassword, showLogin, handleOpenLogin, handleClose, showSignup, handleOpenRegistration }}>
 			{ children }
 		</User.Provider>
   	);

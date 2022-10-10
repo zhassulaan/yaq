@@ -1,5 +1,43 @@
 export const cartReducer = (state, action) => {
 	switch (action.type) {
+		case "ADD_TO_SAVED":
+			const prod = state.products.find((item) => 
+				(item.id === action.payload.id)
+			);
+
+			const inSaved = state.saved.find((item) => 
+				item.product.id === action.payload.id)
+          		?
+            		true
+          		: 
+						false;
+			
+			if (inSaved)
+				return {
+					...state,
+					saved: [
+						...state.saved,
+					]
+				};
+			else
+				return {
+					...state,
+					saved: [
+						...state.saved,
+						{
+							product: prod,
+						},
+					]
+				};
+
+		case "REMOVE_FROM_SAVED":
+			return { 
+				...state, 
+				saved: state.saved.filter((c) => 
+					c.product.id !== action.payload.id
+				)
+			};
+
 		case "ADD_TO_CART":
 			const product = state.products.find((item) => 
 				(item.id === action.payload.id)
