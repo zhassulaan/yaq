@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function LoginButton({ text, bool }) {
+function Button({ text, bool }) {
 	return (
 	 	<Wrapper>
 			<button className='button' disabled={bool}>
@@ -23,4 +23,4 @@ const Wrapper = styled.nav`
 	}
 `
 
-export default LoginButton;
+export default Button;

@@ -19,19 +19,32 @@ function PopUp() {
   	return (
 	 	<Wrapper>
 			<div className="popup-container">
-				<ProductModal product={singleProduct} />
+				<ProductModal product={singleProduct} id={1} />
 			</div>
 		</Wrapper>
   	);
 }
 
 const Wrapper = styled.nav`
+	position: fixed;
 	background: #00000080;
-	padding: 8.75rem 13.125vw 13.125rem;
+	padding: 6.75% 13.125vw 9.84375%;
 
 	.popup-container {
+		height: 41.25vw;
 		background: var(--clr-white);
-		padding: 90px 0 50px;
+		padding: 3.125vw 0 5.625vw;
+	}
+
+	@media (max-width: 480px) {
+		position: static;
+		padding: 6.5625% 5.556vw 9.84375%;
+		background: var(--clr-primary-6);
+
+		.popup-container {
+			height: 100%;
+			background: transparent;
+		}
 	}
 `
 

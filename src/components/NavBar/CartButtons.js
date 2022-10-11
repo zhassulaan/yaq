@@ -38,12 +38,13 @@ function CartButtons({ show, setShow }) {
 								:
 							null
 						}
-						<a href="/saved" className='nav-item'>
+						<a href="/saved" className='nav-item cart-container'>
 							<img src={heart2} alt="saved icon"/>
+							{(saved.length > 0) ? <span className="saved-cart"></span> : <span></span>}
 						</a>
-						<a href="/purchased" className='nav-item cart-container'>
+						<a href="/basket" className='nav-item cart-container'>
 							<img src={shop2} alt="purchased icon"/>
-							<span className="purchased-cart"></span>
+							{(cart.length > 0) ? <span className="purchased-cart"></span> : <span></span>}
 						</a>
 					</div>
 				}
@@ -177,6 +178,7 @@ const Wrapper = styled.nav`
 			height: 17px;
 		}
 
+		.saved-cart,
 		.purchased-cart {
 			position: absolute;
 			top: 14px;
