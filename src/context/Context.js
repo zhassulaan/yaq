@@ -40,11 +40,10 @@ function Context({ children }) {
 		item: productData[index].item,
 		gender: productData[index].gender,
 		colors: productData[index].colors,
-		color: productData.color,
+		color: productData[index].color,
 		sizes: productData[index].sizes,
-		size: productData.size
+		size: productData[index].size
 	}));
-	
 	const [state, dispatch] = useReducer(cartReducer, {
 		products: products,
 		cart: getLocalStorage(),

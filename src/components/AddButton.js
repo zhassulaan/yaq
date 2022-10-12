@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { CartState } from '../context/Context';
 
-function AddButton({ product }) {
+function AddButton({ product, color, size, bool }) {
 	const {
 		state: { cart },
 		dispatch
 	} = CartState();
+	product.color = color;
+	product.size = size;
 
 	return (
 	 	<Wrapper>
@@ -19,6 +21,7 @@ function AddButton({ product }) {
 							payload: product,
 						})
 					}
+					disabled={bool}
 				>
 					В корзину
 				</button>

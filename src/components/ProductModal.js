@@ -19,11 +19,8 @@ function ProductModal({ product, id }) {
 		slidesToScroll: 1
 	};
 
-	const [selectedColor, setSelectedColor] = useState([null]);
-	const [selectedSize, setSelectedSize] = useState([null]);
-
-	product.color = selectedColor.label;
-	product.size = selectedSize.label;
+	const [selectedColor, setSelectedColor] = useState("null");
+	const [selectedSize, setSelectedSize] = useState("null");
 
   	return (
 		<Wrapper>
@@ -84,14 +81,14 @@ function ProductModal({ product, id }) {
 
 				{(id === 1) ?
 					<div className="product-button">
-						<AddButton product={product} />
+						<AddButton product={product} color={selectedColor.label} size={selectedSize.label} bool={(selectedColor === "null" || selectedSize === "null") ? true : false}/>
 						<a href={`/products/${product.id}`} className="about-button">
 							<Button text={"Подробнее"} />
 						</a>
 					</div> 
 						:
 					<div className="product-button-detail">
-						<AddButton product={product} />
+						<AddButton product={product} color={selectedColor.label} size={selectedSize.label} bool={(selectedColor === "null" || selectedSize === "null") ? true : false}/>
 					</div>
 				}
 

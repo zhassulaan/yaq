@@ -26,7 +26,7 @@ function Basket() {
 			{cart.length > 0 ? (
             <div className='basket-box block'>
 					{cart.map((item) => (
-						<ProductItem product={ item.product } quantity={ item.quantity }/>
+						<ProductItem product={ item.product } quantity={ item.quantity } color={ item.color } size={ item.size }/>
 					))}
 
 					<div className="summary">

@@ -42,9 +42,10 @@ export const cartReducer = (state, action) => {
 			const product = state.products.find((item) => 
 				(item.id === action.payload.id)
 			);
+			console.log(action.payload);
 
 			const inCart = state.cart.find((item) => 
-				item.product.id === action.payload.id)
+				item.product.id === action.payload.id && item.color === action.payload.color && item.size === action.payload.size)
           		?
             		true
           		: 
@@ -52,7 +53,7 @@ export const cartReducer = (state, action) => {
 
 			if (inCart) {
 				state.cart.map((item) => 
-					(item.product.id === action.payload.id) 
+					(item.product.id === action.payload.id && item.color === action.payload.color && item.size === action.payload.size) 
 						?
 							item.quantity += 0.5
 						:
@@ -74,6 +75,8 @@ export const cartReducer = (state, action) => {
 						...state.cart,
 						{
 							product: product,
+							color: action.payload.color,
+							size: action.payload.size,
 							quantity: 1,
 						},
 					]
@@ -83,13 +86,14 @@ export const cartReducer = (state, action) => {
 			return { 
 				...state, 
 				cart: state.cart.filter((c) => 
-					c.product.id !== action.payload.id
+					c.product.id !== action.payload.id || c.product.color !== action.payload.color || c.product.size !== action.payload.size
 				)
 			};
 
 		case "INCREMENT-QUANTITY":
+			console.log(action.payload);
 			state.cart.map((item) => 
-				(item.product.id === action.payload.id) 
+				(item.product.id === action.payload.id && item.color === action.payload.color && item.size === action.payload.size)
 					?
 						item.quantity += 0.5
 					:
@@ -105,7 +109,7 @@ export const cartReducer = (state, action) => {
 		
 		case "DECREMENT-QUANTITY":
 			state.cart.map((item) => 
-				(item.product.id === action.payload.id && item.quantity > 1)  
+				(item.product.id === action.payload.id && item.color === action.payload.color && item.size === action.payload.size && item.quantity > 1)  
 					?
 						item.quantity -= 0.5
 					:

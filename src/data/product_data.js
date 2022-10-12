@@ -41,8 +41,8 @@ const product_card = [
 		category: "Рюкзаки",
 		item: "Рюкзак",
 		gender: "",
-		color: "",
-		size: "",
+		color: "1",
+		size: "1",
 		colors: [
 			{id: 2, value: "белый", label: "Белый"},
 			{id: 3, value: "серый", label: "Серый"},

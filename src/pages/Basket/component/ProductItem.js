@@ -3,12 +3,14 @@ import styled from 'styled-components';
 import { CartState } from '../../../context/Context';
 import bin from '../assets/bin.svg';
 
-function ProductItem({ product, quantity }) {
+function ProductItem({ product, quantity, color, size }) {
 	const {
 		state: { cart },
 		dispatch,
 	 } = CartState();
-
+	 product.color = color;
+	 product.size = size;
+	 
   	return (
 	 	<Wrapper>
 			<img src={ product.image } alt="product image" className='product-image'/>
@@ -17,11 +19,11 @@ function ProductItem({ product, quantity }) {
 				<p className='product-title'>{ product.item } { product.brands } { product.name }</p>
 				
 				<div className='product-color'>
-					<p><span>Цвет:</span> { product.color }</p>
+					<p><span>Цвет:</span> { color }</p>
 				</div>
 
 				<div className='product-size'>
-					<p><span>Размер:</span> { product.size }</p>
+					<p><span>Размер:</span> { size }</p>
 				</div>					
 			</div>
 			
