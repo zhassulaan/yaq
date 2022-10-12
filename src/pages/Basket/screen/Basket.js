@@ -32,7 +32,7 @@ function Basket() {
 					<div className="summary">
 						<h1 className='product-total-price'>ИТОГОВАЯ СУММА: <span>{ total } KZT</span></h1>
 							
-						<a href={`/order`} className='product-button-link'>
+						<a href={`/order`} className='button-container'>
 							<Button text={"Оформить заказ"}/>
 						</a>
 					</div>
@@ -41,7 +41,7 @@ function Basket() {
 				<div className='basket-box none'>
 					<ErrorPage title={"КОРЗИНА ПУСТА"} text={"Самое время её пополнить!"}/>
 					
-					<a href={`/products/clothes`} className='button-link'>
+					<a href={`/products/clothes`} className='button-container'>
 						<Button text={"Перейти в магазин"}/>
 					</a>
 				</div>
@@ -56,12 +56,12 @@ function Basket() {
 
 const Wrapper = styled.nav`
 	background: #00000080;
-	padding: 8.75rem 0 21.25rem;
+	padding: 8.75rem 13.125vw 21.25rem;
 	display: flex;
 	
 	.basket-box {
+		width: 1180px;
 		background: var(--clr-white);
-		margin-left: 13.125vw;
 	}
 	
 	.basket-box.block {
@@ -95,35 +95,33 @@ const Wrapper = styled.nav`
 		color: var(--clr-primary-2);
 	}
 
-	.button-container {
+	.button-container .button {
 		width: 320px;
 	}
-	
-	.block .button-text {
+
+	.block .button-container .button {
+		height: 60px;
 		font-size: 26px;
 		font-weight: 400;
 	}
 
 	.basket-box.none {
-		width: 1180px;
 		padding: 10px 0 160px;
 	}
 
 	.error-text {
-		padding-bottom:  0;
+		margin-bottom: 0;
 	}
 	
-	.none .button-container {
+	.none .button-container .button {
 		height: 50px;
-		margin: 30px auto 0;
-	}
-
-	.none .button-text {
 		font-size: 20px;
 		font-weight: 500;
+		margin: 30px 430px 0;
 	}
-
+	
 	.close-button {
+		position: absolute;
 		margin-left: 45px;
 	}
 `

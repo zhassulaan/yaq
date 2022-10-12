@@ -27,24 +27,25 @@ function ErrorPage({ title, text }) {
 }
 
 const Wrapper = styled.nav`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	text-align: center;
 	width: 100%;
-	height: 100%;
-	padding: 6.25rem 0 0;
+	padding-top: 6.25rem;
 
 	.error-title {
+		width: 30rem;
+		line-height: 4.375rem;
+		text-align: center;
 		font-size: 40px;
 		font-weight: 500;
-		margin-top: 1.875rem;
+		margin: 1.875rem auto 0;
 	}
 
 	.error-text {
+		width: 42.5rem;
+		line-height: 2.5rem;
 		font-size: 20px;
 		font-weight: 400;
-		margin-top: 1.25rem;
-		padding-bottom: 14.375rem;
+		margin: 1.25rem auto 14.375rem;
 	}
 
 	@media (max-width: 992px) {
@@ -80,13 +81,19 @@ const Wrapper = styled.nav`
 			height: 10rem;
 		}
 
+		.error-title,
+		.error-text {
+			width: 100%;
+		}
+
 		.error-title {
+			line-height: 3.125rem;
 			font-size: 24px;
 		}
-		
+	
 		.error-text {
+			line-height: 1.875rem;
 			font-size: 16px;
-			text-align: center;
 		}
 	}
 `

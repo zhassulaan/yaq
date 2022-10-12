@@ -10,7 +10,7 @@ function ProductItem({ product, quantity, color, size }) {
 	 } = CartState();
 	 product.color = color;
 	 product.size = size;
-	 
+
   	return (
 	 	<Wrapper>
 			<img src={ product.image } alt="product image" className='product-image'/>
@@ -118,14 +118,12 @@ const Wrapper = styled.nav`
 	
 	.product-amount {
 		width: 180px;
-		font-size: 20px;
-		font-weight: 400;
 		margin-right: 80px;
 	}
-
-	.product-price {
-		width: 240px;
-		margin-right: 60px;
+	
+	.product-amount p {
+		font-size: 20px;
+		font-weight: 400;
 	}
 
 	.product-count {
@@ -155,7 +153,17 @@ const Wrapper = styled.nav`
 	.product-count-number {
 		width: 80px;
 	}
+
+	.product-price {
+		width: 240px;
+		margin-right: 60px;
+	}
 	
+	.product-price p {
+		font-size: 16px;
+		font-weight: 400;
+	}
+
 	.product-price h1 {
 		font-size: 26px;
 		font-weight: 700;
