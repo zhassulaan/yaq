@@ -91,7 +91,6 @@ export const cartReducer = (state, action) => {
 			};
 
 		case "INCREMENT-QUANTITY":
-			console.log(action.payload);
 			state.cart.map((item) => 
 				(item.product.id === action.payload.id && item.color === action.payload.color && item.size === action.payload.size)
 					?
