@@ -11,7 +11,6 @@ function Input({ type, mask, placeholder, onChange, value, classname }) {
 				placeholder={placeholder}
 				onChange={onChange}
 				value={value}
-				className={classname}
 				className='input-placeholder-text'
 			/>
     	</Wrapper>
