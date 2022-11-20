@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -32,15 +32,24 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "./redux/actions/products";
 import products from "./redux/reducers/products";
+import { getAllCategories } from "./redux/actions/categories";
+import { getAllProducts } from "./redux/actions/products";
+import { getAllBrands, setBrands } from "./redux/actions/products";
+import { getAllFilters, setFilterProducts } from "./redux/actions/filters";
+import Categories from "./pages/ProductsPage/component/Categories";
 
 function App() {
-  // const dispatch = useDispatch();
-  // const state = useSelector(({ products, filters }) => {
-  //   return {
-  //     products: products.items,
-  //     filters: filters.sortBy,
-  //   };
-  // });
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllCategories());
+    // dispatch(getAllProducts());
+    // dispatch(getAllFilters());
+    // dispatch(getAllBrands());
+  }, []);
+
+  // const store = useSelector((store) => store);
+  // console.log(store);
 
   const DefaultContainer = () => (
     <div>
@@ -62,7 +71,7 @@ function App() {
         <Route
           exact
           path="/products"
-          children={<Products title={"Все товары"} index={11} />}
+          element={<Redirect to="/products/clothes" />}
         />
         <Route
           exact
@@ -253,6 +262,7 @@ function App() {
 
         <Route exact path="/products/:id" children={<ProductDetail />} />
         <Redirect from="/clothes" to="/products/clothes" />
+        <Redirect from="/products" to="/products/clothes" />
         {/* Additional Pages */}
         <Route exact path="/contacts" component={Contacts} />
         <Route exact path="/discount-system" component={DiscountSystem} />

@@ -23,8 +23,12 @@ import {
   getAllFilters,
   setFilterProducts,
 } from "../../../redux/actions/filters";
+import {
+  getAllCategories,
+  setCategoriesJackets,
+} from "../../../redux/actions/categories";
 
-function ProductPage({ title, index, sex }) {
+function ProductPage({ title, index, sex, items }) {
   const { showLogin, showSignup } = UserState();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -35,54 +39,43 @@ function ProductPage({ title, index, sex }) {
     }
   }, [showLogin, showSignup]);
 
-  const state = useSelector(({ products, brands, filters }) => {
+  const state = useSelector(({ products, brands, filters, categories }) => {
     return {
       products: products.items,
       brands: brands.items,
       filters: filters.items,
+      categories: categories.items,
+      categoriesLoad: categories.isLoaded,
     };
   });
-  useEffect(() => {
-    if (state.products.length === 0) {
-      dispatch(getAllProducts());
-      dispatch(getAllFilters());
-    }
-    if (state.brands.length === 0) {
-      // dispatch(getAllBrands());
-    }
-  }, []);
+  const categoryJacketsItems = state?.categories[3]?.children[2].children.map(
+    (item) => (item ? { ...item, label: item.name, checked: false } : item)
+  );
 
   // for Filters
-  const [categoryJackets, setCategoryJackets] = useState(
-    filterCategories[0].items
-  );
+
+  const [categoryJackets, setCategoryJackets] = useState([]);
+
+  console.log(categoryJackets);
+  useEffect(() => {
+    setCategoryJackets(categoryJacketsItems);
+  }, [state.categoriesLoad]);
+
   const [categoryVests, setCategoryVests] = useState(filterCategories[1].items);
-  const [categoryPants, setCategoryPants] = useState(filterCategories[2].items);
-  const [categoryTShirts, setCategoryTShirts] = useState(
-    filterCategories[3].items
-  );
-  const [categoryShirts, setCategoryShirts] = useState(
-    filterCategories[4].items
-  );
-  const [categoryShorts, setCategoryShorts] = useState(
-    filterCategories[5].items
-  );
-  const [categoryHoodiesSweaters, setCategoryHoodiesSweaters] = useState(
-    filterCategories[6].items
-  );
-  const [categoryShoes, setCategoryShoes] = useState(filterCategories[7].items);
-  const [categoryAccessories, setCategoryAccessories] = useState(
-    filterCategories[8].items
-  );
-  const [categoryEquipment, setCategoryEquipment] = useState(
-    filterCategories[9].items
-  );
-  const [categoryRun, setCategoryRun] = useState(filterCategories[10].items);
+  const [categoryPants, setCategoryPants] = useState([]);
+  const [categoryTShirts, setCategoryTShirts] = useState([]);
+  const [categoryShirts, setCategoryShirts] = useState([]);
+  const [categoryShorts, setCategoryShorts] = useState([]);
+  const [categoryHoodiesSweaters, setCategoryHoodiesSweaters] = useState([]);
+  const [categoryShoes, setCategoryShoes] = useState([]);
+  const [categoryAccessories, setCategoryAccessories] = useState([]);
+  const [categoryEquipment, setCategoryEquipment] = useState([]);
+  const [categoryRun, setCategoryRun] = useState([]);
   const [selectedPrice, setSelectedPrice] = useState([100, 1000000]);
   const [gender, setGender] = useState(filterGender);
   const [colors, setColors] = useState(filterColors);
   const [sizes, setSizes] = useState(filterSizes);
-  const [brands, setBrands] = useState(state.brands);
+  const [brands, setBrands] = useState([]);
   // for Sorting
   const [sortingOptions, setSortingOptions] = useState(filterSorting);
   // Final list
@@ -208,7 +201,7 @@ function ProductPage({ title, index, sex }) {
   };
 
   const handleChangeCheckedBrands = (id) => {
-    const brandsStateList = state.brands;
+    const brandsStateList = brands;
     const changeCheckedBrands = brandsStateList.map((item) =>
       item.id === id ? { ...item, checked: !item.checked } : item
     );
@@ -293,10 +286,10 @@ function ProductPage({ title, index, sex }) {
 
     // Category Filter
     const categoryCheckedJackets = categoryJackets
-      .filter((item) => item.checked)
+      ?.filter((item) => item.checked)
       .map((item) => item.label);
 
-    if (categoryCheckedJackets.length) {
+    if (categoryCheckedJackets?.length) {
       updatedList = updatedList.filter((item) =>
         categoryCheckedJackets.includes(item.category)
       );
@@ -454,7 +447,7 @@ function ProductPage({ title, index, sex }) {
     }
 
     // Brands Filter
-    const brandsChecked = state.brands
+    const brandsChecked = brands
       .filter((item) => item.checked)
       .map((item) => item.label);
 
@@ -510,8 +503,8 @@ function ProductPage({ title, index, sex }) {
       updatedList = updatedList.sort(sortDefault);
     }
 
-    const updatedSelectedList = filterItems.map((item) =>
-      item.filter((item) => item.checked === true)
+    const updatedSelectedList = filterItems?.map((item) =>
+      item?.filter((item) => item.checked === true)
     );
     setSelectedFilters(updatedSelectedList);
 
@@ -544,7 +537,7 @@ function ProductPage({ title, index, sex }) {
 
   const handleClearFilter = () => {
     const jacketsList = categoryJackets;
-    const changeJackets = jacketsList.map((item) =>
+    const changeJackets = jacketsList?.map((item) =>
       item.checked === true ? { ...item, checked: !item.checked } : item
     );
     setCategoryJackets(changeJackets);
@@ -630,7 +623,7 @@ function ProductPage({ title, index, sex }) {
     );
     setSizes(changeSizes);
 
-    const brandsList = state.brands;
+    const brandsList = brands;
     const changeBrands = brandsList.map((item) =>
       item.checked === true ? { ...item, checked: !item.checked } : item
     );
@@ -656,8 +649,8 @@ function ProductPage({ title, index, sex }) {
     setActive2(!isActive2);
   };
 
-  const selectedFiltersNumber = selectedFilters.filter(
-    (item) => item.length !== 0
+  const selectedFiltersNumber = selectedFilters?.filter(
+    (item) => item?.length !== 0
   ).length;
 
   return (
@@ -676,10 +669,11 @@ function ProductPage({ title, index, sex }) {
         <div className="section-header">
           <h1 className="title section-title">{title}</h1>
           <div className="selected-filters mobile">
-            {selectedFilters.map((item) =>
-              item.map((item) => (
+            {selectedFilters?.map((item) =>
+              item?.map((item) => (
                 <SavedFilter
                   item={item}
+                  key={item.id}
                   deleteFilter={handleDeleteSelectedFilters}
                 />
               ))
@@ -706,9 +700,10 @@ function ProductPage({ title, index, sex }) {
         <div className="products-data">
           <div className="selected-filters laptop">
             {selectedFilters.map((item) =>
-              item.map((item) => (
+              item?.map((item) => (
                 <SavedFilter
                   item={item}
+                  key={item.id}
                   deleteFilter={handleDeleteSelectedFilters}
                 />
               ))
@@ -716,17 +711,16 @@ function ProductPage({ title, index, sex }) {
           </div>
 
           <p className="section-text">
-            Найдено {state.products?.length}{" "}
-            {state.products?.length % 10 == 1 &&
-            state.products.length % 100 !== 11 ? (
+            Найдено {items?.length}{" "}
+            {items?.length % 10 == 1 && items.length % 100 !== 11 ? (
               <span>товар</span>
-            ) : state.products?.length % 100 !== 11 &&
-              state.products?.length % 100 !== 12 &&
-              state.products?.length % 100 !== 13 &&
-              state.products?.length % 100 !== 14 &&
-              (state.products?.length % 10 == 2 ||
-                state.products?.length % 10 == 3 ||
-                state.products?.length % 10 == 4) ? (
+            ) : items?.length % 100 !== 11 &&
+              items?.length % 100 !== 12 &&
+              items?.length % 100 !== 13 &&
+              items?.length % 100 !== 14 &&
+              (items?.length % 10 == 2 ||
+                items?.length % 10 == 3 ||
+                items?.length % 10 == 4) ? (
               <span>товара</span>
             ) : (
               <span>товаров</span>
@@ -735,57 +729,59 @@ function ProductPage({ title, index, sex }) {
         </div>
 
         <div className="products-section">
-          <FilterBox
-            count={count}
-            activeFilter={isActive1}
-            activeSorting={isActive2}
-            clearFilter={handleClearFilter}
-            index={index}
-            category1={categoryJackets}
-            changeCategory1={handleChangeCheckedJackets}
-            category2={categoryVests}
-            changeCategory2={handleChangeCheckedVests}
-            category3={categoryPants}
-            changeCategory3={handleChangeCheckedPants}
-            category4={categoryTShirts}
-            changeCategory4={handleChangeCheckedTShirts}
-            category5={categoryShirts}
-            changeCategory5={handleChangeCheckedShirts}
-            category6={categoryShorts}
-            changeCategory6={handleChangeCheckedShorts}
-            category7={categoryHoodiesSweaters}
-            changeCategory7={handleChangeCheckedHoodiesSweaters}
-            category8={categoryShoes}
-            changeCategory8={handleChangeCheckedShoes}
-            category9={categoryAccessories}
-            changeCategory9={handleChangeCheckedAccessories}
-            category10={categoryEquipment}
-            changeCategory10={handleChangeCheckedEquipment}
-            category11={categoryRun}
-            changeCategory11={handleChangeCheckedRun}
-            selectedPrice={selectedPrice}
-            changePrice={handleChangePrice}
-            gender={gender}
-            changeGender={handleChangeCheckedGender}
-            colors={colors}
-            changeColors={handleChangeCheckedColors}
-            sizes={sizes}
-            changeSizes={handleChangeCheckedSizes}
-            brands={state.brands}
-            changeBrands={handleChangeCheckedBrands}
-            list={state.products}
-            changeSorting={handleChangeCheckedSorting}
-            sorting={sortingOptions}
-          />
+          {
+            <FilterBox
+              count={count}
+              activeFilter={isActive1}
+              activeSorting={isActive2}
+              clearFilter={handleClearFilter}
+              index={index}
+              category1={categoryJackets}
+              changeCategory1={handleChangeCheckedJackets}
+              category2={categoryVests}
+              changeCategory2={handleChangeCheckedVests}
+              category3={categoryPants}
+              changeCategory3={handleChangeCheckedPants}
+              category4={categoryTShirts}
+              changeCategory4={handleChangeCheckedTShirts}
+              category5={categoryShirts}
+              changeCategory5={handleChangeCheckedShirts}
+              category6={categoryShorts}
+              changeCategory6={handleChangeCheckedShorts}
+              category7={categoryHoodiesSweaters}
+              changeCategory7={handleChangeCheckedHoodiesSweaters}
+              category8={categoryShoes}
+              changeCategory8={handleChangeCheckedShoes}
+              category9={categoryAccessories}
+              changeCategory9={handleChangeCheckedAccessories}
+              category10={categoryEquipment}
+              changeCategory10={handleChangeCheckedEquipment}
+              category11={categoryRun}
+              changeCategory11={handleChangeCheckedRun}
+              selectedPrice={selectedPrice}
+              changePrice={handleChangePrice}
+              gender={gender}
+              changeGender={handleChangeCheckedGender}
+              colors={colors}
+              changeColors={handleChangeCheckedColors}
+              sizes={sizes}
+              changeSizes={handleChangeCheckedSizes}
+              brands={brands}
+              changeBrands={handleChangeCheckedBrands}
+              list={state.products}
+              changeSorting={handleChangeCheckedSorting}
+              sorting={sortingOptions}
+            />
+          }
 
-          {state.products?.length === 0 ? (
+          {items?.length === 0 ? (
             <Error
               title={"НИЧЕГО НЕ НАЙДЕНО"}
               text={"Попробуйте сбросить фильтры или обновить страницу"}
             />
           ) : (
             <div className="products-content">
-              {state.products?.map((item) => {
+              {items?.map((item) => {
                 return (
                   <div className="product">
                     <ProductBox key={item.id} product={item} />
@@ -836,7 +832,7 @@ function ProductPage({ title, index, sex }) {
           changeSizes={handleChangeCheckedSizes}
           brands={brands}
           changeBrands={handleChangeCheckedBrands}
-          list={state.products}
+          list={items}
           changeSorting={handleChangeCheckedSorting}
           sorting={sortingOptions}
         />
