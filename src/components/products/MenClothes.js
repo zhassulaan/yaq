@@ -1,6 +1,9 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import arrow from "../../assets/blackArrow.svg";
+
+
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import arrow from '../../assets/blackArrow.svg';
+
 
 function MenClothes() {
   const [isActive, setActive] = useState("false");
