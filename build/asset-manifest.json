@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/yaq/static/css/main.30fe965a.css",
-    "main.js": "/yaq/static/js/main.23ae072e.js",
+    "main.js": "/yaq/static/js/main.efb82c6e.js",
     "static/media/home-image2.png": "/yaq/static/media/home-image2.74d8014775bce830aa70.png",
     "static/media/home-image1.png": "/yaq/static/media/home-image1.c14c7066729b43c6ad4a.png",
     "static/media/home-image7.png": "/yaq/static/media/home-image7.4b52665aa5ab6caf52f7.png",
@@ -9,10 +9,6 @@
     "static/media/home-image5.png": "/yaq/static/media/home-image5.29b5784bb0c6db0ea572.png",
     "static/media/home-image3.png": "/yaq/static/media/home-image3.4f1259144732bbc9495e.png",
     "static/media/home-image6.png": "/yaq/static/media/home-image6.c29882b4dcbc187de9b2.png",
-    "static/media/bag.svg": "/yaq/static/media/bag.141c43a4bb488148db441d75114b988d.svg",
-    "static/media/product2.png": "/yaq/static/media/product2.63e94e47cc95b72ea760.png",
-    "static/media/product1.png": "/yaq/static/media/product1.f50ad082e0cdb99727d7.png",
-    "static/media/product3.png": "/yaq/static/media/product3.9099cba2503878802662.png",
     "static/media/background.svg": "/yaq/static/media/background.f64d9ed8126083c5b7660dea578fe375.svg",
     "static/media/logo.svg": "/yaq/static/media/logo.820f69dcc26cc5391d9c143a4a5b5de3.svg",
     "static/media/slick.svg": "/yaq/static/media/slick.2630a3e3eab21c607e21.svg",
@@ -27,9 +23,9 @@
     "static/media/search.svg": "/yaq/static/media/search.53ca252c1174005326d0d9d02d3a1b5b.svg",
     "static/media/shop.svg": "/yaq/static/media/shop.64c937058f9d7ec32a064d381a9da43c.svg",
     "static/media/heart2.svg": "/yaq/static/media/heart2.57fa6c818f9ad91a39284598284cf16c.svg",
+    "index.html": "/yaq/index.html",
     "static/media/phone-icon.svg": "/yaq/static/media/phone-icon.d3a8b17967d01c0ee54a498602fe80c5.svg",
     "static/media/shop2.svg": "/yaq/static/media/shop2.cac030248d5541fe7f4ed59caac49c59.svg",
-    "index.html": "/yaq/index.html",
     "static/media/delete-icon.svg": "/yaq/static/media/delete-icon.26e0dd0117c865dc433b25c6e137e4f7.svg",
     "static/media/user.svg": "/yaq/static/media/user.625bc8541f3d5b81f656c54717b5e4bc.svg",
     "static/media/grey-eye.svg": "/yaq/static/media/grey-eye.0390a6fe93ebccf9f8f0b65f566c1695.svg",
@@ -49,10 +45,10 @@
     "static/media/sort.svg": "/yaq/static/media/sort.b694538649a48098ce8f3c96c221c8a1.svg",
     "static/media/toggle.svg": "/yaq/static/media/toggle.da3253c54334233e7c9e46f71c495c70.svg",
     "main.30fe965a.css.map": "/yaq/static/css/main.30fe965a.css.map",
-    "main.23ae072e.js.map": "/yaq/static/js/main.23ae072e.js.map"
+    "main.efb82c6e.js.map": "/yaq/static/js/main.efb82c6e.js.map"
   },
   "entrypoints": [
     "static/css/main.30fe965a.css",
-    "static/js/main.23ae072e.js"
+    "static/js/main.efb82c6e.js"
   ]
 }
