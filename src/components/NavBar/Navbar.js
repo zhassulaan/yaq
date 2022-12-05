@@ -67,7 +67,7 @@ function Navbar() {
               <img
                 src={toggle}
                 alt="navbar toggle"
-                className={user.auth ? "nav-toggle loged-in" : "nav-toggle"}
+                className={user?.auth ? "nav-toggle loged-in" : "nav-toggle"}
                 onClick={handleSubmit}
               />
 

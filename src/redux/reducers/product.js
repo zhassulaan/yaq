@@ -1,14 +1,14 @@
 const initialState = {
-  items: [],
+  item: {},
   isLoaded: false,
 };
 
-const filters = (state = initialState, action) => {
+const product = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_FILTER_PRODUCTS":
+    case "SET_PRODUCT":
       return {
         ...state,
-        items: action.payload,
+        item: action.payload,
         isLoaded: true,
       };
 
@@ -17,4 +17,4 @@ const filters = (state = initialState, action) => {
   }
 };
 
-export default filters;
+export default product;

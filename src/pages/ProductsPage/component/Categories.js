@@ -1,12 +1,26 @@
 import React from "react";
 import CheckBoxContainer from "./CheckBoxContainer";
 import { filterCategories } from "../../../data/filter";
+import { useDispatch, useSelector } from "react-redux";
 
 function Categories({ categories, changeCategories }) {
-  console.log();
+  const state = useSelector(({ categories }) => {
+    return {
+      categories: categories.items,
+    };
+  });
+
   return (
     <div>
-      {filterCategories.slice(0, 1).map((item) => {
+      {state.categories?.map((el, i) => (
+        <CheckBoxContainer
+          key={el.id}
+          title={el.categoryName}
+          filters={categories[i]}
+          changeCheckedFilters={changeCategories[i]}
+        />
+      ))}
+      {/* {filterCategories.slice(0, 1).map((item) => {
         return (
           <CheckBoxContainer
             key={item.id}
@@ -16,7 +30,6 @@ function Categories({ categories, changeCategories }) {
           />
         );
       })}
-
       {filterCategories.slice(1, 2).map((item) => {
         return (
           <CheckBoxContainer
@@ -27,7 +40,6 @@ function Categories({ categories, changeCategories }) {
           />
         );
       })}
-
       {filterCategories.slice(2, 3).map((item) => {
         return (
           <CheckBoxContainer
@@ -38,7 +50,6 @@ function Categories({ categories, changeCategories }) {
           />
         );
       })}
-
       {filterCategories.slice(3, 4).map((item) => {
         return (
           <CheckBoxContainer
@@ -49,7 +60,6 @@ function Categories({ categories, changeCategories }) {
           />
         );
       })}
-
       {filterCategories.slice(4, 5).map((item) => {
         return (
           <CheckBoxContainer
@@ -60,7 +70,6 @@ function Categories({ categories, changeCategories }) {
           />
         );
       })}
-
       {filterCategories.slice(5, 6).map((item) => {
         return (
           <CheckBoxContainer
@@ -71,7 +80,6 @@ function Categories({ categories, changeCategories }) {
           />
         );
       })}
-
       {filterCategories.slice(6, 7).map((item) => {
         return (
           <CheckBoxContainer
@@ -82,8 +90,7 @@ function Categories({ categories, changeCategories }) {
           />
         );
       })}
-
-      {/* {filterCategories.slice(7, 8).map((item) => {
+      {filterCategories.slice(7, 8).map((item) => {
         return (
           <CheckBoxContainer
             key={item.id}
@@ -92,9 +99,8 @@ function Categories({ categories, changeCategories }) {
             changeCheckedFilters={changeCategories[7]}
           />
         );
-      })} */}
-
-      {/* {filterCategories.slice(8, 9).map((item) => {
+      })}
+      {filterCategories.slice(8, 9).map((item) => {
         return (
           <CheckBoxContainer
             key={item.id}
@@ -103,9 +109,8 @@ function Categories({ categories, changeCategories }) {
             changeCheckedFilters={changeCategories[8]}
           />
         );
-      })} */}
-
-      {/* {filterCategories.slice(9, 10).map((item) => {
+      })}
+      {filterCategories.slice(9, 10).map((item) => {
         return (
           <CheckBoxContainer
             key={item.id}
@@ -114,19 +119,17 @@ function Categories({ categories, changeCategories }) {
             changeCheckedFilters={changeCategories[9]}
           />
         );
+      })}
+      {filterCategories.slice(10, 11).map((item) => {
+        return (
+          <CheckBoxContainer
+            key={item.id}
+            title={item.title}
+            filters={categories[10]}
+            changeCheckedFilters={changeCategories[10]}
+          />
+        );
       })} */}
-
-      {/* {filterCategories.slice(10,11)
-			.map((item) => {
-            return(
-	            <CheckBoxContainer 
-						key={item.id} 
-						title={item.title}
-						filters={categories[10]}
-						changeCheckedFilters={changeCategories[10]}
-					/>
-            );
-         })} */}
     </div>
   );
 }

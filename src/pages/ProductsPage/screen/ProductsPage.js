@@ -17,8 +17,13 @@ import SavedFilter from "../component/SavedFilter";
 import sort from "../assets/sort.svg";
 import filter from "../assets/filter.svg";
 import { UserState } from "../../../context/UserContext";
-import { getAllProducts, setProducts } from "../../../redux/actions/products";
-import { getAllBrands, setBrands } from "../../../redux/actions/products";
+import {
+  getProductsByCategory,
+  getProductsByFilter,
+  setProducts,
+} from "../../../redux/actions/products";
+// import { getAllBrands, setBrands } from "../../../redux/actions/products";
+
 import {
   getAllFilters,
   setFilterProducts,
@@ -28,7 +33,7 @@ import {
   setCategoriesJackets,
 } from "../../../redux/actions/categories";
 
-function ProductPage({ title, index, sex, items }) {
+function ProductPage({ title, index, sex }) {
   const { showLogin, showSignup } = UserState();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -39,6 +44,47 @@ function ProductPage({ title, index, sex, items }) {
     }
   }, [showLogin, showSignup]);
 
+  let genderItem;
+  let categoryItem;
+  function preLoad() {
+    if (sex !== undefined) {
+      genderItem = sex + 1;
+    }
+
+    let getCategories = (i) => {
+      switch (i) {
+        case 6:
+          return (categoryItem = "Толстовки и свитера");
+        case 5:
+          return (categoryItem = "Шорты");
+        case 4:
+          return (categoryItem = "Рубашки");
+        case 3:
+          return (categoryItem = "Футболки");
+        case 2:
+          return (categoryItem = "Брюки");
+        case 1:
+          return (categoryItem = "Жилеты");
+        case 0:
+          return (categoryItem = "Куртки");
+        case 7:
+          return (categoryItem = "Обувь");
+        case 9:
+          return (categoryItem = "Снаряжение");
+
+        case 8:
+          return (categoryItem = "Аксессуары");
+
+        case 10:
+          return (categoryItem = "Бег");
+
+        default:
+          return categoryItem;
+      }
+    };
+    getCategories(index);
+  }
+
   const state = useSelector(({ products, brands, filters, categories }) => {
     return {
       products: products.items,
@@ -46,22 +92,115 @@ function ProductPage({ title, index, sex, items }) {
       filters: filters.items,
       categories: categories.items,
       categoriesLoad: categories.isLoaded,
+      productsLoad: products.isLoaded,
+      filtersLoad: filters.isLoaded,
     };
   });
-  const categoryJacketsItems = state?.categories[3]?.children[2].children.map(
-    (item) => (item ? { ...item, label: item.name, checked: false } : item)
+  useEffect(() => {
+    preLoad();
+    dispatch(
+      getProductsByCategory({
+        categoryName: categoryItem,
+        genderId: genderItem,
+      })
+    );
+  }, [index, sex, state.productsLoad]);
+
+  useEffect(() => {
+    preLoad();
+    dispatch(
+      getAllFilters({
+        categoryName: categoryItem,
+        genderId: genderItem,
+      })
+    );
+  }, [index, sex, state.filtersLoad]);
+
+  const categoryJacketsItems = state.categories[0]?.subCategories?.map((el) =>
+    el ? { ...el, checked: false, label: el.subCategoryName } : el
   );
+  const categoryVestsItems = state.categories[1]?.subCategories?.map((el) =>
+    el ? { ...el, checked: false, label: el.subCategoryName } : el
+  );
+  const categoryPantsItems = state.categories[2]?.subCategories?.map((el) =>
+    el ? { ...el, checked: false, label: el.subCategoryName } : el
+  );
+  const categoryTShirtsItems = state.categories[3]?.subCategories?.map((el) =>
+    el ? { ...el, checked: false, label: el.subCategoryName } : el
+  );
+  const categoryShirtsItems = state.categories[4]?.subCategories?.map((el) =>
+    el ? { ...el, checked: false, label: el.subCategoryName } : el
+  );
+  const categoryShortsItems = state.categories[5]?.subCategories?.map((el) =>
+    el ? { ...el, checked: false, label: el.subCategoryName } : el
+  );
+  const categoryHoodiesSweatersItems = state.categories[6]?.subCategories?.map(
+    (el) => (el ? { ...el, checked: false, label: el.subCategoryName } : el)
+  );
+
+  const categoryShoesItems = state.categories[7]?.subCategories?.map((el) =>
+    el ? { ...el, checked: false, label: el.subCategoryName } : el
+  );
+  const categoryAccessoriesItems = state.categories[8]?.subCategories?.map(
+    (el) => (el ? { ...el, checked: false, label: el.subCategoryName } : el)
+  );
+  const categoryEquipmentItems = state.categories[9]?.subCategories?.map((el) =>
+    el ? { ...el, checked: false, label: el.subCategoryName } : el
+  );
+  const categoryRunItems = state.categories[10]?.subCategories?.map((el) =>
+    el ? { ...el, checked: false, label: el.subCategoryName } : el
+  );
+  const brandItems = state.products?.map((el, index) =>
+    el
+      ? {
+          id: index,
+          checked: false,
+          label: el.brandName,
+        }
+      : el
+  );
+  const AllBrandsinCategory = brandItems
+    ?.flat(Infinity)
+    .filter(
+      (item, index, arr) =>
+        arr.findIndex((el) => el.label === item.label) === index
+    );
+  const allColorItems = state.products?.map((el, index) =>
+    el
+      ? {
+          id: el.id,
+          checked: false,
+          label: el.colorName,
+        }
+      : el
+  );
+  const allColorsInCategory = allColorItems.filter(
+    (item, index, arr) =>
+      arr.findIndex((el) => el.label === item.label) === index
+  );
+
+  const sizeItems = state.products?.map((el, index) =>
+    el.product_variations[1].prod_var_options.map((el) =>
+      el
+        ? {
+            id: el.id,
+            checked: false,
+            label: el.optionName,
+          }
+        : el
+    )
+  );
+  const allSizesInCategory = sizeItems
+    ?.flat(Infinity)
+    .filter(
+      (item, index, arr) =>
+        arr.findIndex((el) => el.label === item.label) === index
+    );
 
   // for Filters
 
   const [categoryJackets, setCategoryJackets] = useState([]);
-
-  console.log(categoryJackets);
-  useEffect(() => {
-    setCategoryJackets(categoryJacketsItems);
-  }, [state.categoriesLoad]);
-
-  const [categoryVests, setCategoryVests] = useState(filterCategories[1].items);
+  const [categoryVests, setCategoryVests] = useState([]);
   const [categoryPants, setCategoryPants] = useState([]);
   const [categoryTShirts, setCategoryTShirts] = useState([]);
   const [categoryShirts, setCategoryShirts] = useState([]);
@@ -71,11 +210,30 @@ function ProductPage({ title, index, sex, items }) {
   const [categoryAccessories, setCategoryAccessories] = useState([]);
   const [categoryEquipment, setCategoryEquipment] = useState([]);
   const [categoryRun, setCategoryRun] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [colors, setColors] = useState([]);
+  const [sizes, setSizes] = useState([]);
+
+  // console.log(categoryJackets);
+  useEffect(() => {
+    setCategoryJackets(categoryJacketsItems);
+    setCategoryVests(categoryVestsItems);
+    setCategoryPants(categoryPantsItems);
+    setCategoryTShirts(categoryTShirtsItems);
+    setCategoryShirts(categoryShirtsItems);
+    setCategoryShorts(categoryShortsItems);
+    setCategoryHoodiesSweaters(categoryHoodiesSweatersItems);
+    setCategoryShoes(categoryShoesItems);
+    setCategoryAccessories(categoryAccessoriesItems);
+    setCategoryEquipment(categoryEquipmentItems);
+    setCategoryRun(categoryRunItems);
+    setBrands(AllBrandsinCategory);
+    setColors(allColorsInCategory);
+    setSizes(allSizesInCategory);
+  }, [state.categoriesLoad, state.productsLoad]);
   const [selectedPrice, setSelectedPrice] = useState([100, 1000000]);
   const [gender, setGender] = useState(filterGender);
-  const [colors, setColors] = useState(filterColors);
-  const [sizes, setSizes] = useState(filterSizes);
-  const [brands, setBrands] = useState([]);
+
   // for Sorting
   const [sortingOptions, setSortingOptions] = useState(filterSorting);
   // Final list
@@ -86,6 +244,7 @@ function ProductPage({ title, index, sex, items }) {
   // While checked actions
   const handleChangeCheckedJackets = (id) => {
     const categoryStateList = categoryJackets;
+
     const changeCheckedCategory = categoryStateList.map((item) =>
       item.id === id ? { ...item, checked: !item.checked } : item
     );
@@ -217,7 +376,9 @@ function ProductPage({ title, index, sex, items }) {
         ? { ...item, checked: !item.checked }
         : { ...item, checked: false }
     );
+
     setSortingOptions(changeCheckedSorting);
+    console.log(changeCheckedSorting);
   };
 
   const filterItems = [
@@ -268,21 +429,21 @@ function ProductPage({ title, index, sex, items }) {
   const applyFilters = () => {
     let updatedList = state.filters;
 
-    if (index !== 11) {
-      if (sex === 0 || sex === 1 || sex === 2) {
-        const genderLabel = gender[sex].label;
-        updatedList = updatedList.filter((item) =>
-          genderLabel.includes(item.gender)
-        );
-      }
+    // if (index !== 11) {
+    //   if (sex === 0 || sex === 1 || sex === 2) {
+    //     const genderLabel = gender[sex].label;
+    //     updatedList = updatedList?.filter((item) =>
+    //       genderLabel.includes(item.gender)
+    //     );
+    //   }
 
-      const categoryLabelList = filterCategories[index].items.map(
-        (item) => item.label
-      );
-      updatedList = updatedList.filter((item) =>
-        categoryLabelList.includes(item.category)
-      );
-    }
+    //   const categoryLabelList = filterCategories[index].items.map(
+    //     (item) => item.label
+    //   );
+    //   updatedList = updatedList?.filter((item) =>
+    //     categoryLabelList.includes(item.category)
+    //   );
+    // }
 
     // Category Filter
     const categoryCheckedJackets = categoryJackets
@@ -290,108 +451,109 @@ function ProductPage({ title, index, sex, items }) {
       .map((item) => item.label);
 
     if (categoryCheckedJackets?.length) {
-      updatedList = updatedList.filter((item) =>
-        categoryCheckedJackets.includes(item.category)
+      updatedList = updatedList?.filter((item) =>
+        categoryCheckedJackets.includes(item.subCategoryName)
       );
+      console.log(updatedList);
     }
-
+    // console.log(updatedList);
     const categoryCheckedVests = categoryVests
-      .filter((item) => item.checked)
+      ?.filter((item) => item.checked)
       .map((item) => item.label);
 
-    if (categoryCheckedVests.length) {
-      updatedList = updatedList.filter((item) =>
-        categoryCheckedVests.includes(item.category)
+    if (categoryCheckedVests?.length) {
+      updatedList = updatedList?.filter((item) =>
+        categoryCheckedVests.includes(item.subCategoryName)
       );
     }
 
     const categoryCheckedPants = categoryPants
-      .filter((item) => item.checked)
+      ?.filter((item) => item.checked)
       .map((item) => item.label);
 
-    if (categoryCheckedPants.length) {
-      updatedList = updatedList.filter((item) =>
-        categoryCheckedPants.includes(item.category)
+    if (categoryCheckedPants?.length) {
+      updatedList = updatedList?.filter((item) =>
+        categoryCheckedPants.includes(item.subCategoryName)
       );
     }
 
     const categoryCheckedTShirts = categoryTShirts
-      .filter((item) => item.checked)
+      ?.filter((item) => item.checked)
       .map((item) => item.label);
 
-    if (categoryCheckedTShirts.length) {
-      updatedList = updatedList.filter((item) =>
-        categoryCheckedTShirts.includes(item.category)
+    if (categoryCheckedTShirts?.length) {
+      updatedList = updatedList?.filter((item) =>
+        categoryCheckedTShirts.includes(item.subCategoryName)
       );
     }
 
     const categoryCheckedShirts = categoryShirts
-      .filter((item) => item.checked)
+      ?.filter((item) => item.checked)
       .map((item) => item.label);
 
-    if (categoryCheckedShirts.length) {
-      updatedList = updatedList.filter((item) =>
-        categoryCheckedShirts.includes(item.category)
+    if (categoryCheckedShirts?.length) {
+      updatedList = updatedList?.filter((item) =>
+        categoryCheckedShirts.includes(item.subCategoryName)
       );
     }
 
     const categoryCheckedShorts = categoryShorts
-      .filter((item) => item.checked)
+      ?.filter((item) => item?.checked)
       .map((item) => item.label);
 
-    if (categoryCheckedShorts.length) {
-      updatedList = updatedList.filter((item) =>
-        categoryCheckedShorts.includes(item.category)
+    if (categoryCheckedShorts?.length) {
+      updatedList = updatedList?.filter((item) =>
+        categoryCheckedShorts.includes(item.subCategoryName)
       );
     }
 
     const categoryCheckedHoodiesSweaters = categoryHoodiesSweaters
-      .filter((item) => item.checked)
+      ?.filter((item) => item?.checked)
       .map((item) => item.label);
 
-    if (categoryCheckedHoodiesSweaters.length) {
-      updatedList = updatedList.filter((item) =>
-        categoryCheckedHoodiesSweaters.includes(item.category)
+    if (categoryCheckedHoodiesSweaters?.length) {
+      updatedList = updatedList?.filter((item) =>
+        categoryCheckedHoodiesSweaters.includes(item.subCategoryName)
       );
     }
 
     const categoryCheckedShoes = categoryShoes
-      .filter((item) => item.checked)
+      ?.filter((item) => item?.checked)
       .map((item) => item.label);
 
-    if (categoryCheckedShoes.length) {
-      updatedList = updatedList.filter((item) =>
-        categoryCheckedShoes.includes(item.category)
+    if (categoryCheckedShoes?.length) {
+      updatedList = updatedList?.filter((item) =>
+        categoryCheckedShoes.includes(item.subCategoryName)
       );
     }
 
     const categoryCheckedAccessories = categoryAccessories
-      .filter((item) => item.checked)
+      ?.filter((item) => item?.checked)
       .map((item) => item.label);
 
-    if (categoryCheckedAccessories.length) {
-      updatedList = updatedList.filter((item) =>
-        categoryCheckedAccessories.includes(item.category)
+    if (categoryCheckedAccessories?.length) {
+      updatedList = updatedList?.filter((item) =>
+        categoryCheckedAccessories.includes(item.subCategoryName)
       );
     }
 
     const categoryCheckedEquipment = categoryEquipment
-      .filter((item) => item.checked)
+      ?.filter((item) => item?.checked)
       .map((item) => item.label);
 
-    if (categoryCheckedEquipment.length) {
-      updatedList = updatedList.filter((item) =>
-        categoryCheckedEquipment.includes(item.category)
+    if (categoryCheckedEquipment?.length) {
+      updatedList = updatedList?.filter((item) =>
+        categoryCheckedEquipment.includes(item.subCategoryName)
       );
     }
 
     const categoryCheckedRun = categoryRun
-      .filter((item) => item.checked)
+      ?.filter((item) => item?.checked)
       .map((item) => item.label);
 
-    if (categoryCheckedRun.length) {
-      updatedList = updatedList.filter((item) =>
-        categoryCheckedRun.includes(item.category)
+    if (categoryCheckedRun?.length) {
+      updatedList = updatedList?.filter((item) =>
+        categoryCheckedRun.includes(item.subCategoryName)
       );
     }
 
@@ -399,61 +561,67 @@ function ProductPage({ title, index, sex, items }) {
     const minPrice = selectedPrice[0];
     const maxPrice = selectedPrice[1];
 
-    updatedList = updatedList.filter(
+    updatedList = updatedList?.filter(
       (item) => item.price >= minPrice && item.price <= maxPrice
     );
 
     // Gender Filter
     const genderChecked = gender
       .filter((item) => item.checked)
-      .map((item) => item.label);
+      .map((item) => item.name);
 
     if (genderChecked.length) {
       updatedList = updatedList.filter((item) =>
-        genderChecked.includes(item.gender)
+        genderChecked.includes(item.genderName)
       );
     }
 
     // Colors Filter
     const colorsChecked = colors
-      .filter((item) => item.checked)
+      ?.filter((item) => item.checked)
       .map((item) => item.label);
+    console.log(colorsChecked);
+    if (colorsChecked?.length) {
+      updatedList = updatedList.filter((item) =>
+        colorsChecked.includes(item.colorName)
+      );
 
-    if (colorsChecked.length) {
-      updatedList = updatedList.filter((item) => {
-        const productColors = item.colors.map((color) => color.label);
+      // updatedList = updatedList?.filter((item) => {
+      //   const productColors = item.colors?.map((color) => color.label);
 
-        return (
-          colorsChecked.length ===
-          colorsChecked.filter((color) => productColors.includes(color)).length
-        );
-      });
+      //   return (
+      //     colorsChecked.length ===
+      //     colorsChecked.filter((color) => productColors?.includes(color)).length
+      //   );
+      // });
     }
 
     // Sizes Filter
     const sizesChecked = sizes
-      .filter((item) => item.checked)
+      ?.filter((item) => item.checked)
       .map((item) => item.label);
 
-    if (sizesChecked.length) {
-      updatedList = updatedList.filter((item) => {
-        const productSizes = item.sizes.map((size) => size.label);
-
+    if (sizesChecked?.length) {
+      updatedList = updatedList?.filter((item) => {
+        const productSizes = item.product_variations[1].prod_var_options.map(
+          (size) => size.optionName
+        );
+        console.log(productSizes);
         return (
-          sizesChecked.length ===
-          sizesChecked.filter((size) => productSizes.includes(size)).length
+          sizesChecked?.length ===
+          sizesChecked?.filter((size) => productSizes.includes(size)).length
         );
       });
     }
 
     // Brands Filter
     const brandsChecked = brands
-      .filter((item) => item.checked)
+      ?.filter((item) => item.checked)
       .map((item) => item.label);
 
-    if (brandsChecked.length) {
-      updatedList = updatedList.filter((item) =>
-        brandsChecked.includes(item.brands)
+    if (brandsChecked?.length) {
+      updatedList = updatedList?.filter((item) =>
+        brandsChecked.includes(item.brandName)
       );
     }
 
@@ -480,27 +648,27 @@ function ProductPage({ title, index, sex, items }) {
         return b.id > a.id ? -1 : 1;
       }
     }
-
+    console.log(sortingOptions);
     if (sortingOptions[0].checked === true) {
-      updatedList = updatedList.sort(sortByPrice(true));
+      updatedList = updatedList?.sort(sortByPrice(true));
     }
 
     if (sortingOptions[1].checked === true) {
-      updatedList = updatedList.sort(sortByPrice(false));
+      updatedList = updatedList?.sort(sortByPrice(false));
     }
 
-    if (sortingOptions[2].checked === true) {
-      updatedList = updatedList.filter(
-        (item) => item.sale !== null && item.sale !== "Новинка"
-      );
-    }
+    // if (sortingOptions[2].checked === true) {
+    //   updatedList = updatedList?.filter(
+    //     (item) => item.sale !== null && item.sale !== "Новинка"
+    //   );
+    // }
 
-    if (sortingOptions[3].checked === true) {
-      updatedList = updatedList.filter((item) => item.sale === "Новинка");
-    }
+    // if (sortingOptions[3].checked === true) {
+    //   updatedList = updatedList?.filter((item) => item.sale === "Новинка");
+    // }
 
     if (sortingOptions[4].checked === true) {
-      updatedList = updatedList.sort(sortDefault);
+      updatedList = updatedList?.sort(sortDefault);
     }
 
     const updatedSelectedList = filterItems?.map((item) =>
@@ -510,11 +678,14 @@ function ProductPage({ title, index, sex, items }) {
 
     dispatch(setProducts(updatedList));
 
-    !updatedList.length ? setResultsFound(false) : setResultsFound(true);
+    !updatedList?.length ? setResultsFound(false) : setResultsFound(true);
   };
 
   useEffect(() => {
-    applyFilters();
+    if (state.filtersLoad && state.productsLoad) {
+      applyFilters();
+    }
+    // dispatch(getProductsByFilter({}));
   }, [
     categoryAccessories,
     categoryEquipment,
@@ -533,6 +704,8 @@ function ProductPage({ title, index, sex, items }) {
     sizes,
     brands,
     sortingOptions,
+    state.filtersLoad,
+    state.productsLoad,
   ]);
 
   const handleClearFilter = () => {
@@ -711,16 +884,17 @@ function ProductPage({ title, index, sex, items }) {
           </div>
 
           <p className="section-text">
-            Найдено {items?.length}{" "}
-            {items?.length % 10 == 1 && items.length % 100 !== 11 ? (
+            Найдено {state.products?.length}{" "}
+            {state.products?.length % 10 == 1 &&
+            state.products.length % 100 !== 11 ? (
               <span>товар</span>
-            ) : items?.length % 100 !== 11 &&
-              items?.length % 100 !== 12 &&
-              items?.length % 100 !== 13 &&
-              items?.length % 100 !== 14 &&
-              (items?.length % 10 == 2 ||
-                items?.length % 10 == 3 ||
-                items?.length % 10 == 4) ? (
+            ) : state.products?.length % 100 !== 11 &&
+              state.products?.length % 100 !== 12 &&
+              state.products?.length % 100 !== 13 &&
+              state.products?.length % 100 !== 14 &&
+              (state.products?.length % 10 == 2 ||
+                state.products?.length % 10 == 3 ||
+                state.products?.length % 10 == 4) ? (
               <span>товара</span>
             ) : (
               <span>товаров</span>
@@ -774,14 +948,14 @@ function ProductPage({ title, index, sex, items }) {
             />
           }
 
-          {items?.length === 0 ? (
+          {state.products?.length === 0 ? (
             <Error
               title={"НИЧЕГО НЕ НАЙДЕНО"}
               text={"Попробуйте сбросить фильтры или обновить страницу"}
             />
           ) : (
             <div className="products-content">
-              {items?.map((item) => {
+              {state.products?.map((item) => {
                 return (
                   <div className="product">
                     <ProductBox key={item.id} product={item} />
@@ -832,7 +1006,7 @@ function ProductPage({ title, index, sex, items }) {
           changeSizes={handleChangeCheckedSizes}
           brands={brands}
           changeBrands={handleChangeCheckedBrands}
-          list={items}
+          list={state.products}
           changeSorting={handleChangeCheckedSorting}
           sorting={sortingOptions}
         />

@@ -9,6 +9,7 @@ const products = (state = initialState, action) => {
       return {
         ...state,
         items: action.payload,
+        isLoaded: true,
       };
 
     default:

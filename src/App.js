@@ -33,24 +33,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "./redux/actions/products";
 import products from "./redux/reducers/products";
 import { getAllCategories } from "./redux/actions/categories";
-import { getAllProducts } from "./redux/actions/products";
+import { getProductsByCategory } from "./redux/actions/products";
 import { getAllBrands, setBrands } from "./redux/actions/products";
 import { getAllFilters, setFilterProducts } from "./redux/actions/filters";
 import Categories from "./pages/ProductsPage/component/Categories";
 
 function App() {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getAllCategories());
-    // dispatch(getAllProducts());
-    // dispatch(getAllFilters());
-    // dispatch(getAllBrands());
-  }, []);
-
+  // const state = useSelector(({ categories }) => {
+  //   return {
+  //     categories: categories.items,
+  //     categoriesLoad: categories.isLoaded,
+  //   };
+  // });
   // const store = useSelector((store) => store);
-  // console.log(store);
-
   const DefaultContainer = () => (
     <div>
       <Route component={LoginForm} />
@@ -96,7 +92,7 @@ function App() {
         <Route
           exact
           path="/products/clothes/baby-jackets"
-          children={<jkProducts title={"Детские куртки"} index={0} sex={2} />}
+          children={<Products title={"Детские куртки"} index={0} sex={2} />}
         />
         <Route
           exact
@@ -201,7 +197,7 @@ function App() {
         <Route
           exact
           path="/products/clothes/hoodies-sweaters"
-          children={<Products title={"Толстовки и свитер"} index={6} />}
+          children={<Products title={"Толстовки и свитера"} index={6} />}
         />
         <Route
           exact
@@ -252,7 +248,7 @@ function App() {
         <Route
           exact
           path="/products/accessories"
-          children={<Products title={"Аксессуарры"} index={8} />}
+          children={<Products title={"Аксессуары"} index={8} />}
         />
         <Route
           exact

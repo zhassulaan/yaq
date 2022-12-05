@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { CartState } from "../../context/Context";
 import { UserState } from "../../context/UserContext";
@@ -12,7 +13,16 @@ import close from "../../assets/close.svg";
 import userIcon from "../../assets/user.svg";
 
 function CartButtons({ show, setShow }) {
-  const { user, handleOpenLogin } = UserState();
+  const { handleOpenLogin } = UserState();
+
+  const state = useSelector(({ user }) => {
+    return {
+      user: user.user,
+      isAuth: user.isAuth,
+    };
+  });
+
+  const dispatch = useDispatch();
 
   const {
     state: { cart, saved },
@@ -26,7 +36,7 @@ function CartButtons({ show, setShow }) {
       <div className="mobile-icons">
         {show ? null : (
           <div className="mobile-add-icons">
-            {user.auth ? (
+            {state.isAuth ? (
               <a href="/personal" className="nav-item">
                 <img src={userIcon} alt="user icon" />
               </a>
@@ -68,7 +78,7 @@ function CartButtons({ show, setShow }) {
       </div>
 
       <div className="laptop-icons">
-        {user.auth ? (
+        {state.isAuth ? (
           <a href="/personal" className="button nav-user nav-link">
             АККАУНТ
           </a>
@@ -100,7 +110,7 @@ function CartButtons({ show, setShow }) {
 
         <a href="/saved" className="nav-item cart-container">
           <img src={heart} alt="saved icon" />
-          <span className="saved-cart">{user.auth ? saved.length : 0}</span>
+          <span className="saved-cart">{saved.length}</span>
         </a>
         <a href="/basket" className="nav-item cart-container">
           <img src={shop} alt="purchased icon" />
