@@ -3,9 +3,9 @@ const initialState = {
   isLoaded: false,
 };
 
-const filters = (state = initialState, action) => {
+const categories = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_FILTER_PRODUCTS":
+    case "SET_CATEGORIES":
       return {
         ...state,
         items: action.payload,
@@ -17,4 +17,4 @@ const filters = (state = initialState, action) => {
   }
 };
 
-export default filters;
+export default categories;

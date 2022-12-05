@@ -4,10 +4,18 @@ import { cartReducer } from "./Reducers";
 import { UserState } from "./UserContext";
 import { fetchAllProducts } from "../http/catalogAPI";
 
-const getLocalStorage = () => {
+const getLocalStorageCart = () => {
   let cart = localStorage.getItem("cart-items");
   if (cart) {
     return JSON.parse(localStorage.getItem("cart-items"));
+  } else {
+    return [];
+  }
+};
+const getLocalStorageSaved = () => {
+  let saved = localStorage.getItem("saved-items");
+  if (saved) {
+    return JSON.parse(localStorage.getItem("saved-items"));
   } else {
     return [];
   }
@@ -45,8 +53,9 @@ function Context({ children }) {
 
   const [state, dispatch] = useReducer(cartReducer, {
     // products: products,
-    cart: getLocalStorage(),
-    saved: user.auth ? user.saved : [],
+    cart: getLocalStorageCart(),
+    saved: user?.auth ? user.saved : [],
+    saved: getLocalStorageSaved(),
   });
 
   useEffect(() => {

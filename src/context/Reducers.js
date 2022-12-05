@@ -1,9 +1,9 @@
 export const cartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_SAVED":
-      const prod = state.products.find((item) => item.id === action.payload.id);
+      // const prod = state.products.find((item) => item.id === action.payload.id);
 
-      const inSaved = state.saved.find(
+      const inSaved = state.saved?.find(
         (item) => item.product.id === action.payload.id
       )
         ? true
@@ -20,7 +20,7 @@ export const cartReducer = (state, action) => {
           saved: [
             ...state.saved,
             {
-              product: prod,
+              product: action.payload,
             },
           ],
         };
@@ -32,12 +32,12 @@ export const cartReducer = (state, action) => {
       };
 
     case "ADD_TO_CART":
-      const product = state.products.find(
-        (item) => item.id === action.payload.id
-      );
-      console.log(action.payload);
+      // const product = state.products?.find(
+      //   (item) => item.id === action.payload.id
+      // );
+      // console.log(action.payload);
 
-      const inCart = state.cart.find(
+      const inCart = state.cart?.find(
         (item) =>
           item.product.id === action.payload.id &&
           item.color === action.payload.color &&
@@ -67,7 +67,7 @@ export const cartReducer = (state, action) => {
           cart: [
             ...state.cart,
             {
-              product: product,
+              product: action.payload,
               color: action.payload.color,
               size: action.payload.size,
               quantity: 1,

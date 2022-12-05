@@ -29,7 +29,7 @@ function CheckBoxContainer({ id, title, filters, changeCheckedFilters }) {
         </div>
 
         <ul className="category-items">
-          {filters.map((filter) => (
+          {filters?.map((filter) => (
             <FilterCheckbox
               key={filter.id}
               data={filter}

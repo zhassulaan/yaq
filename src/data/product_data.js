@@ -1,7 +1,7 @@
-import bag from "../assets/products/bag.svg";
-import product1 from "../assets/products/product1.png";
-import product2 from "../assets/products/product2.png";
-import product3 from "../assets/products/product3.png";
+// import bag from "../assets/products/bag.svg";
+// import product1 from "../assets/products/product1.png";
+// import product2 from "../assets/products/product2.png";
+// import product3 from "../assets/products/product3.png";
 // category
 // 1 - ОДЕЖДА
 // 2 - СНАРЯЖЕНИЕ
@@ -15,10 +15,10 @@ import product3 from "../assets/products/product3.png";
 // 4 - ДЕТСКИЙ
 // 4 - ОБУВЬ
 
-// let bag = "bag";
-// let product1 = "product1";
-// let product2 = "product2";
-// let product3 = "product3";
+let bag = "/8235f50b-0b8f-43ca-87ae-06d41d2ce0b9.jpeg";
+let product1 = "/8235f50b-0b8f-43ca-87ae-06d41d2ce0b9.jpeg";
+let product2 = "/8235f50b-0b8f-43ca-87ae-06d41d2ce0b9.jpeg";
+let product3 = "/8235f50b-0b8f-43ca-87ae-06d41d2ce0b9.jpeg";
 
 const product_card = [
   {

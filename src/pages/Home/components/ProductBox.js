@@ -15,17 +15,17 @@ const ProductBox = ({ product }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (user.auth === true) {
-      user.saved.filter((item) => item.product.id === product.id).length === 0
-        ? dispatch({
-            type: "ADD_TO_SAVED",
-            payload: product,
-          })
-        : dispatch({
-            type: "REMOVE_FROM_SAVED",
-            payload: product,
-          });
-    }
+    // if (user.auth === true) {
+    user.saved.filter((item) => item.product.id === product.id).length === 0
+      ? dispatch({
+          type: "ADD_TO_SAVED",
+          payload: product,
+        })
+      : dispatch({
+          type: "REMOVE_FROM_SAVED",
+          payload: product,
+        });
+    // }
   };
 
   return (
@@ -33,16 +33,14 @@ const ProductBox = ({ product }) => {
       <div className="box-content">
         <div className="box-header">
           {(() => {
-            if (product.sale === "Новинка") {
-              return (
-                <button className="product-sale button">{product.sale}</button>
-              );
-            } else if (product.sale === null) {
+            if (Date.parse(product?.createdAt) + 1200000000 > Date.now()) {
+              return <button className="product-sale button">Новинка</button>;
+            } else if (product.inSale === null) {
               return <h1 className="button"></h1>;
             } else {
               return (
                 <button className="product-sale button">
-                  -{product.sale}%
+                  -{product.inSale}%
                 </button>
               );
             }
@@ -50,7 +48,7 @@ const ProductBox = ({ product }) => {
 
           <img
             src={
-              user.saved.filter((item) => item.product.id === product.id)
+              user.saved?.filter((item) => item.product.id === product.id)
                 .length === 1
                 ? greenHeart
                 : heart
@@ -65,22 +63,22 @@ const ProductBox = ({ product }) => {
             <div className="body-text">
               <img
                 src={
-                  product.image
-                    ? product.image
+                  product.product_variations?.length &&
+                  product.product_variations[0].prod_var_options?.length
+                    ? "http://localhost:7000/" +
+                      product.product_variations?.filter(
+                        (item) => item.variationName === "photo"
+                      )[0]?.prod_var_options[0]?.optionImage
                     : "https://www.eps.org/global_graphics/default-store-350x350.jpg"
                 }
                 alt={product.name}
                 className="product-image"
               />
 
-              <div className="brand-name">{product.brands}</div>
-              <div className="item-name">
-                {product.item} {product.brands} {product.name}
-              </div>
+              <div className="brand-name">{product.brandName}</div>
+              <div className="item-name">{product.productName}</div>
 
-              <div className="price-number">
-                {product.price} {product.currency}
-              </div>
+              <div className="price-number">{product.price} KZT</div>
             </div>
 
             <div className="product-btns">

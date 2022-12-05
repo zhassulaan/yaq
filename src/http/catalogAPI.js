@@ -19,7 +19,9 @@ export const deleteCategory = async (id) => {
 };
 
 export const fetchCategories = async () => {
-  const { data } = await guestInstance.get("category/getall");
+  const { data } = await guestInstance.get(
+    "category/getall/category/subcategory"
+  );
   return data;
 };
 
@@ -81,5 +83,35 @@ export const fetchAllProducts = async (categoryId, brandId, page, limit) => {
 
 export const fetchOneProduct = async (id) => {
   const { data } = await guestInstance.get(`product/getone/${id}`);
+  return data;
+};
+
+export const fetchProductsByCategory = async (category) => {
+  let url = "product/getall/category";
+  // фильтрация товаров по категории и/или бренду
+
+  const { data } = await guestInstance.post(url, {
+    category,
+  });
+  return data;
+};
+
+export const fetchProductsByName = async (productName) => {
+  let url = "product/getall/productname";
+  // фильтрация товаров по названию
+
+  const { data } = await guestInstance.post(url, {
+    productName,
+  });
+  return data;
+};
+
+export const fetchProductsByFilter = async (filters) => {
+  let url = "product/getall/filter";
+  // фильтрация товаров по всем фильтрам
+
+  const { data } = await guestInstance.post(url, {
+    filters,
+  });
   return data;
 };

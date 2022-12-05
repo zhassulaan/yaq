@@ -1,9 +1,11 @@
 import { guestInstance, authInstance } from "./index";
 import jwtDecode from "jwt-decode";
 
-export const signup = async (email, password) => {
+export const signup = async (name, phone, email, password) => {
   try {
     const response = await guestInstance.post("user/signup", {
+      name,
+      phone,
       email,
       password,
       role: "USER",
@@ -13,7 +15,7 @@ export const signup = async (email, password) => {
     localStorage.setItem("token", token);
     return user;
   } catch (e) {
-    alert(e.response.data.message);
+    alert("На данный email уже зарегистрирована учетная запись");
     return false;
   }
 };
