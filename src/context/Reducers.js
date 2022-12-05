@@ -46,6 +46,7 @@ export const cartReducer = (state, action) => {
         ? true
         : false;
 
+
       if (inCart) {
         state.cart.map((item) =>
           item.product.id === action.payload.id &&
@@ -54,6 +55,7 @@ export const cartReducer = (state, action) => {
             ? (item.quantity += 0.5)
             : item.quantity
         );
+
 
         return {
           ...state,
