@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { UserState } from '../../../context/UserContext';
 
 function DiscountSystem() {
+	const {
+		showLogin,
+		showSignup
+	} = UserState();
+	
+	useEffect(() => {
+		if (showLogin || showSignup) {
+			document.body.style.overflow = 'hidden'
+		} else {
+			document.body.style.overflow = 'unset';
+		}
+	}, [showLogin, showSignup])
+
   	return (
 		<Wrapper>
 			<h1 className='title section-title'>ДИСКОНТНАЯ СИСТЕМА</h1>
@@ -77,6 +91,7 @@ const Wrapper = styled.nav`
 
 		.section-title {
 			font-size: 28px;
+			line-height: 3.125rem;
 			background-color: var(--clr-white);
 			padding: 1.25rem 5.5556vw;
 		}

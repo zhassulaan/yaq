@@ -41,7 +41,7 @@ class Hero extends Component {
         		<Slider {...settings}>
 				  	{images.map((image) => {
                   return(
-                     <div className="image-box">
+                     <div className="image-box button">
          	            <img src={image} alt="home image" className='home-image'/>
                      </div>
                   );
@@ -58,12 +58,15 @@ const Wrapper = styled.nav`
 	.slick-track {
 		margin-left: 38%;
 	}
+
+	.slick-slide {
+		transform: skew(8.13deg);
+	}
 	
 	.image-box {
 		max-width: 43.75vw;
 		height: 35rem;
 		background-color: var(--clr-primary-3);
-		transform: skew(8.13deg);
 		overflow: hidden;
 	}
 

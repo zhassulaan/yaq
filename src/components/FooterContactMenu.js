@@ -84,7 +84,7 @@ function FooterContactMenu() {
 						<img src={orangeLogo} alt="orange colored co. logo" className='co-logo'/>
 						<img src={greenLogo} alt="green colored co. logo" className='co-logo'/>
 					</div>
-					<p className='policy-text text2'>Сайт создан <span to="http://athenaplus.kz/">athenaplus.kz</span></p>
+					<p className='policy-text text2'>Сайт создан <a href="http://athenaplus.kz/">athenaplus.kz</a></p>
 				</div>
 			</div>
 		</div>

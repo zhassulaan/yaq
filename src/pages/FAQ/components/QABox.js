@@ -15,7 +15,7 @@ function QABox({question, answer}) {
 				<p className='section-text'>{answer}</p>
 			</div>
 					
-			<img src={arrow} alt="arrow icon" className='section-icon' onClick={handleToggle}/>
+			<img src={arrow} alt="arrow icon" className='button section-icon' onClick={handleToggle}/>
 		</div>
   	);
 }

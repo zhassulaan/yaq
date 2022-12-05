@@ -26,7 +26,7 @@ const CompanyImages = () => {
 			<Slider {...settings}>
 				{images.map((image) => {
 					return(
-						<p className='co-image title'>{image.name}</p>
+						<p className='button co-image title'>{image.name}</p>
 					);
 				})}
 			</Slider>

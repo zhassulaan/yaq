@@ -2,7 +2,7 @@ import React from 'react';
 import CheckBoxContainer from './CheckBoxContainer';
 import { filterCharacteristics } from "../../../data/filter";
 
-function Characteristic({colors, changeCheckedColors, sizes, changeCheckedSizes, brands, changeCheckedBrands}) {
+function Characteristic({ colors, changeColors, sizes, changeSizes, brands, changeBrands }) {
  	return (
 	 	<div>
 			{filterCharacteristics.slice(0,1).map((item) => {
@@ -11,7 +11,7 @@ function Characteristic({colors, changeCheckedColors, sizes, changeCheckedSizes,
 						key={item.id} 
 						title={item.title}
 						filters={colors}
-						changeCheckedFilters={changeCheckedColors}
+						changeCheckedFilters={changeColors}
 					/>
             );
          })}
@@ -21,7 +21,7 @@ function Characteristic({colors, changeCheckedColors, sizes, changeCheckedSizes,
 						key={item.id} 
 						title={item.title}
 						filters={sizes}
-						changeCheckedFilters={changeCheckedSizes}
+						changeCheckedFilters={changeSizes}
 					/>
             );
          })}
@@ -31,7 +31,7 @@ function Characteristic({colors, changeCheckedColors, sizes, changeCheckedSizes,
 						key={item.id} 
 						title={item.title}
 						filters={brands}
-						changeCheckedFilters={changeCheckedBrands}
+						changeCheckedFilters={changeBrands}
 					/>
             );
          })}

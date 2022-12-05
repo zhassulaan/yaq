@@ -4,13 +4,13 @@ import EquipmentClothes from './EquipmentClothes'
 import AccessoriesClothes from './AccessoriesClothes'
 import RunClothes from './RunClothes'
 
-function OtherClothes({setShow}) {
+function OtherClothes() {
 	return (
 	 	<OtherClothesContainer>
 			<ul className='dropdown-menu'>
-				<EquipmentClothes setShow={setShow}/>
-				<AccessoriesClothes setShow={setShow}/>
-				<RunClothes setShow={setShow}/>
+				<EquipmentClothes/>
+				<AccessoriesClothes/>
+				<RunClothes/>
 			</ul>
 		</OtherClothesContainer>
   	)
@@ -21,7 +21,7 @@ const OtherClothesContainer = styled.nav`
 		content: '';
 		position: absolute;
 		height: 21.875vw;
-		border: 0.5px solid var(--clr-white);
+		border: 0.5px solid var(--clr-black);
 		margin: -1.25vw;
 	}
 
